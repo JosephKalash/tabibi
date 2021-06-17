@@ -27,4 +27,9 @@ class AuthRepoImpl extends AuthRepository {
       return Left(InternetFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, User>> login(String username, String password) {
+    throw UnimplementedError();
+  }
 }

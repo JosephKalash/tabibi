@@ -9,7 +9,7 @@ class Login {
 
   Login(this._authRepo);
 
-  // Future<Either<Failure, User>> call(String username,String password) async {
-  //   return  _authRepo.login(username,password);
-  // }
+  Future<Either<Failure, User>> call(String username,String password) async {
+    return  _authRepo.login(username,password);
+  }
 }

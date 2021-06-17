@@ -13,10 +13,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<User> signinUser(String username, String password) {
-    final AUTH_URL =
+    final auth_url =
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
 
-    final result = dio.post(AUTH_URL, data: {
+    final result = dio.post(auth_url, data: {
       'test': 'test',
     });
 

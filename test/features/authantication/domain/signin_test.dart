@@ -25,7 +25,7 @@ void main() {
         date,
       );
       //arrange
-      when(mockRepo.login(any, any)).thenAnswer((_) async => Right(user));
+      when(mockRepo.signin(any, any)).thenAnswer((_) async => Right(user));
       //act
       final result = await signin(username, password);
       //assert
