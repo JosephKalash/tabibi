@@ -1,9 +1,13 @@
 import 'package:dio/dio.dart';
+import 'package:tabibi/core/error/excpetions.dart';
+import 'package:tabibi/core/utils/constaints.dart';
+import 'package:tabibi/features/authentication/data/models/user_model.dart';
 
 import '../../domain/entities/user.dart';
 
 abstract class AuthRemoteDataSource {
   Future<User> signinUser(String username, String password);
+  Future<User> loginUser(String username, String password);
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -12,14 +16,32 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<User> signinUser(String username, String password) {
-    final auth_url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
+  Future<User> signinUser(String username, String password) async {
+    return _authanticeUser(username, password, SIGNUP_URL);
+  }
 
-    final result = dio.post(auth_url, data: {
-      'test': 'test',
-    });
+  Future<User> _authanticeUser(
+      String username, String password, String url) async {
+    final result = await dio.post(
+      SIGNUP_URL,
+      queryParameters: {
+        'key': 'test',
+      },
+      data: {
+        kUsername: username,
+        kPassword: password,
+      },
+    );
+    if (result.statusCode! == 200) {
+      final data = result.data;
+      final user = UserModel.fromJson(data);
+      return user;
+    }
+    throw HttpException(result.data['message']);
+  }
 
-    throw UnimplementedError();
+  @override
+  Future<User> loginUser(String username, String password) async {
+    return _authanticeUser(username, password, LOGIN_URL);
   }
 }

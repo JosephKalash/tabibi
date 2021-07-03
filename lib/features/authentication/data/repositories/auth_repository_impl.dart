@@ -14,9 +14,14 @@ class AuthRepoImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, User>> signin(String username, String password) async {
+    return _authantic(username, password, remoteDS.signinUser);
+  }
+
+  Future<Either<Failure, User>> _authantic(
+      String username, String password, Function call) async {
     if (await internetInfo.isConnect) {
       try {
-        final user = await remoteDS.signinUser(username, password);
+        final user = await call(username, password);
         return Right(user);
       } on ServerException {
         return Left(ServerFailure());
@@ -29,7 +34,7 @@ class AuthRepoImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, User>> login(String username, String password) {
-    throw UnimplementedError();
+  Future<Either<Failure, User>> login(String username, String password) async {
+    return _authantic(username, password, remoteDS.loginUser);
   }
 }

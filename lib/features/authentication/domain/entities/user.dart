@@ -1,24 +1,21 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class User extends Equatable {
-  final _userId;
-  final _token;
-  final DateTime _expiryTime;
+  String userId;
+  String token;
+  DateTime? expiryTime;
 
   User(
-    this._userId,
-    this._token,
-    this._expiryTime,
+    this.userId,
+    this.token,
+    this.expiryTime,
   );
-
-  get userId => _userId;
-  get token => _token;
-  DateTime get expiryTime => _expiryTime;
 
   @override
   List<Object?> get props => [
-        _userId,
-        _token,
-        _expiryTime,
+        userId,
+        token,
+        expiryTime,
       ];
 }

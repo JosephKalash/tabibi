@@ -1,5 +1,8 @@
+import 'package:tabibi/core/utils/constaints.dart';
+
 import '../../domain/entities/user.dart';
 
+// ignore: must_be_immutable
 class UserModel extends User {
   UserModel(
     userId,
@@ -9,18 +12,20 @@ class UserModel extends User {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      json['localId'],
-      json['idToken'],
-      DateTime.now().add(Duration(
-        seconds: int.parse(json['expiresIn']),
-      )),
+      json[kLocalIdKey],
+      json[kTokenKey],
+      json[kExpiresInKey] == null || json[kExpiresInKey] == ''
+          ? null
+          : DateTime.now().add(Duration(
+              seconds: int.parse(json[kExpiresInKey]),
+            )),
     );
   }
   Map<String, dynamic> toJson() {
     return {
-      'localId': userId,
-      'idToken': token,
-      'expiresIn': expiryTime.toIso8601String(), 
+      kTokenKey: token,
+      kLocalIdKey: userId,
+      kExpiresInKey: expiryTime?.toIso8601String(),
     };
   }
 }

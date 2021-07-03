@@ -177,11 +177,11 @@ class _AuthCardState extends State<AuthCard>
 
     _formKey.currentState!.save();
 
-    if (_authMode == AuthMode.Signup) {
       final cubit = BlocProvider.of<AuthCubit>(context);
+    if (_authMode == AuthMode.Signup) {
       cubit.siginUser(_authData['email']!, _authData['password']!);
     } else {
-      //login
+      cubit.loginUser(_authData['email']!, _authData['password']!);
     }
   }
 

@@ -19,10 +19,23 @@ class AuthCubit extends Cubit<AuthState> {
     this._signin,
   ) : super(AuthInitial());
 
+  void logoutUser(User user) {
+    _logout(user);
+    emit(LogoutState(user));
+  }
+
   Future<void> siginUser(String username, String password) async {
+    await _authantic(username, password, () => _signin(username, password));
+  }
+
+  Future<void> loginUser(String username, String password) async {
+    await _authantic(username, password, () => _login(username, password));
+  }
+
+  Future _authantic(String username, String password, Function call) async {
     emit(LoadingState());
 
-    final either = await _signin(username, password);
+    final either = await call();
     either.fold(
       (error) async {
         final errorMessage;
