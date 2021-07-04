@@ -48,4 +48,9 @@ class MockAuthRemoteDataSource extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#signinUser, [username, password]),
               returnValue: Future<_i2.User>.value(_FakeUser()))
           as _i4.Future<_i2.User>);
+  @override
+  _i4.Future<_i2.User> loginUser(String? username, String? password) =>
+      (super.noSuchMethod(Invocation.method(#loginUser, [username, password]),
+              returnValue: Future<_i2.User>.value(_FakeUser()))
+          as _i4.Future<_i2.User>);
 }

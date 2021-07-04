@@ -1,24 +1,29 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tabibi/app.dart';
 import 'package:tabibi/features/authentication/domain/entities/user.dart';
 import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
 
+// ignore: must_be_immutable
 class UserInfoScreen extends StatelessWidget {
-  GlobalKey _formKey = GlobalKey();
-  FocusNode _age = FocusNode();
-  FocusNode _number = FocusNode();
+  static final pathName = '/userInfo';
+
+  final _formKey = GlobalKey();
+  final _age = FocusNode();
+  final _number = FocusNode();
   User? user;
   String name = '', phone = '';
   double age = 0;
 
   void _submit(context) {
-    final cubit = BlocProvider.of<AuthCubit>(context);
+    final cubit = BlocProvider.of<AuthCubit>(context, listen: false);
     final state = cubit.state;
     if (state is AuthenticatedState) user = state.user;
 
-    
+    user!.name = name;
+    user!.age = age;
+    user!.phoneNumber = phone;
+    Navigator.of(context).pushReplacementNamed(AppScreen.pathName);
   }
 
   @override
@@ -35,7 +40,13 @@ class UserInfoScreen extends StatelessWidget {
             child: Form(
               key: _formKey,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  Text(
+                    'fill the info please.',
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
+                  SizedBox(height: 20),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Full Name'),
                     textInputAction: TextInputAction.next,
@@ -52,6 +63,7 @@ class UserInfoScreen extends StatelessWidget {
                       FocusScope.of(context).requestFocus(_age);
                     },
                   ),
+                  SizedBox(height: 14),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'age'),
                     textInputAction: TextInputAction.next,
@@ -70,10 +82,11 @@ class UserInfoScreen extends StatelessWidget {
                       FocusScope.of(context).requestFocus(_number);
                     },
                   ),
+                  SizedBox(height: 14),
                   TextFormField(
                     decoration:
                         const InputDecoration(labelText: 'Phone number'),
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     focusNode: _number,
                     onSaved: (value) {
                       phone = value!;
@@ -86,13 +99,22 @@ class UserInfoScreen extends StatelessWidget {
                       return null;
                     },
                     onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(_number);
+                      _submit(context);
                     },
                   ),
                 ],
               ),
             ),
           ),
+        ),
+      ),
+      floatingActionButton: ElevatedButton(
+        child: Text('submit'),
+        onPressed: () => _submit(context),
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          primary: Colors.blue.shade800,
+          elevation: 8,
         ),
       ),
     );

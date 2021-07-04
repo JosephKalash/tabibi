@@ -2,19 +2,19 @@
 // in tabibi/test/features/authantication/presentation/cubit/auth_cubit_test.dart.
 // Do not manually edit this file.
 
-import 'dart:async' as _i4;
+import 'dart:async' as _i6;
 
 import 'package:dartz/dartz.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:tabibi/core/error/failures.dart' as _i5;
+import 'package:tabibi/core/error/failures.dart' as _i7;
 import 'package:tabibi/features/authentication/domain/entities/user.dart'
-    as _i6;
+    as _i4;
 import 'package:tabibi/features/authentication/domain/usecases/login.dart'
-    as _i8;
+    as _i5;
 import 'package:tabibi/features/authentication/domain/usecases/logout.dart'
-    as _i7;
-import 'package:tabibi/features/authentication/domain/usecases/signin.dart'
     as _i3;
+import 'package:tabibi/features/authentication/domain/usecases/signin.dart'
+    as _i8;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
@@ -25,33 +25,16 @@ import 'package:tabibi/features/authentication/domain/usecases/signin.dart'
 
 class _FakeEither<L, R> extends _i1.Fake implements _i2.Either<L, R> {}
 
-/// A class which mocks [Signin].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockSignin extends _i1.Mock implements _i3.Signin {
-  MockSignin() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> call(
-          String? username, String? password) =>
-      (super.noSuchMethod(Invocation.method(#call, [username, password]),
-              returnValue: Future<_i2.Either<_i5.Failure, _i6.User>>.value(
-                  _FakeEither<_i5.Failure, _i6.User>()))
-          as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
-}
-
 /// A class which mocks [Logout].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLogout extends _i1.Mock implements _i7.Logout {
+class MockLogout extends _i1.Mock implements _i3.Logout {
   MockLogout() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  void call(_i6.User? user) =>
+  void call(_i4.User? user) =>
       super.noSuchMethod(Invocation.method(#call, [user]),
           returnValueForMissingStub: null);
 }
@@ -59,8 +42,33 @@ class MockLogout extends _i1.Mock implements _i7.Logout {
 /// A class which mocks [Login].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLogin extends _i1.Mock implements _i8.Login {
+class MockLogin extends _i1.Mock implements _i5.Login {
   MockLogin() {
     _i1.throwOnMissingStub(this);
   }
+
+  @override
+  _i6.Future<_i2.Either<_i7.Failure, _i4.User>> call(
+          String? username, String? password) =>
+      (super.noSuchMethod(Invocation.method(#call, [username, password]),
+              returnValue: Future<_i2.Either<_i7.Failure, _i4.User>>.value(
+                  _FakeEither<_i7.Failure, _i4.User>()))
+          as _i6.Future<_i2.Either<_i7.Failure, _i4.User>>);
+}
+
+/// A class which mocks [Signin].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSignin extends _i1.Mock implements _i8.Signin {
+  MockSignin() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<_i2.Either<_i7.Failure, _i4.User>> call(
+          String? username, String? password) =>
+      (super.noSuchMethod(Invocation.method(#call, [username, password]),
+              returnValue: Future<_i2.Either<_i7.Failure, _i4.User>>.value(
+                  _FakeEither<_i7.Failure, _i4.User>()))
+          as _i6.Future<_i2.Either<_i7.Failure, _i4.User>>);
 }

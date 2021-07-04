@@ -6,11 +6,12 @@ import 'package:tabibi/core/error/failures.dart';
 import 'package:tabibi/features/authentication/domain/entities/user.dart';
 import 'package:tabibi/features/authentication/domain/usecases/login.dart';
 import 'package:tabibi/features/authentication/domain/usecases/logout.dart';
+import 'package:tabibi/features/authentication/domain/usecases/signin.dart';
 import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
 
 import 'auth_cubit_test.mocks.dart';
 
-@GenerateMocks([Logout, Login])
+@GenerateMocks([Logout, Login,Signin])
 void main() {
   final login = MockLogin();
   final logout = MockLogout();

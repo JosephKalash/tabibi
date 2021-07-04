@@ -30,6 +30,13 @@ class MockAuthRepository extends _i1.Mock implements _i3.AuthRepository {
   }
 
   @override
+  _i4.Future<_i2.Either<_i5.Failure, _i6.User>> login(
+          String? username, String? password) =>
+      (super.noSuchMethod(Invocation.method(#login, [username, password]),
+              returnValue: Future<_i2.Either<_i5.Failure, _i6.User>>.value(
+                  _FakeEither<_i5.Failure, _i6.User>()))
+          as _i4.Future<_i2.Either<_i5.Failure, _i6.User>>);
+  @override
   _i4.Future<_i2.Either<_i5.Failure, _i6.User>> signin(
           String? username, String? password) =>
       (super.noSuchMethod(Invocation.method(#signin, [username, password]),

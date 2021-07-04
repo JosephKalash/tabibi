@@ -6,6 +6,7 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
+import 'package:tabibi/features/authentication/presentation/pages/user_info.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -23,7 +24,7 @@ class AuthScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(250, 80, 255, 1).withOpacity(0.5),
+                  Color.fromRGBO(80, 80, 255, 1).withOpacity(0.5),
                   Color.fromRGBO(255, 188, 117, 1).withOpacity(0.9),
                 ],
                 begin: Alignment.topLeft,
@@ -177,7 +178,7 @@ class _AuthCardState extends State<AuthCard>
 
     _formKey.currentState!.save();
 
-      final cubit = BlocProvider.of<AuthCubit>(context);
+    final cubit = BlocProvider.of<AuthCubit>(context);
     if (_authMode == AuthMode.Signup) {
       cubit.siginUser(_authData['email']!, _authData['password']!);
     } else {
@@ -291,19 +292,18 @@ class _AuthCardState extends State<AuthCard>
                   ),
                 ),
                 const SizedBox(height: 20),
-                BlocBuilder<AuthCubit, AuthState>(
+                BlocConsumer<AuthCubit, AuthState>(
+                  listener: (_, state) {
+                    if (state is AuthenticatedState)
+                      Navigator.of(context).pushReplacementNamed(UserInfoScreen.pathName);
+                    else if (state is ErrorState)
+                      _showErrorDialog(state.message);
+                  },
                   builder: (_, state) {
                     if (state is LoadingState)
                       return CircularProgressIndicator();
-                    else if (state is AuthenticatedState) {
-                      _showSnackBar();
+                    else
                       return _buildElevatedButton();
-                    } else if (state is ErrorState) {
-                      _showErrorDialog(state.message);
-                      return _buildElevatedButton();
-                    } else {
-                      return _buildElevatedButton();
-                    }
                   },
                 ),
                 TextButton(
@@ -322,11 +322,6 @@ class _AuthCardState extends State<AuthCard>
         ),
       ),
     );
-  }
-
-  void _showSnackBar() {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('logedin')));
   }
 
   ElevatedButton _buildElevatedButton() {

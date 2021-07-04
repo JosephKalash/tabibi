@@ -5,6 +5,9 @@ class User extends Equatable {
   String userId;
   String token;
   DateTime? expiryTime;
+  String? name;
+  String? phoneNumber;
+  double? age;
 
   User(
     this.userId,
@@ -16,6 +19,6 @@ class User extends Equatable {
   List<Object?> get props => [
         userId,
         token,
-        expiryTime,
+        expiryTime?.toIso8601String(),
       ];
 }
