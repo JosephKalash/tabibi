@@ -23,5 +23,6 @@ class Consultation extends Equatable {
         title,
         content,
         date.toIso8601String(),
+        consResponse,
       ];
 }
