@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
+import 'package:tabibi/core/usecase/usecase.dart';
 
 import '../../../../core/error/failures.dart';
 import '../entities/user.dart';
 import '../repositories/auth_repository.dart';
 
-class Login {
+class Login extends Usecase{
   final AuthRepository _authRepo;
 
   Login(this._authRepo);

@@ -2,10 +2,11 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:tabibi/core/error/failures.dart';
+import 'package:tabibi/core/usecase/usecase.dart';
 import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
 import 'package:tabibi/features/consultations/domain/repositories/consultation_repo.dart';
 
-class GetConsBySpeci{
+class GetConsBySpeci extends Usecase{
   final ConsultationRepo _repo;
 
   GetConsBySpeci(this._repo);
