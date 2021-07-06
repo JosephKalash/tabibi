@@ -8,18 +8,21 @@ import 'package:tabibi/features/authentication/data/data%20sources/auth_remote_d
 import 'package:tabibi/features/authentication/data/models/user_model.dart';
 import 'package:tabibi/features/authentication/domain/entities/user.dart';
 
+import '../../../consultations/data/data source/cons_ds_test.mocks.dart';
 import 'auth_remote_DS_test.mocks.dart';
+
 
 @GenerateMocks([dio.Dio])
 void main() {
   final mockDio = MockDio();
-  final remoteDS = AuthRemoteDataSourceImpl(mockDio);
+  final mockShared = MockSharedPreferences();
+  final remoteDS = AuthRemoteDataSourceImpl(mockDio, mockShared);
 
   final username = 'joseph';
   final password = 'password';
 
   final response = {
-    kLocalIdKey: '123',
+    kUserIdKey: '123',
     kTokenKey: '123',
   };
 
@@ -29,7 +32,6 @@ void main() {
     when(mockDio.post(
       any,
       data: anyNamed('data'),
-      queryParameters: anyNamed('queryParameters'),
     )).thenAnswer(
       (_) async => dio.Response(
         data: response,
@@ -43,7 +45,6 @@ void main() {
     when(mockDio.post(
       any,
       data: anyNamed('data'),
-      queryParameters: anyNamed('queryParameters'),
     )).thenAnswer(
       (_) async => dio.Response(
         data: {'message': 'error'},
@@ -67,9 +68,6 @@ void main() {
           verify(
             mockDio.post(
               SIGNUP_URL,
-              queryParameters: {
-                'key': 'test',
-              },
               data: {
                 kUsername: username,
                 kPassword: password,
@@ -98,7 +96,8 @@ void main() {
           //act
           final call = remoteDS.signinUser;
           //assert
-          expect(()=> call(username,password), throwsA(isInstanceOf<HttpException>()));
+          expect(() => call(username, password),
+              throwsA(isInstanceOf<HttpException>()));
         },
       );
     },

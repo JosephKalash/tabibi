@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';
 import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/authentication/data/models/user_model.dart';
@@ -12,8 +15,9 @@ abstract class AuthRemoteDataSource {
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   final Dio dio;
+  final SharedPreferences _sharedPreferences;
 
-  AuthRemoteDataSourceImpl(this.dio);
+  AuthRemoteDataSourceImpl(this.dio, this._sharedPreferences);
 
   @override
   Future<User> signinUser(String username, String password) async {
@@ -21,23 +25,28 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   Future<User> _authanticeUser(
-      String username, String password, String url) async {
+    String username,
+    String password,
+    String url,
+  ) async {
     final result = await dio.post(
-      SIGNUP_URL,
-      queryParameters: {
-        'key': 'test',
-      },
-      data: {
-        kUsername: username,
-        kPassword: password,
-      },
+      url,
+      data: {kUsername: username, kPassword: password},
     );
+    
+    final data = result.data;
     if (result.statusCode! == 200) {
-      final data = result.data;
       final user = UserModel.fromJson(data);
+
+      final map = json.encode({
+        kTokenKey: user.token,
+        kUserIdKey: user.userId,
+      });
+      _sharedPreferences.setString(kauthPref, map);
+
       return user;
     }
-    throw HttpException(result.data['message']);
+    throw HttpException(data['message']);
   }
 
   @override

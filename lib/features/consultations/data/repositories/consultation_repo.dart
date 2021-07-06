@@ -15,8 +15,12 @@ class ConsultationRepoImpl extends ConsultationRepo {
   @override
   Future<bool> addConsultation(Consultation consultation) async {
     if (await _internetInfo.isConnect) {
-      final result = await _consultationDS.addConsultation(consultation);
-      return result;
+      try {
+        final result = await _consultationDS.addConsultation(consultation);
+        return result;
+      } catch(_) {
+        return false;
+      }
     } else
       return false;
   }

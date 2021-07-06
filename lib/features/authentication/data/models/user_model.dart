@@ -12,7 +12,7 @@ class UserModel extends User {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      json[kLocalIdKey],
+      json[kUserIdKey],
       json[kTokenKey],
       json[kExpiresInKey] == null || json[kExpiresInKey] == ''
           ? null
@@ -24,7 +24,7 @@ class UserModel extends User {
   Map<String, dynamic> toJson() {
     return {
       kTokenKey: token,
-      kLocalIdKey: userId,
+      kUserIdKey: userId,
       kExpiresInKey: expiryTime?.toIso8601String(),
     };
   }

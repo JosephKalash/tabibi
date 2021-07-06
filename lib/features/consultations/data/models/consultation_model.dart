@@ -32,4 +32,13 @@ class ConsultationModel extends Consultation {
       kConsDate: date.toIso8601String(),
     };
   }
+
+  factory ConsultationModel.fromParent(Consultation consultation) {
+    return ConsultationModel(
+      consultation.clinicSpecialization,
+      consultation.title,
+      consultation.content,
+      consultation.date,
+    );
+  }
 }

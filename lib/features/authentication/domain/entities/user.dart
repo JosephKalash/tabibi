@@ -15,6 +15,8 @@ class User extends Equatable {
     this.expiryTime,
   );
 
+  bool isAuth() => token.isNotEmpty;
+  
   @override
   List<Object?> get props => [
         userId,

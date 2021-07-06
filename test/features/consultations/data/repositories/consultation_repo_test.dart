@@ -9,7 +9,7 @@ import 'package:tabibi/features/consultations/data/repositories/consultation_rep
 import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
 
 import '../../../authantication/data/repositories/auth_repository_impl_test.mocks.dart';
-import 'consultation_repo.mocks.dart';
+import 'consultation_repo_test.mocks.dart';
 
 @GenerateMocks([ConsultationDS])
 void main() {

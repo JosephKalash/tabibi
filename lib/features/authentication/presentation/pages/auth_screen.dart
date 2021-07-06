@@ -2,8 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:math';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:tabibi/features/authentication/presentation/pages/user_info.dart';
@@ -46,11 +44,9 @@ class AuthScreen extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 20.0),
                       padding:
                           EdgeInsets.symmetric(vertical: 8, horizontal: 94),
-                      transform: Matrix4.rotationZ(-8 * pi / 180)
-                        ..translate(-10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.deepOrange.shade900,
+                        color: Colors.blueAccent.shade700,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 8,
@@ -93,7 +89,7 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard>
     with SingleTickerProviderStateMixin {
   final GlobalKey<FormState> _formKey = GlobalKey();
-  AuthMode _authMode = AuthMode.Signup;
+  AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -295,7 +291,8 @@ class _AuthCardState extends State<AuthCard>
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (_, state) {
                     if (state is AuthenticatedState)
-                      Navigator.of(context).pushReplacementNamed(UserInfoScreen.pathName);
+                      Navigator.of(context)
+                          .pushReplacementNamed(UserInfoScreen.pathName);
                     else if (state is ErrorState)
                       _showErrorDialog(state.message);
                   },
@@ -331,7 +328,7 @@ class _AuthCardState extends State<AuthCard>
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-        primary: Colors.redAccent.shade700,
+        primary: Colors.blueAccent.shade700,
         textStyle: TextStyle(color: Colors.white),
       ),
     );

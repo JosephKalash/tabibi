@@ -6,8 +6,8 @@ import 'package:tabibi/features/authentication/presentation/pages/auth_screen.da
 import 'package:tabibi/features/authentication/presentation/pages/user_info.dart';
 import 'injuction.dart' as inj;
 
-void main() {
-  inj.init();
+void main() async{
+  await inj.init();
   runApp(MyApp());
 }
 
@@ -16,18 +16,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => inj.gi<AuthCubit>(),
-      child: SafeArea(
-        child: MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: AuthScreen(),
-          routes: {
-            UserInfoScreen.pathName: (_) => UserInfoScreen(),
-            AppScreen.pathName: (_) => AppScreen(),
-          },
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Lato',
         ),
+        home: AuthScreen(),
+        routes: {
+          UserInfoScreen.pathName: (_) => UserInfoScreen(),
+          AppScreen.pathName: (_) => AppScreen(),
+        },
       ),
     );
   }
