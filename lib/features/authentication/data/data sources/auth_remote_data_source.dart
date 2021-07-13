@@ -42,7 +42,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         kTokenKey: user.token,
         kUserIdKey: user.userId,
       });
-      _sharedPreferences.setString(kauthPref, map);
+      await _sharedPreferences.setString(kauthPref, map);
 
       return user;
     }

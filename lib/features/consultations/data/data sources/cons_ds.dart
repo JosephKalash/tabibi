@@ -52,6 +52,7 @@ class ConsultationDSImpl extends ConsultationDS {
     );
     final data = response.data;
     if (response.statusCode == 200) {
+      
       return [];
     } else
       return [];

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:tabibi/core/error/failures.dart';
+import 'package:tabibi/core/utils/funcs.dart';
 import 'package:tabibi/features/authentication/domain/entities/user.dart';
 import 'package:tabibi/features/authentication/domain/usecases/login.dart';
 import 'package:tabibi/features/authentication/domain/usecases/logout.dart';
@@ -38,15 +38,7 @@ class AuthCubit extends Cubit<AuthState> {
     final either = await call();
     either.fold(
       (error) async {
-        final errorMessage;
-        if (error is ServerFailure)
-          errorMessage = 'An error occurred on server!';
-        else if (error is InternetFailure)
-          errorMessage = 'There is no Internet connection!';
-        else if (error is HttpFailure)
-          errorMessage = error.message;
-        else
-          errorMessage = 'Unknown error occurred... try again later';
+        final errorMessage = getErrorMessage(error);
         emit(ErrorState(errorMessage));
       },
       (user) => emit(AuthenticatedState(user)),

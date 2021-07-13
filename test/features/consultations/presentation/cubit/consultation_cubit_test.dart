@@ -1,5 +1,10 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+import 'package:tabibi/core/error/failures.dart';
+import 'package:tabibi/core/utils/constaints.dart';
+import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 import 'package:tabibi/features/consultations/domain/usecasese/add_cons.dart';
 import 'package:tabibi/features/consultations/domain/usecasese/get_cons.dart';
 import 'package:tabibi/features/consultations/domain/usecasese/get_cons_bySpeci.dart';
@@ -22,18 +27,135 @@ void main() {
     getConsBySpeci,
   );
 
+  final date = DateTime.now();
   group(
     'add consultation',
     () {
+      final cons = ConsultationModel(
+        'clinicSpecialization',
+        'title',
+        'content',
+        date,
+      );
       test(
-      'should description',
-      ()async {
-      //arrange
-      //act
-      
-      //assert
-      
-      },
+        'should emit AddedConsultation if adding succeed',
+        () async {
+          //arrange
+          when(addCons(any)).thenAnswer((_) async => true);
+          //assert
+          final expected = [
+            Loading(),
+            AddedConsultation(),
+          ];
+          expectLater(consCubit.stream, emitsInOrder(expected));
+          //act
+          consCubit.addConsultation(cons);
+          verify(addCons(cons));
+        },
+      );
+      test(
+        'should emit ErrorState if adding failed',
+        () async {
+          //arrange
+          when(addCons(any)).thenAnswer((_) async => false);
+          //assert
+          final expected = [
+            Loading(),
+            ErrorState(kAddConsErrorMessage),
+          ];
+          expectLater(consCubit.stream, emitsInOrder(expected));
+          //act
+          consCubit.addConsultation(cons);
+        },
+      );
+    },
+  );
+  group(
+    'get consultations',
+    () {
+      final cons = [
+        ConsultationModel(
+          'clinicSpecialization',
+          'title',
+          'content',
+          date,
+        )
+      ];
+      test(
+        'should emit getConsultations when success',
+        () async {
+          //arrange
+          when(getCons()).thenAnswer((_) async => Right(cons));
+          //assert
+          final expected = [
+            Loading(),
+            GotConsultations(cons),
+          ];
+          expectLater(consCubit.stream, emitsInOrder(expected));
+          //act
+          consCubit.getConsultation();
+        },
+      );
+      test(
+        'should emit Error when HttpFailure was returned',
+        () async {
+          //arrange
+          when(getCons()).thenAnswer((_) async => Left(HttpFailure('message')));
+          //assert
+          final expected = [
+            Loading(),
+            ErrorState('message'),
+          ];
+          expectLater(consCubit.stream, emitsInOrder(expected));
+          //act
+          consCubit.getConsultation();
+        },
+      );
+    },
+  );
+  group(
+    'get my consultations',
+    () {
+      final cons = [
+        ConsultationModel(
+          'clinicSpecialization',
+          'title',
+          'content',
+          date,
+        )
+      ];
+      final userId = 'joseph';
+      test(
+        'should emit getMyConsultations when success',
+        () async {
+          //arrange
+          when(getMyCons(any)).thenAnswer((_) async => Right(cons));
+          //assert
+          final expected = [
+            Loading(),
+            GotMyConsultations(cons),
+          ];
+          expectLater(consCubit.stream, emitsInOrder(expected));
+          //act
+          consCubit.getMyConsultation(userId);
+          verify(getMyCons(userId));
+        },
+      );
+      test(
+        'should emit Error when HttpFailure was returned',
+        () async {
+          //arrange
+          when(getMyCons(any))
+              .thenAnswer((_) async => Left(HttpFailure('message')));
+          //assert
+          final expected = [
+            Loading(),
+            ErrorState('message'),
+          ];
+          expectLater(consCubit.stream, emitsInOrder(expected));
+          //act
+          consCubit.getMyConsultation(userId);
+        },
       );
     },
   );

@@ -25,3 +25,4 @@ const kContent = 'content';
 const kConsDate = 'consultationDate';
 
 const kAddConsRspo = 'success';
+const kAddConsErrorMessage = 'Unable to add your consultation, try again';
