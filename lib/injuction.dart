@@ -6,6 +6,11 @@ import 'package:tabibi/features/consultations/data/data%20sources/cons_ds.dart';
 import 'package:tabibi/features/consultations/data/repositories/consultation_repo.dart';
 import 'package:tabibi/features/consultations/domain/usecasese/add_cons.dart';
 import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
+import 'package:tabibi/features/specializations/data/data%20sources/specialization_DS.dart';
+import 'package:tabibi/features/specializations/data/repositories/speci_repo_impl.dart';
+import 'package:tabibi/features/specializations/domain/repositories/special_repo.dart';
+import 'package:tabibi/features/specializations/domain/usecases/get_specializations.dart';
+import 'package:tabibi/features/specializations/presentation/cubit/specializations_cubit.dart';
 
 import 'core/network/internet_info.dart';
 import 'features/authentication/data/data%20sources/auth_remote_data_source.dart';
@@ -66,14 +71,21 @@ Future<void> init() async {
   gi.registerLazySingleton<ConsultationDS>(
     () => ConsultationDSImpl(gi(), gi()),
   );
-  gi.registerLazySingleton<InternetInfo>(
-    () => InternetInfoImpl(gi()),
+
+  /// consultations end
+  /// specialization
+  gi.registerFactory(
+    () => SpecializationsCubit(gi()),
   );
 
-  gi.registerLazySingleton(() => Dio());
-  gi.registerLazySingleton(() => InternetConnectionChecker());
-  
-  final sharedPreferences2 = await SharedPreferences.getInstance();
-  gi.registerLazySingleton(() => sharedPreferences2);
-  /// consultations end
+  gi.registerLazySingleton(() => GetSpecials(gi()),);
+
+  gi.registerLazySingleton<SpecialRepo>(
+    () => SpeciRepoImpl(gi(), gi()),
+  );
+
+  gi.registerLazySingleton<SpecializationDS>(
+    () => SpecialztionDSImpl(gi()),
+  );
+  ///specialization end
 }

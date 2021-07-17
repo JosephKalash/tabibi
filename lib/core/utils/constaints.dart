@@ -5,6 +5,7 @@ const ADD_CONSUL_URL = 'https://cons';
 const GET_CONSULS_URL = 'https://c';
 const GET_MY_CONS_URL = 'https://c';
 const GET_CONS_BY_SPEC_URL = 'https://c';
+const SPECIALIZATION_URL = 'https://f';
 
 const kKey = 'key';
 const kauthPref = 'auth';
@@ -26,3 +27,9 @@ const kConsDate = 'consultationDate';
 
 const kAddConsRspo = 'success';
 const kAddConsErrorMessage = 'Unable to add your consultation, try again';
+const kJsonErrorKey = 'message';
+
+const kSmallSize = 10.0;
+
+const kSpeciName = 'name';
+const kSpeciValue = 'value';

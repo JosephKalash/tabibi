@@ -36,7 +36,7 @@ class MockConsultationDS extends _i1.Mock implements _i2.ConsultationDS {
                   Future<List<_i4.Consultation>>.value(<_i4.Consultation>[]))
           as _i3.Future<List<_i4.Consultation>>);
   @override
-  _i3.Future<List<_i4.Consultation>> getMyConsultatioins(String? userId) =>
+  _i3.Future<List<_i4.Consultation>> getMyConsultations(String? userId) =>
       (super.noSuchMethod(Invocation.method(#getMyConsultatioins, [userId]),
               returnValue:
                   Future<List<_i4.Consultation>>.value(<_i4.Consultation>[]))

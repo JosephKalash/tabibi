@@ -93,7 +93,7 @@ void main() {
           ];
           expectLater(consCubit.stream, emitsInOrder(expected));
           //act
-          consCubit.getConsultation();
+          consCubit.getConsultations();
         },
       );
       test(
@@ -108,7 +108,7 @@ void main() {
           ];
           expectLater(consCubit.stream, emitsInOrder(expected));
           //act
-          consCubit.getConsultation();
+          consCubit.getConsultations();
         },
       );
     },

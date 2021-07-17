@@ -18,7 +18,7 @@ class ConsultationRepoImpl extends ConsultationRepo {
       try {
         final result = await _consultationDS.addConsultation(consultation);
         return result;
-      } catch(_) {
+      } catch (_) {
         return false;
       }
     } else
@@ -39,7 +39,7 @@ class ConsultationRepoImpl extends ConsultationRepo {
   Future<Either<Failure, List<Consultation>>> getMyCons(
     String userId,
   ) async =>
-      _fetchCons(() => _consultationDS.getMyConsultatioins(userId));
+      _fetchCons(() => _consultationDS.getMyConsultations(userId));
 
   Future<Either<Failure, List<Consultation>>> _fetchCons(Function call) async {
     if (await _internetInfo.isConnect) {
@@ -48,6 +48,8 @@ class ConsultationRepoImpl extends ConsultationRepo {
         return Right(cons);
       } on HttpException catch (e) {
         return Left(HttpFailure(e.message));
+      } on ServerException {
+        return (Left(ServerFailure()));
       }
     } else
       return Left(InternetFailure());

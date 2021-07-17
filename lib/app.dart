@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibi/features/consultations/presentation/pages/consultations_page.dart';
 
 class AppScreen extends StatefulWidget {
   static const pathName = '/app';
@@ -9,14 +10,29 @@ class AppScreen extends StatefulWidget {
 class _AppScreenState extends State<AppScreen>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  static const _tabPages = <Widget>[
+
+  final _tabPages = <Widget>[
     Center(child: Icon(Icons.home_outlined)),
+    Center(child: Icon(Icons.center_focus_strong)),
+    ConsultationsScreen(),
   ];
 
-  static const _tabs = <Tab>[
-    Tab(icon: Icon(Icons.home_outlined), text: 'tab1'),
-    Tab(icon: Icon(Icons.local_hospital_outlined), text: 'tab2'),
-    Tab(icon: Icon(Icons.ballot_outlined), text: 'tab3'),
+  final _tabs = <Tab>[
+    Tab(
+        child: Icon(
+      Icons.home_outlined,
+      color: Colors.blue.shade900,
+    )),
+    Tab(
+        child: Icon(
+      Icons.local_hospital_outlined,
+      color: Colors.blue.shade900,
+    )),
+    Tab(
+        child: Icon(
+      Icons.ballot_outlined,
+      color: Colors.blue.shade900,
+    )),
   ];
 
   @override
@@ -41,9 +57,12 @@ class _AppScreenState extends State<AppScreen>
         controller: _tabController,
         children: _tabPages,
       ),
-      bottomNavigationBar: TabBar(
-        tabs: _tabs,
-        controller: _tabController,
+      bottomNavigationBar: SizedBox(
+        height: 44,
+        child: TabBar(
+          tabs: _tabs,
+          controller: _tabController,
+        ),
       ),
     );
   }

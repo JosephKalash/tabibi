@@ -11,12 +11,10 @@ class ConsultationInitial extends ConsultationState {}
 
 class Loading extends ConsultationState {}
 
-class AddedConsultation extends ConsultationState{
-}
+class AddedConsultation extends ConsultationState {}
 
-class _GotConsState extends ConsultationState{
+class _GotConsState extends ConsultationState {
   final consultations;
-
   _GotConsState(this.consultations);
 
   List<Object> get props => [consultations];
@@ -33,12 +31,12 @@ class GotMyConsultations extends _GotConsState {
 class GotConsultationsBySpeci extends _GotConsState {
   GotConsultationsBySpeci(consultations) : super(consultations);
 }
+
 class ErrorState extends ConsultationState {
   final message;
 
   ErrorState(this.message);
 
-   @override
+  @override
   List<Object> get props => [];
-
 }

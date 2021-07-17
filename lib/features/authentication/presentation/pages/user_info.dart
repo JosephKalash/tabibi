@@ -8,7 +8,7 @@ import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dar
 class UserInfoScreen extends StatelessWidget {
   static final pathName = '/userInfo';
 
-  final _formKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
   final _age = FocusNode();
   final _number = FocusNode();
   User? user;
@@ -16,6 +16,9 @@ class UserInfoScreen extends StatelessWidget {
   double age = 0;
 
   void _submit(context) {
+    if (!_formKey.currentState!.validate()) return;
+    _formKey.currentState!.save();
+    
     final cubit = BlocProvider.of<AuthCubit>(context, listen: false);
     final state = cubit.state;
     if (state is AuthenticatedState) user = state.user;

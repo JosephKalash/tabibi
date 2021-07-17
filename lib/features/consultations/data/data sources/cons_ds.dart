@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tabibi/core/error/failures.dart';
 import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
@@ -9,7 +10,7 @@ import 'package:tabibi/features/consultations/domain/entities/consultation.dart'
 abstract class ConsultationDS {
   Future<bool> addConsultation(Consultation consultation);
   Future<List<Consultation>> getConsultations();
-  Future<List<Consultation>> getMyConsultatioins(String userId);
+  Future<List<Consultation>> getMyConsultations(String userId);
   Future<List<Consultation>> getConsultationsBySpeci(String specialization);
 }
 
@@ -35,11 +36,11 @@ class ConsultationDSImpl extends ConsultationDS {
     );
     final data = response.data;
     if (response.statusCode == 200) {
-      if (data[kAddConsRspo] == null) return false;
+      if (data[kAddConsRspo] == null) throw ServerFailure();
       final isSuccess = data[kAddConsRspo];
       return isSuccess;
     } else
-      return false;
+      throw HttpFailure(kAddConsErrorMessage);
   }
 
   @override
@@ -52,10 +53,9 @@ class ConsultationDSImpl extends ConsultationDS {
     );
     final data = response.data;
     if (response.statusCode == 200) {
-      
       return [];
     } else
-      return [];
+      throw HttpFailure(data[kJsonErrorKey]);
   }
 
   @override
@@ -64,7 +64,8 @@ class ConsultationDSImpl extends ConsultationDS {
   }
 
   @override
-  Future<List<Consultation>> getMyConsultatioins(String userId) {
+  Future<List<Consultation>> getMyConsultations(String userId) {
+    //get userid from prefernces
     throw UnimplementedError();
   }
 }

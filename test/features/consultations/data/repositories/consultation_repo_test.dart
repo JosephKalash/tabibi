@@ -201,7 +201,7 @@ void main() {
         () async {
           //arrange
           _setupInternetSuccess();
-          when(mockConsDS.getMyConsultatioins(userId))
+          when(mockConsDS.getMyConsultations(userId))
               .thenAnswer((_) async => cons);
           //act
           consultationRepo.getMyCons(userId);
@@ -214,7 +214,7 @@ void main() {
         () async {
           //arrange
           _setupInternetSuccess();
-          when(mockConsDS.getMyConsultatioins(any))
+          when(mockConsDS.getMyConsultations(any))
               .thenAnswer((_) async => cons);
           //act
           final result = await consultationRepo.getMyCons(userId);
@@ -227,7 +227,7 @@ void main() {
         () async {
           //arrange
           _setupInternetSuccess();
-          when(mockConsDS.getMyConsultatioins(any))
+          when(mockConsDS.getMyConsultations(any))
               .thenThrow(HttpException('message'));
           //act
           final result = await consultationRepo.getMyCons(userId);

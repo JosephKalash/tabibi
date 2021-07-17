@@ -33,21 +33,21 @@ class ConsultationCubit extends Cubit<ConsultationState> {
         : emit(ErrorState(kAddConsErrorMessage));
   }
 
-  Future<void> getConsultation() async {
+  Future<void> getConsultations() async {
     _fetchConsultations(
       () => _getCons(),
       (consultations) => emit(GotConsultations(consultations)),
     );
   }
 
-  void getMyConsultation(String userId) async {
+  Future<void> getMyConsultation(String userId) async {
     _fetchConsultations(
       () => _getMyCons(userId),
       (consultations) => emit(GotMyConsultations(consultations)),
     );
   }
 
-  void getConsultationBySpeci(String specialization) async {
+  Future<void> getConsultationBySpeci(String specialization) async {
     _fetchConsultations(
       () => _getConsBySpeci(specialization),
       (consultations) => emit(GotConsultationsBySpeci(consultations)),
