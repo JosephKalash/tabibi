@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tabibi/app.dart';
-import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
-import 'package:tabibi/features/authentication/presentation/pages/auth_screen.dart';
-import 'package:tabibi/features/authentication/presentation/pages/user_info.dart';
-import 'package:tabibi/features/consultations/presentation/pages/add_consultations.dart';
-import 'package:tabibi/features/consultations/presentation/pages/consultations_page.dart';
-import 'package:tabibi/features/specializations/presentation/cubit/specializations_cubit.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'app.dart';
+import 'features/authentication/presentation/cubit/auth_cubit.dart';
+import 'features/authentication/presentation/pages/user_info.dart';
 import 'features/consultations/presentation/cubit/consultation_cubit.dart';
+import 'features/consultations/presentation/pages/add_consultations.dart';
+import 'features/consultations/presentation/pages/consultations_page.dart';
+import 'features/specializations/presentation/cubit/specializations_cubit.dart';
 import 'injuction.dart' as inj;
 
 void main() async {
@@ -27,9 +28,21 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => inj.gi<ConsultationCubit>(),
         ),
+        BlocProvider(
+          create: (_) => inj.gi<SpecializationsCubit>(),
+        ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        localizationsDelegates: [
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale('ar', 'AE'),
+        ],
+        locale: Locale('ar', 'AE'),
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -40,16 +53,9 @@ class MyApp extends StatelessWidget {
           UserInfoScreen.pathName: (_) => UserInfoScreen(),
           AppScreen.pathName: (_) => AppScreen(),
           AddConsultaionScreen.pathName: (_) => AddConsultaionScreen(),
-          ConsultationsScreen.pathName: (_) => _buildConsultaionsScreen(),
+          ConsultationsScreen.pathName: (_) => ConsultationsScreen(),
         },
       ),
-    );
-  }
-
-  BlocProvider<SpecializationsCubit> _buildConsultaionsScreen() {
-    return BlocProvider(
-      create: (_) => inj.gi<SpecializationsCubit>(),
-      child: ConsultationsScreen(),
     );
   }
 }

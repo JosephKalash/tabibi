@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
@@ -101,7 +100,9 @@ class ConsultationsList extends StatelessWidget {
                           Text(
                             _consultaions[i].date.day.toString(),
                             style: TextStyle(
-                                color: Colors.grey, fontSize: kSmallSize),
+                              color: Colors.grey,
+                              fontSize: kSmallSize,
+                            ),
                           ),
                           Icon(
                             Icons.access_time_rounded,
@@ -117,7 +118,9 @@ class ConsultationsList extends StatelessWidget {
                           Text(
                             _consultaions[i].clinicSpecialization,
                             style: TextStyle(
-                                color: Colors.grey, fontSize: kSmallSize),
+                              color: Colors.grey,
+                              fontSize: kSmallSize,
+                            ),
                           ),
                           Icon(
                             Icons.medical_services_outlined,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:tabibi/features/consultations/presentation/widgets/consultaions_view.dart'
     show Kind;
 import '../../../../core/utils/constaints.dart';
@@ -61,12 +62,19 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
         return true;
       },
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('اضافة استشارة'),
+        ),
         body: Stack(
           children: [
-            BlocBuilder(
+            BlocBuilder<ConsultationCubit, ConsultationState>(
               builder: (_, state) {
                 if (state is Loading)
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                      child: ModalProgressHUD(
+                    inAsyncCall: true,
+                    child: SizedBox(),
+                  ));
                 else if (state is AddedConsultation) {
                   Navigator.of(context).pop();
                   return SizedBox();
@@ -83,24 +91,35 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Form(
-                    key: _formKey,
-                    child: SingleChildScrollView(
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        spacing: 16,
+                  Text(
+                    'المعلومات الشخصية سوف تبقى مجهولة وسرية ولن يتم نشرها ابدا',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  Expanded(
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
                         children: [
+                          Text(
+                            'اختر التخصص المناسب:',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(height: 4),
                           BlocBuilder<SpecializationsCubit,
                               SpecializationsState>(
                             builder: (_, state) {
                               if (state is GotSpecials)
                                 return _buildDropdownSpecis(state);
                               else if (state is ErrorSpeciState)
-                                return Text(state.message);
+                                return Text(
+                                  state.message,
+                                  style: TextStyle(fontSize: 12),
+                                );
                               else
                                 return _buildErrorDropdown();
                             },
                           ),
+                          SizedBox(height: 12),
                           TextFormField(
                             textInputAction: TextInputAction.next,
                             decoration: InputDecoration(
@@ -122,13 +141,15 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
                               FocusScope.of(context).requestFocus(_content);
                             },
                           ),
+                          SizedBox(height: 12),
                           TextFormField(
                             focusNode: _content,
                             textInputAction: TextInputAction.done,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: 'الوصف',
-                              hintText: 'ادخل وصف للأستشارة',
+                              hintText:
+                                  'ادخل وصف للأستشارة تحوي المعلومات الطبية الخاصة بالمريض',
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty)
@@ -185,10 +206,7 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
   DropdownButtonFormField<String> _buildDropdownSpecis(GotSpecials state) {
     return DropdownButtonFormField<String>(
       items: _getSpecializations(state),
-      hint: Text(
-        'اختر التخصص المناسب للحالة الطبية',
-        textDirection: TextDirection.rtl,
-      ),
+      hint: Text('اختر التخصص المناسب للحالة الطبية'),
       validator: (value) {
         if (value == null || value.isEmpty) return 'يجب أن تختار تخصص معين';
         return null;

@@ -7,6 +7,10 @@ const GET_MY_CONS_URL = 'https://c';
 const GET_CONS_BY_SPEC_URL = 'https://c';
 const SPECIALIZATION_URL = 'https://f';
 
+const ADD_RESERVATION_URL = 'https://d';
+const GET_RESERVATION_URL = 'https://fd';
+const CANCEL_RESERVATION_URL = 'https://F';
+
 const kKey = 'key';
 const kauthPref = 'auth';
 
@@ -33,3 +37,7 @@ const kSmallSize = 10.0;
 
 const kSpeciName = 'name';
 const kSpeciValue = 'value';
+
+const kReservationDate = 'reservation_date';
+const kReservatioinType = 'reservation_type';
+const kReservationStatus = 'reservation_status';
