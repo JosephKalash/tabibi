@@ -15,13 +15,20 @@ class ReservationModel extends Reservation {
       status: _getStatus(json[kReservationStatus]),
     );
   }
-  Map<String, dynamic> toJson(Reservation reservation) {
+  Map<String, dynamic> toJson() {
     return {
-      kReservationDate: reservation.date.toIso8601String(),
-      kReservatioinType: reservation.type.toString(),
-      kReservationStatus:
-          reservation.status == null ? null : reservation.status.toString(),
+      kReservationDate: date.toIso8601String(),
+      kReservatioinType: type.toString(),
+      kReservationStatus: status == null ? '' : status.toString(),
     };
+  }
+
+  factory ReservationModel.fromParent(Reservation reservation) {
+    return ReservationModel(
+      reservation.date,
+      reservation.type,
+      status: reservation.status,
+    );
   }
 }
 

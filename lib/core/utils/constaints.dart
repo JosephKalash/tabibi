@@ -41,3 +41,7 @@ const kSpeciValue = 'value';
 const kReservationDate = 'reservation_date';
 const kReservatioinType = 'reservation_type';
 const kReservationStatus = 'reservation_status';
+const kReservationErrorMessage = 'Unable to add your reservation, try again';
+const kAddReservRespo = 'success';
+const kGetReservRespo = 'reservations';
+const kGetReservError = 'Unable to fetch reservations, try again';
