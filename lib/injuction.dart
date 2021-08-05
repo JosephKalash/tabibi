@@ -6,6 +6,11 @@ import 'package:tabibi/features/consultations/data/data%20sources/cons_ds.dart';
 import 'package:tabibi/features/consultations/data/repositories/consultation_repo.dart';
 import 'package:tabibi/features/consultations/domain/usecasese/add_cons.dart';
 import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
+import 'package:tabibi/features/reservations/data/data%20sources/reservation_data_source.dart';
+import 'package:tabibi/features/reservations/domain/usecases/add_reservation.dart';
+import 'package:tabibi/features/reservations/domain/usecases/cancel_reservation.dart';
+import 'package:tabibi/features/reservations/domain/usecases/get_reservations.dart';
+import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
 import 'package:tabibi/features/specializations/data/data%20sources/specialization_DS.dart';
 import 'package:tabibi/features/specializations/data/repositories/speci_repo_impl.dart';
 import 'package:tabibi/features/specializations/domain/repositories/special_repo.dart';
@@ -24,6 +29,8 @@ import 'features/consultations/domain/repositories/consultation_repo.dart';
 import 'features/consultations/domain/usecasese/get_cons.dart';
 import 'features/consultations/domain/usecasese/get_cons_bySpeci.dart';
 import 'features/consultations/domain/usecasese/get_my_cons.dart';
+import 'features/reservations/data/repositories/reservation_repository_impl.dart';
+import 'features/reservations/domain/repositories/reservation_repository.dart';
 
 final gi = GetIt.instance;
 Future<void> init() async {
@@ -78,7 +85,9 @@ Future<void> init() async {
     () => SpecializationsCubit(gi()),
   );
 
-  gi.registerLazySingleton(() => GetSpecials(gi()),);
+  gi.registerLazySingleton(
+    () => GetSpecials(gi()),
+  );
 
   gi.registerLazySingleton<SpecialRepo>(
     () => SpeciRepoImpl(gi(), gi()),
@@ -87,5 +96,29 @@ Future<void> init() async {
   gi.registerLazySingleton<SpecializationDS>(
     () => SpecialztionDSImpl(gi()),
   );
+
   ///specialization end
+  ///reservations
+  gi.registerFactory(
+    () => ReservationsCubit(gi(), gi(), gi()),
+  );
+
+  gi.registerLazySingleton(
+    () => AddReservation(gi()),
+  );
+  gi.registerLazySingleton(
+    () => CancelReservation(gi()),
+  );
+  gi.registerLazySingleton(
+    () => GetReservations(gi()),
+  );
+
+  gi.registerLazySingleton<ReservationRepo>(
+    () => ReservationRepoImpl(gi(), gi()),
+  );
+
+  gi.registerLazySingleton<ReservationDS>(
+    () => ReservationDSImpl(gi(), gi()),
+  );
+  ///end reservation
 }

@@ -1,3 +1,5 @@
+import 'package:equatable/equatable.dart';
+
 enum ReservationStatus {
   None,
 }
@@ -5,7 +7,7 @@ enum ReservationType {
   None,
 }
 
-class Reservation {
+class Reservation extends Equatable {
   final DateTime date;
   final ReservationType type;
   final ReservationStatus? status;
@@ -15,4 +17,11 @@ class Reservation {
     this.type, {
     this.status,
   });
+
+  @override
+  List<Object?> get props => [
+        date,
+        type,
+        status,
+      ];
 }

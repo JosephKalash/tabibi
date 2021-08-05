@@ -11,6 +11,8 @@ const ADD_RESERVATION_URL = 'https://d';
 const GET_RESERVATION_URL = 'https://fd';
 const CANCEL_RESERVATION_URL = 'https://F';
 
+const DOCTORS_URL = 'https://f';
+
 const kKey = 'key';
 const kauthPref = 'auth';
 
@@ -45,3 +47,10 @@ const kReservationErrorMessage = 'Unable to add your reservation, try again';
 const kAddReservRespo = 'success';
 const kGetReservRespo = 'reservations';
 const kGetReservError = 'Unable to fetch reservations, try again';
+
+const kDoctorSpecialization = 'specialization';
+const kDoctorPhoneNumber = 'phone_number';
+const kDoctorLocation = 'location';
+const kDoctorImagePath = 'image_path';
+const kDoctorErrorMessage = 'Unable to fetch doctors info, try again';
+const kDoctorsList = 'doctors';
