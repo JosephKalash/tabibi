@@ -8,11 +8,15 @@ enum ReservationType {
 }
 
 class Reservation extends Equatable {
+  final doctorId;
+  final userId;
   final DateTime date;
   final ReservationType type;
   final ReservationStatus? status;
 
   Reservation(
+    this.doctorId,
+    this.userId,
     this.date,
     this.type, {
     this.status,
@@ -20,6 +24,7 @@ class Reservation extends Equatable {
 
   @override
   List<Object?> get props => [
+        doctorId,
         date,
         type,
         status,

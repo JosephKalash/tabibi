@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';
-import 'package:tabibi/core/error/failures.dart';
 import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/doctors/data/models/doctor_model.dart';
 import 'package:tabibi/features/doctors/domain/entities/doctor.dart';

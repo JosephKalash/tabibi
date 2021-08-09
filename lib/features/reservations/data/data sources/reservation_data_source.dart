@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';

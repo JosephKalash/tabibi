@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
 import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
 
 import 'app.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => inj.gi<ReservationsCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => inj.gi<DoctorsCubit>(),
         ),
       ],
       child: MaterialApp(

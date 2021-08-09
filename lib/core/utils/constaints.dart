@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 const SIGNUP_URL = 'https://signUp';
 const LOGIN_URL = 'https://LOGIN?';
 
@@ -54,3 +56,5 @@ const kDoctorLocation = 'location';
 const kDoctorImagePath = 'image_path';
 const kDoctorErrorMessage = 'Unable to fetch doctors info, try again';
 const kDoctorsList = 'doctors';
+const kDoctorId = 'doctor_id';
+final kDoctorImageKey = GlobalKey();

@@ -6,6 +6,11 @@ import 'package:tabibi/features/consultations/data/data%20sources/cons_ds.dart';
 import 'package:tabibi/features/consultations/data/repositories/consultation_repo.dart';
 import 'package:tabibi/features/consultations/domain/usecasese/add_cons.dart';
 import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
+import 'package:tabibi/features/doctors/data/data%20source/doctor_DS.dart';
+import 'package:tabibi/features/doctors/data/repositories/doctor_repo_impl.dart';
+import 'package:tabibi/features/doctors/domain/repositories/doctor_repository.dart';
+import 'package:tabibi/features/doctors/domain/usecases/get_doctors.dart';
+import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
 import 'package:tabibi/features/reservations/data/data%20sources/reservation_data_source.dart';
 import 'package:tabibi/features/reservations/domain/usecases/add_reservation.dart';
 import 'package:tabibi/features/reservations/domain/usecases/cancel_reservation.dart';
@@ -120,5 +125,22 @@ Future<void> init() async {
   gi.registerLazySingleton<ReservationDS>(
     () => ReservationDSImpl(gi(), gi()),
   );
+
   ///end reservation
+  ///doctor
+  gi.registerFactory(
+    () => DoctorsCubit(gi()),
+  );
+
+  gi.registerLazySingleton(
+    () => GetDoctors(gi()),
+  );
+
+  gi.registerLazySingleton<DoctorRepo>(
+    () => DoctorRepoImpl(gi(), gi()),
+  );
+
+  gi.registerLazySingleton<DoctorDS>(
+    () => DoctorDSImpl(gi(), gi()),
+  );
 }
