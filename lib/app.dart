@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tabibi/features/consultations/presentation/pages/consultations_page.dart';
+import 'package:tabibi/features/consultations/presentation/pages/consultations_tabs_page.dart';
 
 class AppScreen extends StatefulWidget {
   static const pathName = '/app';
@@ -14,7 +14,7 @@ class _AppScreenState extends State<AppScreen>
   final _tabPages = <Widget>[
     Center(child: Icon(Icons.home_outlined)),
     Center(child: Icon(Icons.center_focus_strong)),
-    ConsultationsScreen(),
+    ConsultationsTabsScreen(),
   ];
 
   final _tabs = <Tab>[

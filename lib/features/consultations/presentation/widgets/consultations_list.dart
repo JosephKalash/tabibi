@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
-import 'consultaions_view.dart' show Kind;
 
 class ConsultationsList extends StatelessWidget {
   final List<Consultation> consultaions;
-  final Kind _kind;
 
-  const ConsultationsList(this.consultaions, this._kind);
+  const ConsultationsList(this.consultaions);
 
   @override
   Widget build(BuildContext context) {

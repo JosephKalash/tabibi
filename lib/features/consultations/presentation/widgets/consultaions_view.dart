@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
+import 'package:tabibi/features/consultations/presentation/pages/add_consultations.dart';
 
 import 'consultations_list.dart';
 
@@ -35,23 +36,35 @@ class _ConsultationsViewState extends State<ConsultationsView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ConsultationCubit, ConsultationState>(
-      builder: (_, state) {
-        if (state is Loading)
-          return CircularProgressIndicator();
-        else if (state is ErrorState)
-          return Center(child: Text(state.message));
-        else if (state is GotConsultations)
-          return ConsultationsList(state.consultations,widget._kind);
-        else if(state is GotMyConsultations)
-          return ConsultationsList(state.consultations,widget._kind);
-        else if(state is GotConsultationsBySpeci)
-          return ConsultationsList(state.consultations,widget._kind);
-        else
-          return Center(
-            child: Text('الرجاء التجربة لاحقا')
-          );
-      },
+    return Scaffold(
+      body: BlocBuilder<ConsultationCubit, ConsultationState>(
+        builder: (_, state) {
+          if (state is Loading)
+            return CircularProgressIndicator();
+          else if (state is ErrorState)
+            return Center(child: Text(state.message));
+          else if (state is GotConsultations)
+            return ConsultationsList(state.consultations);
+          else if (state is GotMyConsultations)
+            return ConsultationsList(state.consultations);
+          else if (state is GotConsultationsBySpeci)
+            return ConsultationsList(state.consultations);
+          else
+            return Center(child: Text('الرجاء التجربة لاحقا'));
+        },
+      ),
+      floatingActionButton: widget._kind == Kind.GetMyCons
+          ? FloatingActionButton(
+              child: Icon(
+                Icons.add,
+                color: Colors.white,
+              ),
+              backgroundColor: Colors.blue.shade900,
+              onPressed: () {
+                Navigator.of(context).pushNamed(AddConsultaionScreen.pathName);
+              },
+            )
+          : null,
     );
   }
 }

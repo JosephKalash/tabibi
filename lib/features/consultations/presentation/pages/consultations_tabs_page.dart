@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tabibi/features/consultations/presentation/pages/add_consultations.dart';
 import 'package:tabibi/features/consultations/presentation/widgets/consultaions_view.dart';
 import 'package:tabibi/features/consultations/presentation/widgets/consultations_list.dart';
 
-class ConsultationsScreen extends StatelessWidget {
+class ConsultationsTabsScreen extends StatelessWidget {
   static const pathName = '\consultations';
 
   final _kTabPages = <Widget>[
-    ConsultationsList([], Kind.GetConsultation),
+    ConsultationsList([]),//consultationsView(Kind.GetCons)
     ConsultationsView(Kind.GetMyCons),
   ];
 
@@ -33,16 +32,6 @@ class ConsultationsScreen extends StatelessWidget {
           ],
         ),
         body: TabBarView(children: _kTabPages),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
-          backgroundColor: Colors.blue.shade900,
-          onPressed: () {
-            Navigator.of(context).pushNamed(AddConsultaionScreen.pathName);
-          },
-        ),
       ),
     );
   }

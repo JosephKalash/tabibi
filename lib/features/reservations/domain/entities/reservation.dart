@@ -13,6 +13,7 @@ class Reservation extends Equatable {
   final DateTime date;
   final ReservationType type;
   final ReservationStatus? status;
+  final String? doctorName;
 
   Reservation(
     this.doctorId,
@@ -20,13 +21,16 @@ class Reservation extends Equatable {
     this.date,
     this.type, {
     this.status,
+    this.doctorName,
   });
 
   @override
   List<Object?> get props => [
         doctorId,
+        userId,
         date,
         type,
         status,
+        doctorName,
       ];
 }

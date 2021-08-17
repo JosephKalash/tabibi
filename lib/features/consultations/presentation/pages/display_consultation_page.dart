@@ -10,9 +10,7 @@ class DisplayConsultationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'الاستشارة',
-        ),
+        title: Text('الاستشارة'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(14.0),
@@ -109,7 +107,8 @@ class DisplayConsultationScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 color: Colors.blue,
-                                child: Text(_consultation.consResponse?.response),
+                                child:
+                                    Text(_consultation.consResponse?.response),
                               ),
                               Text(
                                 '${DateTime.now().difference(_consultation.consResponse!.date).inDays}',

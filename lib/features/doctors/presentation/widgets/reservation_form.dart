@@ -21,7 +21,8 @@ class AddReservationForm extends StatefulWidget {
 class _AddReservationFormState extends State<AddReservationForm> {
   DateTime? _reservDate;
   ReservationType? _type;
-  _submit() async {
+
+  Future<void> _submit() async {
     if (_reservDate == null) _snackbar('الرجاء اختيار تاريخ الحجز');
 
     SharedPreferences shared = await SharedPreferences.getInstance();
@@ -54,7 +55,7 @@ class _AddReservationFormState extends State<AddReservationForm> {
           SizedBox(height: 4),
           Row(
             children: [
-              ElevatedButton(
+              ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   elevation: 8,
                   primary: Colors.blue,
@@ -73,7 +74,8 @@ class _AddReservationFormState extends State<AddReservationForm> {
                     },
                   );
                 },
-                child: Text('موعد الحجز'),
+                icon: Icon(Icons.date_range_outlined),
+                label: Text('موعد الحجز'),
               ),
               SizedBox(width: 10),
               _reservDate == null
@@ -84,8 +86,8 @@ class _AddReservationFormState extends State<AddReservationForm> {
           SizedBox(height: 4),
           Row(
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.red),
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: Colors.red.shade700),
                 onPressed: () async {
                   showDialog<ReservationType>(
                     context: context,
@@ -112,7 +114,8 @@ class _AddReservationFormState extends State<AddReservationForm> {
                     ),
                   );
                 },
-                child: Text('نوع الحجز'),
+                icon: Icon(Icons.list_alt_outlined),
+                label: Text('نوع الحجز'),
               ),
               SizedBox(width: 10),
               _type == null
@@ -125,14 +128,17 @@ class _AddReservationFormState extends State<AddReservationForm> {
             builder: (_, state) {
               if (state is Loading)
                 return CircularProgressIndicator();
-              else if (state is ReservationError) _snackbar(state.message);
+              else if (state is ReservationError)
+                _snackbar(state.message);
+              else if (state is AddedReservation)
+                Navigator.of(context).pop(widget._context);
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.blue,
                   elevation: 8,
                 ),
                 child: Text('ارسال'),
-                onPressed: _submit(),
+                onPressed: _submit,
               );
             },
           ),

@@ -10,7 +10,7 @@ class DoctorModel extends Doctor {
     location, {
     phoneNumber,
     imagePath,
-  }) : super(id,name, specialization, location,
+  }) : super(id, name, specialization, location,
             phoneNumber: phoneNumber, imagePath: imagePath);
 
   factory DoctorModel.fromJson(Map<String, dynamic> json) {
@@ -25,12 +25,23 @@ class DoctorModel extends Doctor {
   }
   Map<String, dynamic> toJson() {
     return {
-      kDoctorId :id,
+      kDoctorId: id,
       kDoctorName: name,
       kDoctorSpecialization: specialization,
       kDoctorLocation: address,
       kDoctorPhoneNumber: phoneNumber ?? '',
       kDoctorImagePath: imagePath ?? '',
     };
+  }
+
+  factory DoctorModel.fromParent(Doctor doctor) {
+    return DoctorModel(
+      doctor.id,
+      doctor.name,
+      doctor.specialization,
+      doctor.address,
+      phoneNumber: doctor.phoneNumber,
+      imagePath: doctor.imagePath,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tabibi/features/doctors/data/models/doctor_model.dart';
 
 import '../../../../core/utils/constaints.dart';
 import '../../domain/entities/doctor.dart';
@@ -6,9 +7,6 @@ import '../widgets/reservation_form.dart';
 
 class DoctorProfileScreen extends StatefulWidget {
   static const pathName = '/doctorProfile';
-  final Doctor _doctor;
-
-  const DoctorProfileScreen(this._doctor);
 
   @override
   _DoctorProfileScreenState createState() => _DoctorProfileScreenState();
@@ -19,6 +17,10 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final Doctor _doctor = DoctorModel.fromJson(
+      ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>,
+    );
+
     return Scaffold(
       key: _scaffoldKey,
       body: Column(
@@ -28,14 +30,13 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             height: MediaQuery.of(context).size.height / 4,
             child: Hero(
               tag: kDoctorImageKey,
-              child: widget._doctor.imagePath == null ||
-                      widget._doctor.imagePath!.isEmpty
+              child: _doctor.imagePath == null || _doctor.imagePath!.isEmpty
                   ? Image.asset(
                       'assets/images/person.png',
                       fit: BoxFit.cover,
                     )
                   : Image.network(
-                      widget._doctor.imagePath!,
+                      _doctor.imagePath!,
                       fit: BoxFit.cover,
                     ),
             ),
@@ -50,12 +51,12 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                     child: Column(
                       children: [
                         Text(
-                          widget._doctor.name,
+                          _doctor.name,
                           style: TextStyle(fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          widget._doctor.name,
+                          _doctor.name,
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -69,8 +70,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         Icons.phone_outlined,
                         color: Colors.blue,
                       ),
-                      Text(
-                          '${widget._doctor.phoneNumber ?? 'الرقم غير متوفر'}'),
+                      Text('${_doctor.phoneNumber ?? 'الرقم غير متوفر'}'),
                     ],
                   ),
                   Divider(thickness: 8),
@@ -81,7 +81,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         Icons.location_on_outlined,
                         color: Colors.blue,
                       ),
-                      Text('${widget._doctor.address ?? 'العنوان غير متوفر'}'),
+                      Text('${_doctor.address ?? 'العنوان غير متوفر'}'),
                     ],
                   )
                 ],
@@ -91,7 +91,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
           ElevatedButton(
             onPressed: () => showModalBottomSheet(
               context: context,
-              builder: (ctx) => AddReservationForm(widget._doctor.id, ctx),
+              builder: (ctx) => AddReservationForm(_doctor.id, ctx),
             ),
             child: Text('حجز'),
             style: ElevatedButton.styleFrom(elevation: 8),

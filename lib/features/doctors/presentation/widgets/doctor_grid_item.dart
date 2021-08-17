@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibi/core/utils/constaints.dart';
+import 'package:tabibi/features/doctors/data/models/doctor_model.dart';
 import 'package:tabibi/features/doctors/domain/entities/doctor.dart';
 import 'package:tabibi/features/doctors/presentation/pages/doctor_profile.dart';
 
@@ -13,12 +14,16 @@ class DoctorGridItem extends StatelessWidget {
     return GridTile(
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed(DoctorProfileScreen.pathName);
+          final doctor = DoctorModel.fromParent(_doctor);
+          Navigator.of(context).pushNamed(
+            DoctorProfileScreen.pathName,
+            arguments: doctor.toJson(),
+          );
         },
         child: Hero(
           tag: kDoctorImageKey,
           child: _doctor.imagePath == null || _doctor.imagePath!.isEmpty
-              ? Image.asset('assets/images/person.png')
+              ? Image.asset('assets/images/doctor.png')
               : Image.network(_doctor.imagePath!),
         ),
       ),

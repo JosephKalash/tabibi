@@ -8,7 +8,9 @@ class ReservationModel extends Reservation {
     DateTime date,
     ReservationType type, {
     ReservationStatus? status,
-  }) : super(doctorId, userId, date, type, status: status);
+    String? doctorName,
+  }) : super(doctorId, userId, date, type,
+            status: status, doctorName: doctorName);
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {
     return ReservationModel(
@@ -17,6 +19,7 @@ class ReservationModel extends Reservation {
       DateTime.parse(json[kReservationDate]),
       _getType(json[kReservatioinType]),
       status: _getStatus(json[kReservationStatus]),
+      doctorName: json[kDoctorName],
     );
   }
   Map<String, dynamic> toJson() {
@@ -26,6 +29,7 @@ class ReservationModel extends Reservation {
       kReservationDate: date.toIso8601String(),
       kReservatioinType: type.toString(),
       kReservationStatus: status == null ? '' : status.toString(),
+      kDoctorName: doctorName ?? '',
     };
   }
 
@@ -36,15 +40,17 @@ class ReservationModel extends Reservation {
       reservation.date,
       reservation.type,
       status: reservation.status,
+      doctorName: reservation.doctorName,
     );
   }
 }
 
-ReservationStatus? _getStatus(status) {
+ReservationStatus? _getStatus(String? status) {
   if (status == null) return null;
   for (ReservationStatus value in ReservationStatus.values)
-    if (value == status) return value;
+    if (value.toString() == status) return value;
 
+  ///TODO: could enum.toString be equal to string
   return ReservationStatus.None;
 }
 

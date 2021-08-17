@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
+import 'package:tabibi/features/doctors/presentation/pages/doctor_profile.dart';
+import 'package:tabibi/features/doctors/presentation/pages/reservations_screen.dart';
 import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
 
 import 'app.dart';
@@ -9,7 +11,7 @@ import 'features/authentication/presentation/cubit/auth_cubit.dart';
 import 'features/authentication/presentation/pages/user_info.dart';
 import 'features/consultations/presentation/cubit/consultation_cubit.dart';
 import 'features/consultations/presentation/pages/add_consultations.dart';
-import 'features/consultations/presentation/pages/consultations_page.dart';
+import 'features/consultations/presentation/pages/consultations_tabs_page.dart';
 import 'features/specializations/presentation/cubit/specializations_cubit.dart';
 import 'injuction.dart' as inj;
 
@@ -61,7 +63,9 @@ class MyApp extends StatelessWidget {
           UserInfoScreen.pathName: (_) => UserInfoScreen(),
           AppScreen.pathName: (_) => AppScreen(),
           AddConsultaionScreen.pathName: (_) => AddConsultaionScreen(),
-          ConsultationsScreen.pathName: (_) => ConsultationsScreen(),
+          ConsultationsTabsScreen.pathName: (_) => ConsultationsTabsScreen(),
+          ReservationsScreen.pathName: (_) => ReservationsScreen(),
+          DoctorProfileScreen.pathName:(_)=>DoctorProfileScreen(),
         },
       ),
     );

@@ -55,6 +55,7 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
       onWillPop: () async {
         final cubit =
             BlocProvider.of<ConsultationCubit>(context, listen: false);
+            ///TODO: cubit will call getMyConsultation only
         if (_kind == Kind.GetMyCons)
           cubit.getMyConsultation('');
         else
