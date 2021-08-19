@@ -35,7 +35,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     );
     
     final data = result.data;
-    if (result.statusCode! == 200) {
+    if (result.statusCode == 200) {
       final user = UserModel.fromJson(data);
 
       final map = json.encode({

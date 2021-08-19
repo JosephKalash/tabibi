@@ -176,7 +176,7 @@ class _AuthCardState extends State<AuthCard>
 
     final cubit = BlocProvider.of<AuthCubit>(context);
     if (_authMode == AuthMode.Signup) {
-      cubit.siginUser(_authData['email']!, _authData['password']!);
+      cubit.signinUser(_authData['email']!, _authData['password']!);
     } else {
       cubit.loginUser(_authData['email']!, _authData['password']!);
     }
@@ -292,15 +292,14 @@ class _AuthCardState extends State<AuthCard>
                   listener: (_, state) {
                     if (state is AuthenticatedState)
                       Navigator.of(context)
-                          .pushReplacementNamed(UserInfoScreen.pathName);
+                          .pushNamed(UserInfoScreen.pathName);
                     else if (state is ErrorState)
                       _showErrorDialog(state.message);
                   },
                   builder: (_, state) {
                     if (state is LoadingState)
                       return CircularProgressIndicator();
-                    else
-                      return _buildElevatedButton();
+                    return _buildElevatedButton();
                   },
                 ),
                 TextButton(

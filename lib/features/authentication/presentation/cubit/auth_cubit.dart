@@ -24,7 +24,7 @@ class AuthCubit extends Cubit<AuthState> {
     emit(LogoutState(user));
   }
 
-  Future<void> siginUser(String username, String password) async {
+  Future<void> signinUser(String username, String password) async {
     await _authantic(username, password, () => _signin(username, password));
   }
 

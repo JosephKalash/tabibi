@@ -18,7 +18,7 @@ class UserInfoScreen extends StatelessWidget {
   void _submit(context) {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
-    
+
     final cubit = BlocProvider.of<AuthCubit>(context, listen: false);
     final state = cubit.state;
     if (state is AuthenticatedState) user = state.user;
@@ -32,92 +32,126 @@ class UserInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Colors.indigo.shade100,
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
+        child: SizedBox(
+          width: 300,
+          height: 410,
           child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
             elevation: 8,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'fill the info please.',
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Full Name'),
-                    textInputAction: TextInputAction.next,
-                    onSaved: (value) {
-                      name = value!;
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty)
-                        return 'The name can\'t be empty';
-                      if (value.length < 3) return 'the name is very short';
-                      return null;
-                    },
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(_age);
-                    },
-                  ),
-                  SizedBox(height: 14),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'age'),
-                    textInputAction: TextInputAction.next,
-                    focusNode: _age,
-                    onSaved: (value) {
-                      age = double.parse(value!);
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty)
-                        return 'The age can\'t be empty';
-                      if (value.length < 15)
-                        return 'the allowed age is above 14';
-                      return null;
-                    },
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(_number);
-                    },
-                  ),
-                  SizedBox(height: 14),
-                  TextFormField(
-                    decoration:
-                        const InputDecoration(labelText: 'Phone number'),
-                    textInputAction: TextInputAction.done,
-                    focusNode: _number,
-                    onSaved: (value) {
-                      phone = value!;
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty)
-                        return 'The phone number can\'t be empty';
-                      if (value.length < 10)
-                        return 'the number must be 10 digits';
-                      return null;
-                    },
-                    onFieldSubmitted: (_) {
-                      _submit(context);
-                    },
-                  ),
-                ],
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'الرجاء كتابة المعلومات الشخصية',
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: const InputDecoration(
+                                labelText: 'الأسم الكامل'),
+                            textInputAction: TextInputAction.next,
+                            onSaved: (value) {
+                              name = value!;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty)
+                                return 'لا يمكن أن يكون حقل الأسم فارغ';
+                              if (value.length < 3) return 'الأسم قصير جدا';
+                              return null;
+                            },
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_age);
+                            },
+                          ),
+                          SizedBox(height: 14),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'العمر'),
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.number,
+                            focusNode: _age,
+                            onSaved: (value) {
+                              age = double.parse(value!);
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty)
+                                return 'لا يمكن أن يكون حقل المر فارغ';
+                              if (value.length < 15)
+                                return 'العمر المسموح به لأستخدام التطبيق فوق 14 سنة';
+                              return null;
+                            },
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_number);
+                            },
+                          ),
+                          SizedBox(height: 14),
+                          TextFormField(
+                            decoration:
+                                const InputDecoration(labelText: 'رقم الجوال'),
+                            textInputAction: TextInputAction.done,
+                            keyboardType: TextInputType.number,
+                            focusNode: _number,
+                            onSaved: (value) {
+                              phone = value!;
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty)
+                                return 'لا يمكن أن يكون حقل الهاتف فارغ';
+                              if (value.length < 10)
+                                return 'يجب أن يكون الرقم مؤلف من 10 أرقام';
+                              return null;
+                            },
+                            onFieldSubmitted: (_) {
+                              _submit(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 14),
+                    Text(
+                      '**سيتم استخدام هذه المعلومات عند استخدام خدمات التطبيق الرجاء كتابة معلومات صحيحة',
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.red.shade900,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 12),
+                    BlocBuilder<AuthCubit, AuthState>(
+                      builder: (_, state) {
+                        if (state is LoadingState)
+                          return CircularProgressIndicator();
+                        return ElevatedButton(
+                          child: Text('حفظ'),
+                          onPressed: () => _submit(context),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            primary: Colors.blue.shade800,
+                            elevation: 8,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
-      floatingActionButton: ElevatedButton(
-        child: Text('submit'),
-        onPressed: () => _submit(context),
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          primary: Colors.blue.shade800,
-          elevation: 8,
         ),
       ),
     );

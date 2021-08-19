@@ -40,7 +40,7 @@ void main() {
           ];
           expectLater(cubit.stream, emitsInOrder(expected));
           //act
-          cubit.siginUser(username, password);
+          cubit.signinUser(username, password);
           verify(signin(username, password));
         },
       );
@@ -57,7 +57,7 @@ void main() {
           ];
           expectLater(cubit.stream, emitsInOrder(expected));
           //act
-          cubit.siginUser(username, password);
+          cubit.signinUser(username, password);
         },
       );
     },
