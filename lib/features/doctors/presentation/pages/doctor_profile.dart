@@ -27,18 +27,13 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height / 3,
             child: Hero(
-              tag: kDoctorImageKey,
-              child: _doctor.imagePath == null
-                  ? Image.asset(
-                      'assets/images/doctor.png',
-                      fit: BoxFit.cover,
-                    )
-                  : Image.network(
-                      _doctor.imagePath!,
-                      fit: BoxFit.cover,
-                    ),
+              tag: _doctor.id,
+              child: Image.asset(
+                'assets/images/doctorL.png',
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           Expanded(
@@ -52,50 +47,80 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                       children: [
                         Text(
                           _doctor.name,
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          _doctor.name,
+                          _doctor.specialization,
                           textAlign: TextAlign.center,
                         ),
                       ],
                     ),
                   ),
-                  const Divider(thickness: 8),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        color: Colors.blue,
-                      ),
-                      Text('${_doctor.phoneNumber ?? 'الرقم غير متوفر'}'),
-                    ],
+                  const Divider(thickness: 2),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.phone_outlined,
+                          color: Colors.blue,
+                          size: 28,
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          '${_doctor.phoneNumber ?? 'الرقم غير متوفر'}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  Divider(thickness: 8),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        color: Colors.blue,
-                      ),
-                      Text('${_doctor.address ?? 'العنوان غير متوفر'}'),
-                    ],
+                  Divider(thickness: 2),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: Colors.blue,
+                          size: 28,
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          '${_doctor.address ?? 'العنوان غير متوفر'}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () => showModalBottomSheet(
-              context: context,
-              builder: (ctx) => AddReservationForm(_doctor.id, ctx),
+          Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: ElevatedButton(
+              onPressed: () => showModalBottomSheet(
+                context: context,
+                builder: (ctx) => AddReservationForm(_doctor.id, ctx),
+              ),
+              child: Text('حجز'),
+              style: ElevatedButton.styleFrom(elevation: 8),
             ),
-            child: Text('حجز'),
-            style: ElevatedButton.styleFrom(elevation: 8),
           ),
+          SizedBox(height: 20),
         ],
       ),
     );

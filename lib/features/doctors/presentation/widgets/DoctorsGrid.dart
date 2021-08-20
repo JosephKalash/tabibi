@@ -9,25 +9,26 @@ class DoctorsGrid extends StatelessWidget {
   DoctorsGrid(this.doctors);
   List<Doctor> _doctors = [
     Doctor(
-      'id',
+      'idb',
       'محدم هبي مسب',
       'داخلية',
       'دمشق رك ين',
+      phoneNumber: '099323424',
     ),
     Doctor(
-      'id',
+      'ida',
       'يب  هيبيبي ',
       ' عصبية داخلية',
       'دمشق رك ',
     ),
     Doctor(
-      'id',
+      'ids',
       'علي حسن طاهر',
       'بيبمن نبم',
       'دمشق رك ين',
     ),
     Doctor(
-      'id',
+      'idd',
       'النبي تلتيسي ',
       ' بييبداخلية',
       'دمشق رك ين',

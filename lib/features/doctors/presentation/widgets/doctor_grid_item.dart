@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/doctors/data/models/doctor_model.dart';
 import 'package:tabibi/features/doctors/domain/entities/doctor.dart';
 import 'package:tabibi/features/doctors/presentation/pages/doctor_profile.dart';
@@ -26,7 +25,7 @@ class DoctorGridItem extends StatelessWidget {
             );
           },
           child: Hero(
-            tag: kDoctorImageKey,
+            tag: _doctor.id,
             child: _doctor.imagePath == null || _doctor.imagePath!.isEmpty
                 ? Image.asset(
                     'assets/images/doctor.png',

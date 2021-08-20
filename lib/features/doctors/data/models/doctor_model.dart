@@ -29,8 +29,8 @@ class DoctorModel extends Doctor {
       kDoctorName: name,
       kDoctorSpecialization: specialization,
       kDoctorLocation: address,
-      kDoctorPhoneNumber: phoneNumber ?? '',
-      kDoctorImagePath: imagePath ?? '',
+      kDoctorPhoneNumber: phoneNumber ?? null,
+      kDoctorImagePath: imagePath ?? null,
     };
   }
 

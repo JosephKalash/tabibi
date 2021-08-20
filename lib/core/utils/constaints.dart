@@ -61,4 +61,3 @@ const kDoctorImagePath = 'image_path';
 const kDoctorErrorMessage = 'Unable to fetch doctors info, try again';
 const kDoctorsList = 'doctors';
 const kDoctorId = 'doctor_id';
-final kDoctorImageKey = GlobalKey();
