@@ -209,7 +209,7 @@ class _AuthCardState extends State<AuthCard>
             child: Column(
               children: [
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Email'),
+                  decoration: const InputDecoration(labelText: 'الأيميل'),
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
@@ -217,7 +217,7 @@ class _AuthCardState extends State<AuthCard>
                         value.isEmpty ||
                         !value.contains(
                           '@',
-                        )) return 'Invalid email!';
+                        )) return 'الأيميل غير صالح';
 
                     return null;
                   },
@@ -229,7 +229,7 @@ class _AuthCardState extends State<AuthCard>
                   },
                 ),
                 TextFormField(
-                  decoration: const InputDecoration(labelText: 'Password'),
+                  decoration: const InputDecoration(labelText: 'كلمة السر'),
                   obscureText: true,
                   controller: _passwordController,
                   focusNode: _passwordFocusNode,
@@ -238,7 +238,7 @@ class _AuthCardState extends State<AuthCard>
                       : TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty || value.length < 5)
-                      return 'Password must be at least 6 charachters';
+                      return 'كلمة السر يجب أن تكون 6 أحرف على الأقل';
 
                     return null;
                   },
@@ -268,13 +268,13 @@ class _AuthCardState extends State<AuthCard>
                       child: TextFormField(
                         enabled: _authMode == AuthMode.Signup,
                         decoration: const InputDecoration(
-                            labelText: 'Confirm the password'),
+                            labelText: 'تأكيد كلمة السر'),
                         obscureText: true,
                         focusNode: _passwordAgainFocusNode,
                         validator: _authMode == AuthMode.Signup
                             ? (value) {
                                 if (value != _passwordController.text)
-                                  return 'Passwords don\'t match!';
+                                  return 'كلمة السر لا تتطابق مع الأساسية';
                                 return null;
                               }
                             : null,
@@ -304,7 +304,7 @@ class _AuthCardState extends State<AuthCard>
                 ),
                 TextButton(
                   child: Text(
-                      '${_authMode == AuthMode.Login ? 'SIGNUP' : 'LOGIN'} INSTEAD'),
+                      '${_authMode == AuthMode.Login ? 'أنشاء حساب' : 'تسجيل الدخول'} بدلا من ذلك'),
                   onPressed: _switchAuthMode,
                   style: TextButton.styleFrom(
                     padding:
@@ -322,7 +322,7 @@ class _AuthCardState extends State<AuthCard>
 
   ElevatedButton _buildElevatedButton() {
     return ElevatedButton(
-      child: Text(_authMode == AuthMode.Login ? 'LOGIN' : 'SIGNUP'),
+      child: Text(_authMode == AuthMode.Login ? 'تسجيل الدخول' : 'أنشاء حساب'),
       onPressed: _submit,
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

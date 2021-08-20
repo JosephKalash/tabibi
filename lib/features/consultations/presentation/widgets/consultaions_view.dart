@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tabibi/core/utils/loading_list.dart';
 import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
 import 'package:tabibi/features/consultations/presentation/pages/add_consultations.dart';
 
@@ -40,7 +41,7 @@ class _ConsultationsViewState extends State<ConsultationsView> {
       body: BlocBuilder<ConsultationCubit, ConsultationState>(
         builder: (_, state) {
           if (state is Loading)
-            return CircularProgressIndicator();
+            return Center(child: LoadingListPage());
           else if (state is ErrorState)
             return Center(child: Text(state.message));
           else if (state is GotConsultations)
@@ -53,6 +54,7 @@ class _ConsultationsViewState extends State<ConsultationsView> {
             return Center(child: Text('الرجاء التجربة لاحقا'));
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: widget._kind == Kind.GetMyCons
           ? FloatingActionButton(
               child: Icon(

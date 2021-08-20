@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tabibi/features/authentication/presentation/pages/auth_screen.dart';
+import 'package:tabibi/features/consultations/presentation/pages/display_consultation_page.dart';
 import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
 import 'package:tabibi/features/doctors/presentation/pages/doctor_profile.dart';
 import 'package:tabibi/features/doctors/presentation/pages/reservations_screen.dart';
@@ -64,8 +66,10 @@ class MyApp extends StatelessWidget {
           AppScreen.pathName: (_) => AppScreen(),
           AddConsultaionScreen.pathName: (_) => AddConsultaionScreen(),
           ConsultationsTabsScreen.pathName: (_) => ConsultationsTabsScreen(),
+          DisplayConsultationScreen.pathName: (_) =>
+              DisplayConsultationScreen(),
           ReservationsScreen.pathName: (_) => ReservationsScreen(),
-          DoctorProfileScreen.pathName:(_)=>DoctorProfileScreen(),
+          DoctorProfileScreen.pathName: (_) => DoctorProfileScreen(),
         },
       ),
     );

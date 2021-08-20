@@ -30,9 +30,9 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             height: MediaQuery.of(context).size.height / 4,
             child: Hero(
               tag: kDoctorImageKey,
-              child: _doctor.imagePath == null || _doctor.imagePath!.isEmpty
+              child: _doctor.imagePath == null
                   ? Image.asset(
-                      'assets/images/person.png',
+                      'assets/images/doctor.png',
                       fit: BoxFit.cover,
                     )
                   : Image.network(

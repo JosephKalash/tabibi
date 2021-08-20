@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/app.dart';
+import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/authentication/domain/entities/user.dart';
 import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
 
@@ -13,9 +15,9 @@ class UserInfoScreen extends StatelessWidget {
   final _number = FocusNode();
   User? user;
   String name = '', phone = '';
-  double age = 0;
+  int age = 0;
 
-  void _submit(context) {
+  Future<void> _submit(context) async {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
@@ -26,6 +28,11 @@ class UserInfoScreen extends StatelessWidget {
     user!.name = name;
     user!.age = age;
     user!.phoneNumber = phone;
+    final preferences = await SharedPreferences.getInstance();
+    preferences.setString(kUserName, name);
+    preferences.setInt(kUserAge, age);
+    preferences.setString(kUserPhoneNumber, phone);
+
     Navigator.of(context).pushReplacementNamed(AppScreen.pathName);
   }
 
@@ -83,7 +90,7 @@ class UserInfoScreen extends StatelessWidget {
                             keyboardType: TextInputType.number,
                             focusNode: _age,
                             onSaved: (value) {
-                              age = double.parse(value!);
+                              age = int.parse(value!);
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty)
@@ -130,22 +137,16 @@ class UserInfoScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 12),
-                    BlocBuilder<AuthCubit, AuthState>(
-                      builder: (_, state) {
-                        if (state is LoadingState)
-                          return CircularProgressIndicator();
-                        return ElevatedButton(
-                          child: Text('حفظ'),
-                          onPressed: () => _submit(context),
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            primary: Colors.blue.shade800,
-                            elevation: 8,
-                          ),
-                        );
-                      },
+                    ElevatedButton(
+                      child: Text('حفظ'),
+                      onPressed: () => _submit(context),
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        primary: Colors.blue.shade800,
+                        elevation: 8,
+                      ),
                     ),
                   ],
                 ),

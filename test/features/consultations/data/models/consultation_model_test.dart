@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tabibi/core/utils/constaints.dart';
+import 'package:tabibi/features/consultations/data/models/cons_response_model.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 
 import '../../../../fixtures/fixture_reader.dart';
@@ -12,6 +13,11 @@ void main() {
     'title',
     'content',
     DateTime.parse('2020-10-10'),
+    consResponse: ConsResponseModel(
+      'response',
+      'doctorName',
+      DateTime.parse('2020-11-11'),
+    ),
   );
   test(
     'should parse json object',
@@ -28,7 +34,7 @@ void main() {
     'should convert to json',
     () async {
       //arrange
-      final map = json.decode(getJson('ConsultationPure.json'));
+      final map = json.decode(getJson('consultationPure.json'));
       //act
       final result = consultation.toJson();
       //assert

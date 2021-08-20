@@ -34,7 +34,7 @@ class MockLogout extends _i1.Mock implements _i3.Logout {
   }
 
   @override
-  void call(_i4.User? user) =>
+  Future<void> call(_i4.User? user) =>
       super.noSuchMethod(Invocation.method(#call, [user]),
           returnValueForMissingStub: null);
 }

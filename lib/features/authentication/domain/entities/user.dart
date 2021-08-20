@@ -7,7 +7,7 @@ class User extends Equatable {
   DateTime? expiryTime;
   String? name;
   String? phoneNumber;
-  double? age;
+  int? age;
 
   User(
     this.userId,

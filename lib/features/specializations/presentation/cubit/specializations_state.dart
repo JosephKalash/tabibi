@@ -7,6 +7,8 @@ abstract class SpecializationsState extends Equatable {
   List<Object> get props => [];
 }
 
+class LoadingSpci extends SpecializationsState{}
+
 class SpecializationsInitial extends SpecializationsState {}
 
 class GotSpecials extends SpecializationsState {

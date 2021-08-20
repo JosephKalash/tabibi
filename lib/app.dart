@@ -12,27 +12,17 @@ class _AppScreenState extends State<AppScreen>
   TabController? _tabController;
 
   final _tabPages = <Widget>[
-    Center(child: Icon(Icons.home_outlined)),
+    Center(child: Icon(Icons.person_outlined)),
     Center(child: Icon(Icons.center_focus_strong)),
     ConsultationsTabsScreen(),
   ];
 
   final _tabs = <Tab>[
+    Tab(child: Icon(Icons.person_outline, color: Colors.blue.shade900)),
     Tab(
-        child: Icon(
-      Icons.home_outlined,
-      color: Colors.blue.shade900,
-    )),
-    Tab(
-        child: Icon(
-      Icons.local_hospital_outlined,
-      color: Colors.blue.shade900,
-    )),
-    Tab(
-        child: Icon(
-      Icons.ballot_outlined,
-      color: Colors.blue.shade900,
-    )),
+        child:
+            Icon(Icons.local_hospital_outlined, color: Colors.blue.shade900)),
+    Tab(child: Icon(Icons.ballot_outlined, color: Colors.blue.shade900)),
   ];
 
   @override

@@ -2,5 +2,6 @@
     "clinicSpecialization":"clinic",
     "title":"title",
     "content":"content",
-    "consultationDate":"2020-10-10"
+    "consultationDate":"2020-10-10",
+    "response":null
 }

@@ -3,7 +3,10 @@
     "title":"title",
     "content":"content",
     "consultationDate":"2020-10-10",
-    "response" :"respo",
-    "doctorName":"doc",
-    "responseDate":"2020-11-11"
+    "response":
+    {
+        "answer" :"response",
+        "doctorName":"doctor",
+        "responseDate":"2020-11-11"
+    }
 }

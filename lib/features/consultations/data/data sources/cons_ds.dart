@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tabibi/core/error/excpetions.dart';
 import 'package:tabibi/core/error/failures.dart';
 import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
@@ -65,7 +66,6 @@ class ConsultationDSImpl extends ConsultationDS {
 
   @override
   Future<List<Consultation>> getMyConsultations(String userId) {
-    //get userid from prefernces
-    throw UnimplementedError();
+    throw ServerException();
   }
 }

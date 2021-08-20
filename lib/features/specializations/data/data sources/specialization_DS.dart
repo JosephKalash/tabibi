@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tabibi/core/error/excpetions.dart';
 import 'package:tabibi/core/utils/constaints.dart';
+import 'package:tabibi/features/specializations/data/models/specialization_model.dart';
 import 'package:tabibi/features/specializations/domain/entities/specialization.dart';
 
 abstract class SpecializationDS {
@@ -18,7 +19,8 @@ class SpecialztionDSImpl extends SpecializationDS {
     if (response.statusCode == 200) {
       final data = response.data;
       final list = data['list'] as List<dynamic>;
-      return [];
+      final specis = list.map((e) => SpecializationModel.fromJson(e)).toList();
+      return specis;
     } else
       throw HttpException('خطأ اثناء الاتصال بالمخدم');
   }

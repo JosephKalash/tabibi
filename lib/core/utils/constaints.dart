@@ -23,7 +23,11 @@ const kTokenKey = 'idToken';
 const kExpiresInKey = 'expiresIn';
 const kUsername = 'username';
 const kPassword = 'password';
+const kUserAge = 'age';
+const kUserName = 'name';
+const kUserPhoneNumber = 'phoneNumber';
 
+const kconsAnswer = 'answer';
 const kConResponse = 'response';
 const kDoctorName = 'doctorName';
 const kResponseDate = 'responseDate';
@@ -37,7 +41,7 @@ const kAddConsRspo = 'success';
 const kAddConsErrorMessage = 'Unable to add your consultation, try again';
 const kJsonErrorKey = 'message';
 
-const kSmallSize = 10.0;
+const kSmallSize = 12.0;
 
 const kSpeciName = 'name';
 const kSpeciValue = 'value';

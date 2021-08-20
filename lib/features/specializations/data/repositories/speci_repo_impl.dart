@@ -1,10 +1,11 @@
-import 'package:tabibi/core/error/excpetions.dart';
-import 'package:tabibi/core/network/internet_info.dart';
-import 'package:tabibi/features/specializations/data/data%20sources/specialization_DS.dart';
-import 'package:tabibi/features/specializations/domain/entities/specialization.dart';
-import 'package:tabibi/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
-import 'package:tabibi/features/specializations/domain/repositories/special_repo.dart';
+
+import '../../../../core/error/excpetions.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/network/internet_info.dart';
+import '../../domain/entities/specialization.dart';
+import '../../domain/repositories/special_repo.dart';
+import '../data%20sources/specialization_DS.dart';
 
 class SpeciRepoImpl extends SpecialRepo {
   final InternetInfo _internetInfo;

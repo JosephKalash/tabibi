@@ -15,7 +15,7 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('الحجزات'),
+        title: Text('الحجوزات'),
       ),
       body: BlocBuilder<ReservationsCubit, ReservationsState>(
         builder: (_, state) {

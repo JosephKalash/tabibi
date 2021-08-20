@@ -12,6 +12,8 @@ class SpecializationsCubit extends Cubit<SpecializationsState> {
   SpecializationsCubit(this._getSpecials) : super(SpecializationsInitial());
 
   Future<void> getSpecializations() async {
+    emit(LoadingSpci());
+    
     final either = await _getSpecials();
     either.fold(
       (error) {

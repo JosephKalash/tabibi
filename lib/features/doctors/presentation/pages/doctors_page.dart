@@ -1,11 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
-import 'package:tabibi/features/doctors/presentation/pages/reservations_screen.dart';
-import 'package:tabibi/features/doctors/presentation/widgets/DoctorsGrid.dart';
 
-class DoctorsScreen extends StatelessWidget {
+import '../cubit/doctors_cubit.dart';
+import '../widgets/DoctorsGrid.dart';
+import 'reservations_screen.dart';
+
+class DoctorsScreen extends StatefulWidget {
   static const pathName = '/doctors';
+
+  @override
+  _DoctorsScreenState createState() => _DoctorsScreenState();
+}
+
+class _DoctorsScreenState extends State<DoctorsScreen> {
+  bool _initWidget = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_initWidget) {
+      final cubit = 
+      _initWidget = false;
+    }
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
