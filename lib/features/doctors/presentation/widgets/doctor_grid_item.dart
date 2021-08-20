@@ -11,26 +11,51 @@ class DoctorGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
-      child: GestureDetector(
-        onTap: () {
-          final doctor = DoctorModel.fromParent(_doctor);
-          Navigator.of(context).pushNamed(
-            DoctorProfileScreen.pathName,
-            arguments: doctor.toJson(),
-          );
-        },
-        child: Hero(
-          tag: kDoctorImageKey,
-          child: _doctor.imagePath == null || _doctor.imagePath!.isEmpty
-              ? Image.asset('assets/images/doctor.png')
-              : Image.network(_doctor.imagePath!),
-        ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: Colors.blue.shade100, width: 1),
+        borderRadius: BorderRadius.circular(10),
       ),
-      footer: GridTileBar(
-        backgroundColor: Colors.white,
-        title: Text(_doctor.name),
-        subtitle: Text(_doctor.specialization),
+      child: GridTile(
+        child: GestureDetector(
+          onTap: () {
+            final doctor = DoctorModel.fromParent(_doctor);
+            Navigator.of(context).pushNamed(
+              DoctorProfileScreen.pathName,
+              arguments: doctor.toJson(),
+            );
+          },
+          child: Hero(
+            tag: kDoctorImageKey,
+            child: _doctor.imagePath == null || _doctor.imagePath!.isEmpty
+                ? Image.asset(
+                    'assets/images/doctor.png',
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    _doctor.imagePath!,
+                    fit: BoxFit.cover,
+                  ),
+          ),
+        ),
+        footer: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              Text(
+                _doctor.name,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                _doctor.specialization,
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

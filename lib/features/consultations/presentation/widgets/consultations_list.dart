@@ -43,7 +43,6 @@ class ConsultationsList extends StatelessWidget {
         'content',
         date,
       ),
-     
     ];
     return ListView.builder(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),

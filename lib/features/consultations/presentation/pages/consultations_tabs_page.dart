@@ -6,7 +6,7 @@ class ConsultationsTabsScreen extends StatelessWidget {
   static const pathName = '\consultations';
 
   final _kTabPages = <Widget>[
-    ConsultationsList([]),//consultationsView(Kind.GetCons)
+    ConsultationsList([]), //consultationsView(Kind.GetCons)
     ConsultationsView(Kind.GetMyCons),
   ];
 
@@ -20,8 +20,11 @@ class ConsultationsTabsScreen extends StatelessWidget {
     return DefaultTabController(
       length: _kTabs.length,
       child: Scaffold(
+        backgroundColor: Colors.blue,
         appBar: AppBar(
+          elevation: 0,
           bottom: TabBar(
+            indicatorColor: Colors.transparent,
             tabs: _kTabs,
           ),
           actions: [
@@ -31,7 +34,10 @@ class ConsultationsTabsScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: TabBarView(children: _kTabPages),
+        body: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: _kTabPages,
+        ),
       ),
     );
   }

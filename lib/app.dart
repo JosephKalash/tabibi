@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tabibi/features/consultations/presentation/pages/consultations_tabs_page.dart';
 
+import 'features/doctors/presentation/widgets/DoctorsGrid.dart';
+
 class AppScreen extends StatefulWidget {
   static const pathName = '/app';
   @override
@@ -13,7 +15,7 @@ class _AppScreenState extends State<AppScreen>
 
   final _tabPages = <Widget>[
     Center(child: Icon(Icons.person_outlined)),
-    Center(child: Icon(Icons.center_focus_strong)),
+    DoctorsGrid([]),
     ConsultationsTabsScreen(),
   ];
 

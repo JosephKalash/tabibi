@@ -18,10 +18,15 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   @override
   void didChangeDependencies() {
     if (_initWidget) {
-      final cubit = 
+      _fetchDoctors();
       _initWidget = false;
     }
     super.didChangeDependencies();
+  }
+
+  void _fetchDoctors() {
+    final cubit = BlocProvider.of<DoctorsCubit>(context);
+    cubit.getDoctors();
   }
 
   @override

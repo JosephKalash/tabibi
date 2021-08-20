@@ -38,21 +38,34 @@ class _ConsultationsViewState extends State<ConsultationsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ConsultationCubit, ConsultationState>(
-        builder: (_, state) {
-          if (state is Loading)
-            return Center(child: LoadingListPage());
-          else if (state is ErrorState)
-            return Center(child: Text(state.message));
-          else if (state is GotConsultations)
-            return ConsultationsList(state.consultations);
-          else if (state is GotMyConsultations)
-            return ConsultationsList(state.consultations);
-          else if (state is GotConsultationsBySpeci)
-            return ConsultationsList(state.consultations);
-          else
-            return Center(child: Text('الرجاء التجربة لاحقا'));
-        },
+      backgroundColor: Colors.blue,
+      body: Container(
+        color: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: BlocBuilder<ConsultationCubit, ConsultationState>(
+            builder: (_, state) {
+              if (state is Loading)
+                return Center(child: LoadingListPage());
+              else if (state is ErrorState)
+                return Center(child: Text(state.message));
+              else if (state is GotConsultations)
+                return ConsultationsList(state.consultations);
+              else if (state is GotMyConsultations)
+                return ConsultationsList(state.consultations);
+              else if (state is GotConsultationsBySpeci)
+                return ConsultationsList(state.consultations);
+              else
+                return Center(child: Text('الرجاء التجربة لاحقا'));
+            },
+          ),
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: widget._kind == Kind.GetMyCons

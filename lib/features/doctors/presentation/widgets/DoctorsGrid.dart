@@ -4,19 +4,71 @@ import 'package:tabibi/features/doctors/domain/entities/doctor.dart';
 import 'doctor_grid_item.dart';
 
 class DoctorsGrid extends StatelessWidget {
-  final List<Doctor> _doctors;
+  final List<Doctor> doctors;
 
-  DoctorsGrid(this._doctors);
-  
+  DoctorsGrid(this.doctors);
+  List<Doctor> _doctors = [
+    Doctor(
+      'id',
+      'محدم هبي مسب',
+      'داخلية',
+      'دمشق رك ين',
+    ),
+    Doctor(
+      'id',
+      'يب  هيبيبي ',
+      ' عصبية داخلية',
+      'دمشق رك ',
+    ),
+    Doctor(
+      'id',
+      'علي حسن طاهر',
+      'بيبمن نبم',
+      'دمشق رك ين',
+    ),
+    Doctor(
+      'id',
+      'النبي تلتيسي ',
+      ' بييبداخلية',
+      'دمشق رك ين',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 24,
-          crossAxisSpacing: 18,
-          childAspectRatio: 3 / 5,
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('الأطباء'),
+        centerTitle: true,
+      ),
+      body: Container(
+        color: Colors.transparent,
+        padding: EdgeInsets.only(top: 24),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GridView.builder(
+              itemCount: _doctors.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 26,
+                crossAxisSpacing: 16,
+                childAspectRatio: 1,
+              ),
+              itemBuilder: (_, i) => DoctorGridItem(_doctors[i]),
+            ),
+          ),
         ),
-        itemBuilder: (_, i) => DoctorGridItem(_doctors[i]));
+      ),
+    );
   }
 }

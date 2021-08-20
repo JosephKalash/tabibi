@@ -11,6 +11,21 @@ class ReservationsScreen extends StatefulWidget {
 }
 
 class _ReservationsScreenState extends State<ReservationsScreen> {
+  bool _initWidget = true;
+  @override
+  void didChangeDependencies() {
+    if (_initWidget) {
+      _fetchReservations();
+      _initWidget = false;
+    }
+    super.didChangeDependencies();
+  }
+
+  void _fetchReservations() {
+    final cubit = BlocProvider.of<ReservationsCubit>(context);
+    cubit.getReservations();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
