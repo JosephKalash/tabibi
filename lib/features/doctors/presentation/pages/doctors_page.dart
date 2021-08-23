@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
 
 import '../cubit/doctors_cubit.dart';
 import '../widgets/DoctorsGrid.dart';
 import 'reservations_screen.dart';
 
 class DoctorsScreen extends StatefulWidget {
-  static const pathName = '/doctors';
-
   @override
   _DoctorsScreenState createState() => _DoctorsScreenState();
 }
@@ -32,7 +31,10 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue,
       appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
         title: Text('الأطباء'),
         actions: [
           IconButton(
@@ -43,17 +45,20 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           ),
         ],
       ),
-      body: BlocBuilder<DoctorsCubit, DoctorsState>(
-        builder: (_, state) {
-          if (state is Loading)
-            return CircularProgressIndicator();
-          else if (state is GotDoctors)
-            return DoctorsGrid(state.doctors);
-          else if (state is DoctorError)
-            return Center(child: Text(state.message));
-          else
-            return Center(child: Text('فشل في الأتصال بالمخدم'));
-        },
+      body: TopEdgesContainer(
+        topPadding: 24,
+        child: BlocBuilder<DoctorsCubit, DoctorsState>(
+          builder: (_, state) {
+            if (state is Loading)
+              return CircularProgressIndicator();
+            else if (state is GotDoctors)
+              return DoctorsGrid(state.doctors);
+            else if (state is DoctorError)
+              return Center(child: Text(state.message));
+            else
+              return Center(child: Text('فشل في الأتصال بالمخدم'));
+          },
+        ),
       ),
     );
   }

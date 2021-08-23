@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tabibi/features/doctors/data/models/doctor_model.dart';
 
-import '../../../../core/utils/constaints.dart';
+import '../../data/models/doctor_model.dart';
 import '../../domain/entities/doctor.dart';
 import '../widgets/reservation_form.dart';
 
@@ -31,7 +30,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
             child: Hero(
               tag: _doctor.id,
               child: Image.asset(
-                'assets/images/doctorL.png',
+                'assets/images/doctorlarge.png',
                 fit: BoxFit.cover,
               ),
             ),

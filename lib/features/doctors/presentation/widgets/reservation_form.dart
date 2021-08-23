@@ -1,12 +1,11 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tabibi/core/utils/constaints.dart';
-import 'package:tabibi/features/reservations/domain/entities/reservation.dart';
-import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
+
+import '../../../../core/utils/constaints.dart';
+import '../../../reservations/domain/entities/reservation.dart';
+import '../../../reservations/presentation/cubit/reservations_cubit.dart';
 
 class AddReservationForm extends StatefulWidget {
   final _doctorId;
@@ -20,19 +19,20 @@ class AddReservationForm extends StatefulWidget {
 
 class _AddReservationFormState extends State<AddReservationForm> {
   DateTime? _reservDate;
-  ReservationType? _type;
 
   Future<void> _submit() async {
-    if (_reservDate == null) _snackbar('الرجاء اختيار تاريخ الحجز');
+    if (_reservDate == null) {
+      _showErrorToast('الرجاء اختيار تاريخ الحجز');
+      return;
+    }
 
     SharedPreferences shared = await SharedPreferences.getInstance();
-    final map = json.decode(shared.getString(kauthPref) ?? '');
+    final token = shared.getString(kTokenKey) ?? '';
 
-    Reservation reservation = Reservation(
+    final reservation = Reservation(
       widget._doctorId,
-      map[kUserIdKey],
+      token,
       _reservDate!,
-      _type ?? ReservationType.None,
     );
 
     final reservCubit = BlocProvider.of<ReservationsCubit>(context);
@@ -42,103 +42,92 @@ class _AddReservationFormState extends State<AddReservationForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 270,
-      padding: const EdgeInsets.all(8.0),
+      height: 210,
+      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 22),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blue, width: 2.0),
-        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: Colors.blue, width: 3.0),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text('اضافة حجز جديد'),
-          SizedBox(height: 4),
+          Text(
+            'اضف موعد الحجز:',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+          SizedBox(height: 12),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  elevation: 8,
-                  primary: Colors.blue,
+              SizedBox(
+                width: MediaQuery.of(context).size.width / 2 - 22,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 8,
+                    primary: Colors.red,
+                  ),
+                  onPressed: () {
+                    showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(Duration(days: 30)),
+                    ).then(
+                      (DateTime? value) {
+                        if (value != null) {
+                          setState(() {
+                            _reservDate = value;
+                          });
+                        }
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.date_range_outlined),
+                  label: Text('موعد الحجز'),
                 ),
-                onPressed: () {
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime.now().add(Duration(days: 30)),
-                  ).then(
-                    (DateTime? value) {
-                      if (value != null) {
-                        _reservDate = value;
-                      }
-                    },
-                  );
-                },
-                icon: Icon(Icons.date_range_outlined),
-                label: Text('موعد الحجز'),
               ),
-              SizedBox(width: 10),
+              SizedBox(width: 24),
               _reservDate == null
                   ? SizedBox()
-                  : Text(_getArabicDate(_reservDate!)),
-            ],
-          ),
-          SizedBox(height: 4),
-          Row(
-            children: [
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(primary: Colors.red.shade700),
-                onPressed: () async {
-                  showDialog<ReservationType>(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text('اختر نوع الحجز'),
-                      content: Column(
-                        children: ReservationType.values
-                            .map((e) => Row(
-                                  children: [
-                                    Radio<ReservationType>(
-                                      value: e,
-                                      groupValue: ReservationType.None,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          _type = value;
-                                        });
-                                      },
-                                    ),
-                                    Text(_getArabicReservationType(e)),
-                                  ],
-                                ))
-                            .toList(),
+                  : Text(
+                      _getArabicDate(_reservDate!),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  );
-                },
-                icon: Icon(Icons.list_alt_outlined),
-                label: Text('نوع الحجز'),
-              ),
-              SizedBox(width: 10),
-              _type == null
-                  ? SizedBox()
-                  : Text(_getArabicReservationType(_type!)),
             ],
           ),
-          SizedBox(height: 4),
-          BlocBuilder<ReservationsCubit, ReservationsState>(
+          SizedBox(height: 14),
+          BlocConsumer<ReservationsCubit, ReservationsState>(
+            listener: (_, state) {
+              if (state is ReservationError)
+                _showErrorToast(state.message);
+              else if (state is AddedReservation) {
+                if (state.isSuccess)
+                  Navigator.of(context).pop(widget._context);
+                else
+                  _showErrorToast('لم ينجح تثبيت الحجز جرب مرة أخرى');
+              }
+            },
             builder: (_, state) {
-              if (state is Loading)
-                return CircularProgressIndicator();
-              else if (state is ReservationError)
-                _snackbar(state.message);
-              else if (state is AddedReservation)
-                Navigator.of(context).pop(widget._context);
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  elevation: 8,
-                ),
-                child: Text('ارسال'),
-                onPressed: _submit,
+              if (state is Loading) return CircularProgressIndicator();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      elevation: 8,
+                    ),
+                    child: Text('تثبيت الحجز'),
+                    onPressed: _submit,
+                  ),
+                ],
               );
             },
           ),
@@ -147,24 +136,12 @@ class _AddReservationFormState extends State<AddReservationForm> {
     );
   }
 
-  void _snackbar(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
-}
-
-String _getArabicReservationType(ReservationType type) {
-  String temp;
-  switch (type) {
-    default:
-      temp = 'أخر';
-  }
-  return temp;
+  void _showErrorToast(String message) {}
 }
 
 String _getArabicDate(DateTime dateTime) {
   final day = dateTime.weekday;
-  final date = DateFormat.MONTH_DAY;
+  final date = DateFormat('M/d').format(dateTime);
   String dayName;
   switch (day) {
     case 1:
@@ -192,5 +169,5 @@ String _getArabicDate(DateTime dateTime) {
       dayName = '';
       break;
   }
-  return '$dayName $date';
+  return '$dayName  $date';
 }

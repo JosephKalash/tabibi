@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tabibi/core/utils/loading_list.dart';
+import 'package:tabibi/core/utils/widgets/loading_list.dart';
+import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
 import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
 import 'package:tabibi/features/consultations/presentation/pages/add_consultations.dart';
 
@@ -39,32 +40,22 @@ class _ConsultationsViewState extends State<ConsultationsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
-      body: Container(
-        color: Colors.transparent,
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: BlocBuilder<ConsultationCubit, ConsultationState>(
-            builder: (_, state) {
-              if (state is Loading)
-                return Center(child: LoadingListPage());
-              else if (state is ErrorState)
-                return Center(child: Text(state.message));
-              else if (state is GotConsultations)
-                return ConsultationsList(state.consultations);
-              else if (state is GotMyConsultations)
-                return ConsultationsList(state.consultations);
-              else if (state is GotConsultationsBySpeci)
-                return ConsultationsList(state.consultations);
-              else
-                return Center(child: Text('الرجاء التجربة لاحقا'));
-            },
-          ),
+      body: TopEdgesContainer(
+        child: BlocBuilder<ConsultationCubit, ConsultationState>(
+          builder: (_, state) {
+            if (state is Loading)
+              return Center(child: LoadingListPage());
+            else if (state is ErrorState)
+              return Center(child: Text(state.message));
+            else if (state is GotConsultations)
+              return ConsultationsList(state.consultations);
+            else if (state is GotMyConsultations)
+              return ConsultationsList(state.consultations);
+            else if (state is GotConsultationsBySpeci)
+              return ConsultationsList(state.consultations);
+            else
+              return Center(child: Text('الرجاء التجربة لاحقا'));
+          },
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,

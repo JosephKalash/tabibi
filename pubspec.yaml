@@ -36,6 +36,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/doctor.png
+    - assets/images/doctorlarge.png
   fonts:
     - family: Lato
       fonts:
