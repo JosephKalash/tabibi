@@ -37,7 +37,16 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
         title: Text('الحجوزات'),
       ),
       body: TopEdgesContainer(
-        child: BlocBuilder<ReservationsCubit, ReservationsState>(
+        child: BlocConsumer<ReservationsCubit, ReservationsState>(
+          listener: (_, state) {
+            if (state is CanceledReservation) {
+              if (!state.isSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى')));
+              }
+              BlocProvider.of<ReservationsCubit>(context).getReservations();
+            }
+          },
           builder: (_, state) {
             if (state is Loading)
               return CircularProgressIndicator();
@@ -46,7 +55,7 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
             else if (state is ReservationError)
               return Center(child: Text(state.message));
             else
-              return Center(child: Text('خطأ غير متوقع, جرب مرة اخرى'));
+              return Center(child: Text('خطأ غير متوقع، جرب مرة اخرى'));
           },
         ),
       ),

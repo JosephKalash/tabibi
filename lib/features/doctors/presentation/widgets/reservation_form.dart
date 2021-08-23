@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tabibi/core/utils/funcs.dart';
 
 import '../../../../core/utils/constaints.dart';
 import '../../../reservations/domain/entities/reservation.dart';
@@ -60,7 +61,8 @@ class _AddReservationFormState extends State<AddReservationForm> {
           ),
           SizedBox(height: 12),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width / 2 - 22,
@@ -93,7 +95,7 @@ class _AddReservationFormState extends State<AddReservationForm> {
               _reservDate == null
                   ? SizedBox()
                   : Text(
-                      _getArabicDate(_reservDate!),
+                      getArabicDate(_reservDate!),
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -137,37 +139,4 @@ class _AddReservationFormState extends State<AddReservationForm> {
   }
 
   void _showErrorToast(String message) {}
-}
-
-String _getArabicDate(DateTime dateTime) {
-  final day = dateTime.weekday;
-  final date = DateFormat('M/d').format(dateTime);
-  String dayName;
-  switch (day) {
-    case 1:
-      dayName = 'الأثنين';
-      break;
-    case 2:
-      dayName = 'الثلاثاء';
-      break;
-    case 3:
-      dayName = 'الأربعاء';
-      break;
-    case 4:
-      dayName = 'الخميس';
-      break;
-    case 5:
-      dayName = 'الجمعة';
-      break;
-    case 6:
-      dayName = 'السبت';
-      break;
-    case 7:
-      dayName = 'الأحد';
-      break;
-    default:
-      dayName = '';
-      break;
-  }
-  return '$dayName  $date';
 }
