@@ -1,28 +1,22 @@
-import 'package:tabibi/core/utils/constaints.dart';
-import 'package:tabibi/features/consultations/data/models/cons_response_model.dart';
-import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
+import '../../../../core/utils/constaints.dart';
+import '../../domain/entities/consultation.dart';
+import 'cons_response_model.dart';
 
 // ignore: must_be_immutable
 class ConsultationModel extends Consultation {
   ConsultationModel(
-    
     clinicSpecialization,
     title,
     content,
-    DateTime date,
-     {
-    String? userId,
+    DateTime date, {
     int? patientAge,
     ConsResponseModel? consResponse,
-
   }) : super(
-  
           clinicSpecialization,
           title,
           content,
           date,
-          userId: userId,
-          patientAge:patientAge,
+          patientAge: patientAge,
           consResponse: consResponse,
         );
 
@@ -32,8 +26,7 @@ class ConsultationModel extends Consultation {
       json[kTitle],
       json[kContent],
       DateTime.parse(json[kConsDate]),
-      userId: json[kUserIdKey],
-      patientAge:json[kUserAge],
+      patientAge: json[kUserAge],
       consResponse: (json[kConResponse] != null && json[kConResponse] != {})
           ? ConsResponseModel.fromJson(json[kConResponse])
           : null,
@@ -45,8 +38,7 @@ class ConsultationModel extends Consultation {
       kTitle: title,
       kContent: content,
       kConsDate: date.toIso8601String(),
-      kUserIdKey:userId??null,
-      kUserAge:patientAge??null,
+      kUserAge: patientAge ?? null,
       kConResponse: consResponse == null
           ? null
           : {
@@ -64,7 +56,6 @@ class ConsultationModel extends Consultation {
       consultation.title,
       consultation.content,
       consultation.date,
-      userId:consultation.userId,
       patientAge: consultation.patientAge,
       consResponse: consultation.consResponse == null
           ? null

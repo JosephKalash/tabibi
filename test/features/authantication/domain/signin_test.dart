@@ -20,8 +20,7 @@ void main() {
       final password = 'j';
       final date = DateTime.now();
       final user = User(
-        username,
-        password,
+        'FAFJDL',
         date,
       );
       //arrange

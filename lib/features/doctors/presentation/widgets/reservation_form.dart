@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tabibi/core/utils/funcs.dart';
 
-import '../../../../core/utils/constaints.dart';
+import '../../../../core/utils/funcs.dart';
 import '../../../reservations/domain/entities/reservation.dart';
 import '../../../reservations/presentation/cubit/reservations_cubit.dart';
 
@@ -21,18 +18,14 @@ class AddReservationForm extends StatefulWidget {
 class _AddReservationFormState extends State<AddReservationForm> {
   DateTime? _reservDate;
 
-  Future<void> _submit() async {
+  void _submit() {
     if (_reservDate == null) {
       _showErrorToast('الرجاء اختيار تاريخ الحجز');
       return;
     }
 
-    SharedPreferences shared = await SharedPreferences.getInstance();
-    final token = shared.getString(kTokenKey) ?? '';
-
     final reservation = Reservation(
       widget._doctorId,
-      token,
       _reservDate!,
     );
 

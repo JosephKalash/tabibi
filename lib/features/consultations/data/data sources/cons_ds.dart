@@ -21,18 +21,15 @@ class ConsultationDSImpl extends ConsultationDS {
 
   ConsultationDSImpl(this.dio, this._sharedPreferences);
 
-  Map<String, dynamic> _getAuthFromPref() =>
-      json.decode(_sharedPreferences.getString(kauthPref) ?? '');
-
   @override
   Future<bool> addConsultation(Consultation consultation) async {
     final consModel = ConsultationModel.fromParent(consultation);
 
-    final map = _getAuthFromPref();
+    final token = _sharedPreferences.getString(kTokenKey);
 
     final response = await dio.post(
-      '$ADD_CONSUL_URL/${map[kUserIdKey]}',
-      queryParameters: {kKey: map[kTokenKey]},
+      ADD_CONSUL_URL,
+      queryParameters: {kKey: token},
       data: consModel.toJson(),
     );
     final data = response.data;
@@ -46,11 +43,11 @@ class ConsultationDSImpl extends ConsultationDS {
 
   @override
   Future<List<Consultation>> getConsultations() async {
-    final map = _getAuthFromPref();
+    final token = _sharedPreferences.getString(kTokenKey);
 
     final response = await dio.get(
       GET_CONSULS_URL,
-      queryParameters: {kKey: map[kTokenKey]},
+      queryParameters: {kKey: token},
     );
     final data = response.data;
     if (response.statusCode == 200) {

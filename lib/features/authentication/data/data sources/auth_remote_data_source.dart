@@ -38,11 +38,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     if (result.statusCode == 200) {
       final user = UserModel.fromJson(data);
 
-      final map = json.encode({
-        kTokenKey: user.token,
-        kUserIdKey: user.userId,
-      });
-      await _sharedPreferences.setString(kauthPref, map);
+      await _sharedPreferences.setString(kTokenKey, user.token);
 
       return user;
     }

@@ -19,18 +19,15 @@ class ReservationDSImpl extends ReservationDS {
 
   ReservationDSImpl(this._dio, this._preferences);
 
-  Map<String, dynamic> _getAuthFromPref() =>
-      json.decode(_preferences.getString(kauthPref) ?? '');
-
   @override
   Future<bool> addReservation(Reservation reservation) async {
     final reservModel = ReservationModel.fromParent(reservation);
 
-    final map = _getAuthFromPref();
+    final token = _preferences.getString(kTokenKey);
 
     final response = await _dio.post(
-      '$ADD_RESERVATION_URL/${map[kUserIdKey]}',
-      queryParameters: {kKey: map[kTokenKey]},
+      ADD_RESERVATION_URL,
+      queryParameters: {kKey: token},
       data: reservModel.toJson(),
     );
     if (response.statusCode == 200) {
@@ -50,11 +47,11 @@ class ReservationDSImpl extends ReservationDS {
 
   @override
   Future<List<Reservation>> getReservation() async {
-    final map = _getAuthFromPref();
+    final token = _preferences.getString(kTokenKey);
 
     final response = await _dio.get(
       GET_RESERVATION_URL,
-      queryParameters: {kKey: map[kTokenKey]},
+      queryParameters: {kKey: token},
     );
     if (response.statusCode == 200) {
       final data = response.data;

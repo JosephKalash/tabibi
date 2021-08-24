@@ -267,8 +267,8 @@ class _AuthCardState extends State<AuthCard>
                       position: _slideAnimation!,
                       child: TextFormField(
                         enabled: _authMode == AuthMode.Signup,
-                        decoration: const InputDecoration(
-                            labelText: 'تأكيد كلمة السر'),
+                        decoration:
+                            const InputDecoration(labelText: 'تأكيد كلمة السر'),
                         obscureText: true,
                         focusNode: _passwordAgainFocusNode,
                         validator: _authMode == AuthMode.Signup
@@ -291,8 +291,10 @@ class _AuthCardState extends State<AuthCard>
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (_, state) {
                     if (state is AuthenticatedState)
-                      Navigator.of(context)
-                          .pushNamed(UserInfoScreen.pathName);
+                      Navigator.of(context).pushNamed(
+                        UserInfoScreen.pathName,
+                        arguments: _authData['email'],
+                      );
                     else if (state is ErrorState)
                       _showErrorDialog(state.message);
                   },

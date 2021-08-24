@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,7 +15,6 @@ class UserInfoScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final _age = FocusNode();
   final _number = FocusNode();
-  User? user;
   String name = '', phone = '';
   int age = 0;
 
@@ -21,17 +22,16 @@ class UserInfoScreen extends StatelessWidget {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    final cubit = BlocProvider.of<AuthCubit>(context, listen: false);
-    final state = cubit.state;
-    if (state is AuthenticatedState) user = state.user;
-
-    user!.name = name;
-    user!.age = age;
-    user!.phoneNumber = phone;
+    final email = ModalRoute.of(context)?.settings.arguments;
     final preferences = await SharedPreferences.getInstance();
-    preferences.setString(kUserName, name);
-    preferences.setInt(kUserAge, age);
-    preferences.setString(kUserPhoneNumber, phone);
+    final data = json.encode({
+      kUserName: name,
+      kUserAge: age,
+      kUserPhoneNumber: phone,
+      kUserEmail: email,
+    });
+
+    await preferences.setString(kPersonInfoPref, data);
 
     Navigator.of(context).pushReplacementNamed(AppScreen.pathName);
   }

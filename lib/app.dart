@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tabibi/features/authentication/presentation/pages/user_info.dart';
 import 'package:tabibi/features/consultations/presentation/pages/consultations_tabs_page.dart';
+import 'package:tabibi/features/doctors/presentation/pages/doctors_page.dart';
 import 'package:tabibi/features/doctors/presentation/widgets/reservations_list.dart';
 
 import 'features/doctors/presentation/widgets/DoctorsGrid.dart';
+import 'features/userProfile/presentation/pages/user_profile.dart';
 
 class AppScreen extends StatefulWidget {
   static const pathName = '/app';
@@ -15,8 +18,8 @@ class _AppScreenState extends State<AppScreen>
   TabController? _tabController;
 
   final _tabPages = <Widget>[
-    Center(child: Icon(Icons.person_outlined)),
-    ReservationsList([]),
+    UserProfileScreen(),
+    DoctorsScreen(),
     ConsultationsTabsScreen(),
   ];
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tabibi/features/consultations/presentation/widgets/consultaions_view.dart';
-import 'package:tabibi/features/consultations/presentation/widgets/consultations_list.dart';
+
+import '../widgets/consultaions_view.dart';
 
 class ConsultationsTabsScreen extends StatelessWidget {
   static const pathName = '\consultations';
 
   final _kTabPages = <Widget>[
-    ConsultationsList([]), //consultationsView(Kind.GetCons)
+    ConsultationsView(Kind.GetConsultation),
     ConsultationsView(Kind.GetMyCons),
   ];
 

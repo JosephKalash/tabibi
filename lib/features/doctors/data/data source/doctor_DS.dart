@@ -17,16 +17,13 @@ class DoctorDSImpl extends DoctorDS {
 
   DoctorDSImpl(this._dio, this._preferences);
 
-  Map<String, dynamic> _getAuthFromPref() =>
-      json.decode(_preferences.getString(kauthPref) ?? '');
-
   @override
   Future<List<Doctor>> getDoctor() async {
-    final map = _getAuthFromPref();
+    final token = _preferences.getString(kTokenKey);
 
     final response = await _dio.get(
       DOCTORS_URL,
-      queryParameters: {kKey: map[kTokenKey]},
+      queryParameters: {kKey: token},
     );
     if (response.statusCode == 200) {
       final data = response.data;

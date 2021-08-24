@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart' as auth;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart'
+    as auth;
 import '../../../../core/utils/constaints.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/models/consultation_model.dart';
@@ -19,7 +23,6 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _data = {
-    kUserIdKey: '',
     kClinicSpecialization: '',
     kTitle: '',
     kContent: '',
@@ -29,24 +32,22 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
   @override
   void didChangeDependencies() {
     if (_initWidget) {
-      final cubit =
-          BlocProvider.of<SpecializationsCubit>(context);
+      final cubit = BlocProvider.of<SpecializationsCubit>(context);
       cubit.getSpecializations();
       _initWidget = false;
     }
     super.didChangeDependencies();
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    final authState = BlocProvider.of<auth.AuthCubit>(context, listen: false).state;
-    if (authState is auth.AuthenticatedState) {
-      _data[kUserIdKey] = authState.user.userId;
-      _data[kUserAge] = authState.user.age ?? 0;
-    }
-    
+    final preferences = await SharedPreferences.getInstance();
+    final map = json.decode(preferences.getString(kPersonInfoPref) ?? '');
+
+    _data[kUserAge] = map[kUserAge] ?? 0;
+
     final consultation = ConsultationModel.fromJson(_data);
 
     final cubit = BlocProvider.of<ConsultationCubit>(context);

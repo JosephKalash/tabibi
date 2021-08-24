@@ -16,10 +16,7 @@ void main() {
   final consultationDS = ConsultationDSImpl(dio, mockShard);
   final date = DateTime.now();
   void _setupPreferences() {
-    when(mockShard.getString(any)).thenReturn(json.encode({
-      kTokenKey: 'test',
-      kUserIdKey: 'test',
-    }));
+    when(mockShard.getString(any)).thenReturn('test');
   }
 
   group(
@@ -54,7 +51,7 @@ void main() {
           consultationDS.addConsultation(consultation);
           //assert
           verify(dio.post(
-            '$ADD_CONSUL_URL/test',
+            ADD_CONSUL_URL,
             queryParameters: {kKey: 'test'},
             data: consultation.toJson(),
           ));
@@ -138,7 +135,7 @@ void main() {
           consultationDS.getMyConsultations(userId);
           //assert
           verify(dio.get(
-            '$GET_MY_CONS_URL/$userId',
+            GET_MY_CONS_URL,
             queryParameters: {kKey: 'test'},
           ));
         },
@@ -165,51 +162,6 @@ void main() {
           final call = consultationDS.getMyConsultations;
           //assert
           expect(() => call(userId), throwsA(isA<HttpException>()));
-        },
-      );
-    },
-  );
-    group(
-    'get consultations by specialization',
-    () {
-      final specialization = 'test';
-      test(
-        'should make get requeset with proper prarmeters',
-        () async {
-          //arrange
-          _setupDioGetReq();
-          _setupPreferences();
-          //act
-          consultationDS.getConsultationsBySpeci(specialization);
-          //assert
-          verify(dio.get(
-            '$GET_MY_CONS_URL',
-            queryParameters: {kKey: 'test'},
-          ));
-        },
-      );
-      test(
-        'should get decode data from response.data correclty',
-        () async {
-          //arrange
-          _setupPreferences();
-          _setupDioGetReq();
-          //act
-          final result = await consultationDS.getConsultationsBySpeci(specialization);
-          //assert
-          expect(result, cons);
-        },
-      );
-      test(
-        'should throw HttpException when state code isn\'t 200',
-        () async {
-          //arrange
-          _setupDioGetReqFail();
-          _setupPreferences();
-          //act
-          final call = consultationDS.getConsultationsBySpeci;
-          //assert
-          expect(() => call(specialization), throwsA(isA<HttpException>()));
         },
       );
     },

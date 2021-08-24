@@ -22,11 +22,10 @@ void main() {
   final password = 'password';
 
   final response = {
-    kUserIdKey: '123',
     kTokenKey: '123',
   };
 
-  final user = UserModel('123', '123', null);
+  final user = UserModel('123', null);
 
   _setupDioPostSuccess() {
     when(mockDio.post(

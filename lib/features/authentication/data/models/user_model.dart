@@ -5,14 +5,12 @@ import '../../domain/entities/user.dart';
 // ignore: must_be_immutable
 class UserModel extends User {
   UserModel(
-    userId,
     token,
     expiryTime,
-  ) : super(userId, token, expiryTime);
+  ) : super( token, expiryTime);
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      json[kUserIdKey],
       json[kTokenKey],
       json[kExpiresInKey] == null || json[kExpiresInKey] == ''
           ? null
@@ -24,7 +22,6 @@ class UserModel extends User {
   Map<String, dynamic> toJson() {
     return {
       kTokenKey: token,
-      kUserIdKey: userId,
       kExpiresInKey: expiryTime?.toIso8601String(),
     };
   }

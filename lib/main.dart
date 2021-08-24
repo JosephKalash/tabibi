@@ -7,6 +7,7 @@ import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
 import 'package:tabibi/features/doctors/presentation/pages/doctor_profile.dart';
 import 'package:tabibi/features/doctors/presentation/pages/reservations_screen.dart';
 import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
+import 'package:tabibi/features/userProfile/presentation/cubit/userprofile_cubit.dart';
 
 import 'app.dart';
 import 'features/authentication/presentation/cubit/auth_cubit.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => inj.gi<DoctorsCubit>(),
+        ),
+        BlocProvider(
+          create: (_) => inj.gi<UserprofileCubit>(),
         ),
       ],
       child: MaterialApp(

@@ -16,9 +16,8 @@ const CANCEL_RESERVATION_URL = 'https://F';
 const DOCTORS_URL = 'https://f';
 
 const kKey = 'key';
-const kauthPref = 'auth';
+const kPersonInfoPref = 'person';
 
-const kUserIdKey = 'localId';
 const kTokenKey = 'idToken';
 const kExpiresInKey = 'expiresIn';
 const kUsername = 'username';
@@ -26,6 +25,7 @@ const kPassword = 'password';
 const kUserAge = 'age';
 const kUserName = 'name';
 const kUserPhoneNumber = 'phoneNumber';
+const kUserEmail = 'email';
 
 const kconsAnswer = 'answer';
 const kConResponse = 'response';

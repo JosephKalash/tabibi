@@ -3,7 +3,6 @@ import 'package:tabibi/features/consultations/domain/entities/cons_response.dart
 
 // ignore: must_be_immutable
 class Consultation extends Equatable {
-  String? userId;
   final clinicSpecialization;
   final title;
   final content;
@@ -16,14 +15,12 @@ class Consultation extends Equatable {
     this.title,
     this.content,
     this.date, {
-    this.userId,
     this.patientAge,
     ConsResponse? consResponse,
   });
 
   @override
   List<Object?> get props => [
-        userId,
         clinicSpecialization,
         title,
         content,

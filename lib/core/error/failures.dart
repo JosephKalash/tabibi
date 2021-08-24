@@ -5,21 +5,15 @@ class Failure extends Equatable {
   List<Object> get props => [];
 }
 
-class ServerFailure extends Failure {
-  @override
-  List<Object> get props => [];
-}
+class ServerFailure extends Failure {}
 
-class InternetFailure extends Failure {
-  @override
-  List<Object> get props => [];
-}
+class InternetFailure extends Failure {}
 
 class HttpFailure extends Failure {
   final message;
 
   HttpFailure(this.message);
 
-    @override
+  @override
   List<Object> get props => [message];
 }
