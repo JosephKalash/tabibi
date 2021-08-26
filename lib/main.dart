@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tabibi/features/authentication/presentation/pages/auth_screen.dart';
-import 'package:tabibi/features/consultations/presentation/pages/display_consultation_page.dart';
-import 'package:tabibi/features/doctors/presentation/cubit/doctors_cubit.dart';
-import 'package:tabibi/features/doctors/presentation/pages/doctor_profile.dart';
-import 'package:tabibi/features/doctors/presentation/pages/reservations_screen.dart';
-import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
-import 'package:tabibi/features/userProfile/presentation/cubit/userprofile_cubit.dart';
+import 'features/authentication/presentation/pages/auth_screen.dart';
+import 'features/consultations/presentation/pages/display_consultation_page.dart';
+import 'features/doctors/presentation/cubit/doctors_cubit.dart';
+import 'features/doctors/presentation/pages/doctor_profile.dart';
+import 'features/doctors/presentation/pages/reservations_screen.dart';
+import 'features/reservations/presentation/cubit/reservations_cubit.dart';
+import 'features/userProfile/presentation/cubit/userprofile_cubit.dart';
 
 import 'app.dart';
 import 'features/authentication/presentation/cubit/auth_cubit.dart';
@@ -64,6 +64,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Lato',
         ),
+        //make a func to check if there any token stored ?AppScreeen:AuthScreen
         home: AppScreen(),
         routes: {
           UserInfoScreen.pathName: (_) => UserInfoScreen(),

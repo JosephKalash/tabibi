@@ -37,6 +37,7 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
         title: Text('الحجوزات'),
       ),
       body: TopEdgesContainer(
+        topPadding: 24,
         child: BlocConsumer<ReservationsCubit, ReservationsState>(
           listener: (_, state) {
             if (state is CanceledReservation) {
