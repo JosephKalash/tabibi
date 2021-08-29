@@ -292,7 +292,7 @@ class _AuthCardState extends State<AuthCard>
                   listener: (_, state) {
                     if (state is AuthenticatedState)
                       Navigator.of(context).pushNamed(
-                        UserInfoScreen.pathName,
+                        UserInfoScreen.routeName,
                         arguments: _authData['email'],
                       );
                     else if (state is ErrorState)

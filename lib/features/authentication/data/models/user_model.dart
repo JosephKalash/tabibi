@@ -6,23 +6,16 @@ import '../../domain/entities/user.dart';
 class UserModel extends User {
   UserModel(
     token,
-    expiryTime,
-  ) : super( token, expiryTime);
+  ) : super(token);
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
       json[kTokenKey],
-      json[kExpiresInKey] == null || json[kExpiresInKey] == ''
-          ? null
-          : DateTime.now().add(Duration(
-              seconds: int.parse(json[kExpiresInKey]),
-            )),
     );
   }
   Map<String, dynamic> toJson() {
     return {
       kTokenKey: token,
-      kExpiresInKey: expiryTime?.toIso8601String(),
     };
   }
 }

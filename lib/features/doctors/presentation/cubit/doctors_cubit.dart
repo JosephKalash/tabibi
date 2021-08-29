@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:tabibi/core/utils/funcs.dart';
+import 'package:tabibi/features/doctors/domain/entities/doctor.dart';
 import 'package:tabibi/features/doctors/domain/usecases/get_doctors.dart';
 
 part 'doctors_state.dart';

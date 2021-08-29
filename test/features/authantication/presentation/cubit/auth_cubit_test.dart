@@ -4,6 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tabibi/core/error/failures.dart';
 import 'package:tabibi/features/authentication/domain/entities/user.dart';
+import 'package:tabibi/features/authentication/domain/usecases/auto_login.dart';
 import 'package:tabibi/features/authentication/domain/usecases/login.dart';
 import 'package:tabibi/features/authentication/domain/usecases/logout.dart';
 import 'package:tabibi/features/authentication/domain/usecases/signin.dart';
@@ -11,12 +12,13 @@ import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dar
 
 import 'auth_cubit_test.mocks.dart';
 
-@GenerateMocks([Logout, Login,Signin])
+@GenerateMocks([Logout, Login, Signin, AutoLogin])
 void main() {
   final login = MockLogin();
   final logout = MockLogout();
   final signin = MockSignin();
-  final cubit = AuthCubit(login, logout, signin);
+  final autoLogin = MockAutoLogin();
+  final cubit = AuthCubit(login, logout, signin,autoLogin);
   group(
     'signin',
     () {
@@ -25,7 +27,6 @@ void main() {
       final dateNow = DateTime.now();
       final user = User(
         '_token',
-        dateNow,
       );
       test(
         'should emits Loading then Error states when signin fails with ServerFailure',
@@ -43,7 +44,7 @@ void main() {
           verify(signin(username, password));
         },
       );
-      
+
       test(
         'should emits Loading then authenticated states when signin success\'',
         () async {

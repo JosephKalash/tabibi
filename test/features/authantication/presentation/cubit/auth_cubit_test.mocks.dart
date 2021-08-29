@@ -15,6 +15,9 @@ import 'package:tabibi/features/authentication/domain/usecases/logout.dart'
     as _i3;
 import 'package:tabibi/features/authentication/domain/usecases/signin.dart'
     as _i8;
+    import 'package:tabibi/features/authentication/domain/usecases/auto_login.dart'
+    as _i9;
+
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
@@ -33,10 +36,12 @@ class MockLogout extends _i1.Mock implements _i3.Logout {
     _i1.throwOnMissingStub(this);
   }
 
-  @override
-  Future<void> call(_i4.User? user) =>
-      super.noSuchMethod(Invocation.method(#call, [user]),
-          returnValueForMissingStub: null);
+}
+class MockAutoLogin extends _i1.Mock implements _i9.AutoLogin {
+  MockAutoLogin() {
+    _i1.throwOnMissingStub(this);
+  }
+
 }
 
 /// A class which mocks [Login].

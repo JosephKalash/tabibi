@@ -10,7 +10,7 @@ import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dar
 
 // ignore: must_be_immutable
 class UserInfoScreen extends StatelessWidget {
-  static final pathName = '/userInfo';
+  static final routeName = '/userInfo';
 
   final _formKey = GlobalKey<FormState>();
   final _age = FocusNode();
@@ -30,10 +30,9 @@ class UserInfoScreen extends StatelessWidget {
       kUserPhoneNumber: phone,
       kUserEmail: email,
     });
-
     await preferences.setString(kPersonInfoPref, data);
 
-    Navigator.of(context).pushReplacementNamed(AppScreen.pathName);
+    Navigator.of(context).pushReplacementNamed(AppScreen.routeName);
   }
 
   @override

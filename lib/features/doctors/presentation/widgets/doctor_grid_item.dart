@@ -20,7 +20,7 @@ class DoctorGridItem extends StatelessWidget {
           onTap: () {
             final doctor = DoctorModel.fromParent(_doctor);
             Navigator.of(context).pushNamed(
-              DoctorProfileScreen.pathName,
+              DoctorProfileScreen.routeName,
               arguments: doctor.toJson(),
             );
           },

@@ -5,7 +5,7 @@ import '../../../../fixtures/fixture_reader.dart';
 import 'dart:convert';
 
 void main() {
-  final user = UserModel( '123', null);
+  final user = UserModel( '123');
 
   test(
     'should decode json object correctly',

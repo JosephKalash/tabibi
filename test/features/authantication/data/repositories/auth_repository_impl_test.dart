@@ -19,7 +19,7 @@ void main() {
   final username = 'joseph';
   final password = '123546';
 
-  final user = User('_token', DateTime.now());
+  final user = User('_token');
 
   void setUpOnline() {
     when(internetInfo.isConnect).thenAnswer((_) async => true);

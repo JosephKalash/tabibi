@@ -9,7 +9,10 @@ abstract class ReservationsState extends Equatable {
 
 class ReservationsInitial extends ReservationsState {}
 
-class Loading extends ReservationsState {}
+class Loading extends ReservationsState {
+   @override
+  List<Object> get props => ['loading'];
+}
 
 class ReservationError extends ReservationsState {
   final message;
@@ -27,6 +30,7 @@ class AddedReservation extends ReservationsState {
   @override
   List<Object> get props => [isSuccess];
 }
+
 class CanceledReservation extends ReservationsState {
   final bool isSuccess;
 
@@ -37,7 +41,7 @@ class CanceledReservation extends ReservationsState {
 }
 
 class GotReservation extends ReservationsState {
-  final reservations;
+  final List<Reservation> reservations;
 
   GotReservation(this.reservations);
 

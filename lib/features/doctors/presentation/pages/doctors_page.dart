@@ -40,7 +40,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
           IconButton(
             icon: Icon(Icons.list_alt),
             onPressed: () {
-              Navigator.of(context).pushNamed(ReservationsScreen.pathName);
+              Navigator.of(context).pushNamed(ReservationsScreen.routeName);
             },
           ),
         ],

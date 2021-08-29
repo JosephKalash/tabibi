@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';
@@ -11,6 +9,7 @@ import '../../domain/entities/user.dart';
 abstract class AuthRemoteDataSource {
   Future<User> signinUser(String username, String password);
   Future<User> loginUser(String username, String password);
+  bool tryAutoLoginUser();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
@@ -33,7 +32,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
       url,
       data: {kUsername: username, kPassword: password},
     );
-    
+
     final data = result.data;
     if (result.statusCode == 200) {
       final user = UserModel.fromJson(data);
@@ -48,5 +47,14 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   @override
   Future<User> loginUser(String username, String password) async {
     return _authanticeUser(username, password, LOGIN_URL);
+  }
+
+  @override
+  bool tryAutoLoginUser() {
+    if (!_sharedPreferences.containsKey(kTokenKey)) return false;
+    
+    final token = _sharedPreferences.getString(kTokenKey);
+    if (token == null) return false;
+    return true;
   }
 }

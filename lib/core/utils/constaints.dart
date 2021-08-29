@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 
 const SIGNUP_URL = 'https://signUp';
 const LOGIN_URL = 'https://LOGIN?';

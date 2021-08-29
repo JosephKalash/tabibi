@@ -60,7 +60,7 @@ class _ReservationsListState extends State<ReservationsList> {
                 ),
                 onPressed: () async {
                   bool? confirmed = await _showDeleteDialoge(context);
-                  if (confirmed == null || confirmed == false) return;
+                  if (confirmed == null || !confirmed) return;
                   BlocProvider.of<ReservationsCubit>(
                     context,
                     listen: false,

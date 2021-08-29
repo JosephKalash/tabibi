@@ -1,25 +1,26 @@
 import 'package:dartz/dartz.dart';
-import 'package:tabibi/core/error/excpetions.dart';
-import 'package:tabibi/core/error/failures.dart';
-import 'package:tabibi/core/network/internet_info.dart';
-import 'package:tabibi/features/authentication/data/data%20sources/auth_remote_data_source.dart';
-import 'package:tabibi/features/authentication/domain/entities/user.dart';
-import 'package:tabibi/features/authentication/domain/repositories/auth_repository.dart';
+
+import '../../../../core/error/excpetions.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/network/internet_info.dart';
+import '../../domain/entities/user.dart';
+import '../../domain/repositories/auth_repository.dart';
+import '../data%20sources/auth_remote_data_source.dart';
 
 class AuthRepoImpl extends AuthRepository {
-  final InternetInfo internetInfo;
-  final AuthRemoteDataSource remoteDS;
+  final InternetInfo _internetInfo;
+  final AuthRemoteDataSource _remoteDS;
 
-  AuthRepoImpl(this.internetInfo, this.remoteDS);
+  AuthRepoImpl(this._internetInfo, this._remoteDS);
 
   @override
   Future<Either<Failure, User>> signin(String username, String password) async {
-    return _authantic(username, password, remoteDS.signinUser);
+    return _authantic(username, password, _remoteDS.signinUser);
   }
 
   Future<Either<Failure, User>> _authantic(
       String username, String password, Function call) async {
-    if (await internetInfo.isConnect) {
+    if (await _internetInfo.isConnect) {
       try {
         final user = await call(username, password);
         return Right(user);
@@ -35,6 +36,12 @@ class AuthRepoImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, User>> login(String username, String password) async {
-    return _authantic(username, password, remoteDS.loginUser);
+    return _authantic(username, password, _remoteDS.loginUser);
+  }
+
+  @override
+  bool tryAutoLogin() {
+    final isLogin = _remoteDS.tryAutoLoginUser();
+    return isLogin;
   }
 }

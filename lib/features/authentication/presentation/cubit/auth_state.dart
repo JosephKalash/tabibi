@@ -9,27 +9,27 @@ abstract class AuthState extends Equatable {
 
 class AuthInitial extends AuthState {}
 
-class LoadingState extends AuthState {}
+class LoadingState extends AuthState {
+  @override
+  List<Object> get props => ['loading'];
+}
 
 class AuthenticatedState extends AuthState {
-  final User _user;
+  final User user;
 
-  AuthenticatedState(this._user);
-
-  User get user => _user;
+  AuthenticatedState(this.user);
 
   @override
-  List<Object> get props => [_user];
+  List<Object> get props => [user];
 }
+
 class LogoutState extends AuthState {
-  final User _user;
+  final isSuccess;
 
-  LogoutState(this._user);
-
-  User get user => _user;
+  LogoutState(this.isSuccess);
 
   @override
-  List<Object> get props => [_user];
+  List<Object> get props => [isSuccess];
 }
 
 class ErrorState extends AuthState {
@@ -37,7 +37,6 @@ class ErrorState extends AuthState {
 
   ErrorState(this.message);
 
-   @override
-  List<Object> get props => [];
-
+  @override
+  List<Object> get props => [this.message];
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tabibi/features/authentication/domain/usecases/auto_login.dart';
 
 import 'core/network/internet_info.dart';
 import 'features/authentication/data/data%20sources/auth_remote_data_source.dart';
@@ -46,12 +47,13 @@ final gi = GetIt.instance;
 Future<void> init() async {
   //// Auth
   gi.registerFactory(
-    () => AuthCubit(gi(), gi(), gi()),
+    () => AuthCubit(gi(), gi(), gi(), gi()),
   );
 
   gi.registerLazySingleton(() => Login(gi()));
   gi.registerLazySingleton(() => Logout());
   gi.registerLazySingleton(() => Signin(gi()));
+  gi.registerLazySingleton(() => AutoLogin(gi()));
 
   gi.registerLazySingleton<AuthRepository>(
     () => AuthRepoImpl(gi(), gi()),
@@ -163,5 +165,6 @@ Future<void> init() async {
   gi.registerLazySingleton<PersonLocalDS>(
     () => PersonLocalDSImpl(gi()),
   );
+
   ///user profile end
 }

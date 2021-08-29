@@ -9,9 +9,15 @@ abstract class ConsultationState extends Equatable {
 
 class ConsultationInitial extends ConsultationState {}
 
-class Loading extends ConsultationState {}
+class Loading extends ConsultationState {
+   @override
+  List<Object> get props => ['loading'];
+}
 
-class AddedConsultation extends ConsultationState {}
+class AddedConsultation extends ConsultationState {
+   @override
+  List<Object> get props => ['addedCons'];
+}
 
 class _GotConsState extends ConsultationState {
   final consultations;
@@ -38,5 +44,5 @@ class ErrorState extends ConsultationState {
   ErrorState(this.message);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [this.message];
 }

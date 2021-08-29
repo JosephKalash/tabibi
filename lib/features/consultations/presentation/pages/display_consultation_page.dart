@@ -3,7 +3,7 @@ import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 
 class DisplayConsultationScreen extends StatelessWidget {
-  static const pathName = '/display_constultation';
+  static const routeName = '/display_constultation';
 
   @override
   Widget build(BuildContext context) {

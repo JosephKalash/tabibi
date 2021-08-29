@@ -21,7 +21,6 @@ void main() {
       final date = DateTime.now();
       final user = User(
         'FAFJDL',
-        date,
       );
       //arrange
       when(mockRepo.signin(any, any)).thenAnswer((_) async => Right(user));

@@ -9,7 +9,10 @@ abstract class DoctorsState extends Equatable {
 
 class DoctorsInitial extends DoctorsState {}
 
-class Loading extends DoctorsState {}
+class Loading extends DoctorsState {
+   @override
+  List<Object> get props => ['loading'];
+}
 
 class DoctorError extends DoctorsState {
   final message;
@@ -20,7 +23,7 @@ class DoctorError extends DoctorsState {
 }
 
 class GotDoctors extends DoctorsState {
-  final doctors;
+  final List<Doctor> doctors;
 
   GotDoctors(this.doctors);
 

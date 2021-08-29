@@ -67,7 +67,7 @@ class _ConsultationsViewState extends State<ConsultationsView> {
               ),
               backgroundColor: Colors.blue.shade900,
               onPressed: () {
-                Navigator.of(context).pushNamed(AddConsultaionScreen.pathName);
+                Navigator.of(context).pushNamed(AddConsultaionScreen.routeName);
               },
             )
           : null,

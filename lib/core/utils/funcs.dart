@@ -3,9 +3,9 @@ import 'package:tabibi/core/error/failures.dart';
 
 String getErrorMessage(Failure error) {
     if (error is ServerFailure)
-      return 'An error occurred on server!';
+      return 'خطأ بالاتصال بالمخدم!';
     else if (error is InternetFailure)
-      return 'There is no Internet connection!';
+      return 'لا يوجد اتصال بالشبكة!';
     else if (error is HttpFailure)
       return  error.message;
     else

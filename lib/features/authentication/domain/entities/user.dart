@@ -9,15 +9,15 @@ class User extends Equatable {
   int? age;
 
   User(
-    this.token,
+    this.token, {
     this.expiryTime,
-  );
+    this.name,
+    this.phoneNumber,
+    this.age,
+  });
 
   bool isAuth() => token.isNotEmpty;
-  
+
   @override
-  List<Object?> get props => [
-        token,
-        expiryTime?.toIso8601String(),
-      ];
+  List<Object?> get props => [token];
 }

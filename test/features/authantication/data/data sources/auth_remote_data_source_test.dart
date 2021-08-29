@@ -25,7 +25,7 @@ void main() {
     kTokenKey: '123',
   };
 
-  final user = UserModel('123', null);
+  final user = UserModel('123');
 
   _setupDioPostSuccess() {
     when(mockDio.post(

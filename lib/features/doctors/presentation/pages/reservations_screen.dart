@@ -5,7 +5,7 @@ import 'package:tabibi/features/doctors/presentation/widgets/reservations_list.d
 import 'package:tabibi/features/reservations/presentation/cubit/reservations_cubit.dart';
 
 class ReservationsScreen extends StatefulWidget {
-  static const pathName = '/reservations';
+  static const routeName = '/reservations';
 
   @override
   _ReservationsScreenState createState() => _ReservationsScreenState();

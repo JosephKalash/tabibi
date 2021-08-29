@@ -57,7 +57,7 @@ class ConsultationsList extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pushNamed(
-                  DisplayConsultationScreen.pathName,
+                  DisplayConsultationScreen.routeName,
                   arguments:
                       ConsultationModel.fromParent(_consultaions[i]).toJson(),
                 );

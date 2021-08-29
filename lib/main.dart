@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:tabibi/init_app.dart';
 import 'features/authentication/presentation/pages/auth_screen.dart';
 import 'features/consultations/presentation/pages/display_consultation_page.dart';
 import 'features/doctors/presentation/cubit/doctors_cubit.dart';
@@ -49,7 +50,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'tabibi',
         localizationsDelegates: [
           GlobalCupertinoLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -64,17 +65,17 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Lato',
         ),
-        //make a func to check if there any token stored ?AppScreeen:AuthScreen
-        home: AppScreen(),
+        home: InitApp(),
         routes: {
-          UserInfoScreen.pathName: (_) => UserInfoScreen(),
-          AppScreen.pathName: (_) => AppScreen(),
-          AddConsultaionScreen.pathName: (_) => AddConsultaionScreen(),
-          ConsultationsTabsScreen.pathName: (_) => ConsultationsTabsScreen(),
-          DisplayConsultationScreen.pathName: (_) =>
+          UserInfoScreen.routeName: (_) => UserInfoScreen(),
+          AppScreen.routeName: (_) => AppScreen(),
+          AddConsultaionScreen.routeName: (_) => AddConsultaionScreen(),
+          ConsultationsTabsScreen.routeName: (_) => ConsultationsTabsScreen(),
+          DisplayConsultationScreen.routeName: (_) =>
               DisplayConsultationScreen(),
-          ReservationsScreen.pathName: (_) => ReservationsScreen(),
-          DoctorProfileScreen.pathName: (_) => DoctorProfileScreen(),
+          ReservationsScreen.routeName: (_) => ReservationsScreen(),
+          DoctorProfileScreen.routeName: (_) => DoctorProfileScreen(),
+          AuthScreen.routeName:(_)=>AuthScreen(),
         },
       ),
     );

@@ -5,7 +5,7 @@ import '../../domain/entities/doctor.dart';
 import '../widgets/reservation_form.dart';
 
 class DoctorProfileScreen extends StatefulWidget {
-  static const pathName = '/doctorProfile';
+  static const routeName = '/doctorProfile';
 
   @override
   _DoctorProfileScreenState createState() => _DoctorProfileScreenState();

@@ -12,7 +12,7 @@ import '../cubit/consultation_cubit.dart';
 import '../../../specializations/presentation/cubit/specializations_cubit.dart';
 
 class AddConsultaionScreen extends StatefulWidget {
-  static const pathName = '/addConsultaion';
+  static const routeName = '/addConsultaion';
   @override
   _AddConsultaionScreenState createState() => _AddConsultaionScreenState();
 }

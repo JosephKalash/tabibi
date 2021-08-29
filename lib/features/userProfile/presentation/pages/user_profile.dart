@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
+import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
+import 'package:tabibi/features/authentication/presentation/pages/auth_screen.dart';
 import 'package:tabibi/features/userProfile/domain/entities/person.dart';
 import 'package:tabibi/features/userProfile/presentation/cubit/userprofile_cubit.dart';
 
@@ -36,9 +38,30 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 color: Colors.blue,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0, right: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.logout),
+                            color: Colors.red,
+                            onPressed: () async {
+                              final confirm = await _showLogoutDialoge(context);
+                              if (confirm == null || !confirm) return;
+
+                              final cubit = BlocProvider.of<AuthCubit>(context);
+                              cubit.logoutUser();
+                              Navigator.of(context)
+                                  .pushReplacementNamed(AuthScreen.routeName);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                     Container(
-                      margin: EdgeInsets.only(top: 20),
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 2),
@@ -157,4 +180,36 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     final cubit = BlocProvider.of<UserprofileCubit>(context);
     cubit.getPersonInfo();
   }
+}
+
+Future<bool?> _showLogoutDialoge(context) async {
+  return showDialog<bool>(
+    context: context,
+    builder: (_) {
+      return AlertDialog(
+        title: Text(
+          'تسجيل الخروج',
+          style: TextStyle(fontSize: 18),
+        ),
+        content: Text('هل أنت متأكد من تسجيل الخروج؟'),
+        actions: [
+          TextButton(
+            child: Text(
+              'تأكيد',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          ),
+          TextButton(
+            child: Text('ألغاء'),
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+          )
+        ],
+      );
+    },
+  );
 }

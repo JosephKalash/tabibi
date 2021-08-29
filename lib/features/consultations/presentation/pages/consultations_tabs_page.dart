@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../widgets/consultaions_view.dart';
 
 class ConsultationsTabsScreen extends StatelessWidget {
-  static const pathName = '\consultations';
+  static const routeName = '\consultations';
 
   final _kTabPages = <Widget>[
     ConsultationsView(Kind.GetConsultation),
