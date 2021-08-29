@@ -163,7 +163,7 @@ Future<void> init() async {
     () => PersonRepoImpl(gi()),
   );
   gi.registerLazySingleton<PersonLocalDS>(
-    () => PersonLocalDSImpl(gi()),
+    () => PersonLocalDSImpl(gi(),gi()),
   );
 
   ///user profile end

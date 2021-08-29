@@ -18,9 +18,9 @@ class DoctorModel extends Doctor {
       json[kDoctorId],
       json[kDoctorName],
       json[kDoctorSpecialization],
-      json[kDoctorLocation],
-      phoneNumber: json[kDoctorPhoneNumber],
-      imagePath: json[kDoctorImagePath],
+      json[kDoctorAddress],
+      phoneNumber: json[kDoctorPhoneNumber]??null,
+      imagePath: json[kDoctorImagePath]??null,
     );
   }
   Map<String, dynamic> toJson() {
@@ -28,7 +28,7 @@ class DoctorModel extends Doctor {
       kDoctorId: id,
       kDoctorName: name,
       kDoctorSpecialization: specialization,
-      kDoctorLocation: address,
+      kDoctorAddress: address,
       kDoctorPhoneNumber: phoneNumber ?? null,
       kDoctorImagePath: imagePath ?? null,
     };

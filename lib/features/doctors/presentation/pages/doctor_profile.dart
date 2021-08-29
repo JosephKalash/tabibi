@@ -73,7 +73,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         ),
                         SizedBox(width: 6),
                         Text(
-                          '${_doctor.phoneNumber ?? 'الرقم غير متوفر'}',
+                          '${_doctor.phoneNumber?? 'الرقم غير متوفر'}',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -95,7 +95,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                         ),
                         SizedBox(width: 6),
                         Text(
-                          '${_doctor.address ?? 'العنوان غير متوفر'}',
+                          '${_doctor.address?? 'العنوان غير متوفر'}',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,

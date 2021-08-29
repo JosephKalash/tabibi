@@ -16,9 +16,9 @@ class SpecialztionDSImpl extends SpecializationDS {
   @override
   Future<List<Specialization>> getSpecializations() async {
     final response = await dio.get(SPECIALIZATION_URL);
+
     if (response.statusCode == 200) {
-      final data = response.data;
-      final list = data['list'] as List<dynamic>;
+      final list = response.data as List<dynamic>;
       final specis = list.map((e) => SpecializationModel.fromJson(e)).toList();
       return specis;
     } else

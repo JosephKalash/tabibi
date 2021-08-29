@@ -39,11 +39,11 @@ class ReservationRepoImpl extends ReservationRepo {
   Future<Either<Failure, List<Reservation>>> getReservations() async {
     if (await _internetInfo.isConnect) {
       try {
-        final result = await _ds.getReservation();
+        final result = await _ds.getReservations();
         return Right(result);
       } on HttpException catch (e) {
         return Left(HttpFailure(e.message));
-      } on ServerException {
+      } on Exception {
         return Left(ServerFailure());
       }
     } else

@@ -27,8 +27,8 @@ class ConsultationModel extends Consultation {
       json[kContent],
       DateTime.parse(json[kConsDate]),
       patientAge: json[kUserAge],
-      consResponse: (json[kConResponse] != null && json[kConResponse] != {})
-          ? ConsResponseModel.fromJson(json[kConResponse])
+      consResponse: json[kConResponse] != null
+          ? ConsResponseModel.fromJson(json)
           : null,
     );
   }
@@ -42,7 +42,7 @@ class ConsultationModel extends Consultation {
       kConResponse: consResponse == null
           ? null
           : {
-              kconsAnswer: consResponse!.response,
+              kConResponse: consResponse!.response,
               kDoctorName: consResponse!.doctorName,
               kResponseDate: consResponse!.date.toIso8601String(),
             },

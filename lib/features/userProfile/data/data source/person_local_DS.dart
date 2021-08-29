@@ -13,8 +13,9 @@ abstract class PersonLocalDS {
 
 class PersonLocalDSImpl extends PersonLocalDS {
   final SharedPreferences _sharedPreferences;
+  final Dio _dio;
 
-  PersonLocalDSImpl(this._sharedPreferences);
+  PersonLocalDSImpl(this._sharedPreferences, this._dio);
 
   @override
   Person? getPersonInfoFromLocal() {
@@ -23,11 +24,10 @@ class PersonLocalDSImpl extends PersonLocalDS {
     final map = json.decode(jsonData);
 
     final token = _sharedPreferences.getString(kTokenKey);
-    final dio = Dio();
-    dio
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
+   _dio
         .post(
           LOGIN_URL,
-          queryParameters: {kKey: token},
           data: map,
         )
         .catchError((_) {});

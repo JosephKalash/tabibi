@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class Specialization extends Equatable{
+  final id;
   final String name;
-  final String value;
 
-  Specialization(this.name, this.value);
+  Specialization(this.id, this.name);
 
   @override
-  List<Object?> get props => [name,value];
+  List<Object?> get props => [id,name];
 }

@@ -30,7 +30,6 @@ void main() {
         )).thenAnswer(
           (_) async => Response(
             statusCode: 200,
-            data: {kAddConsRspo: true},
             requestOptions: RequestOptions(path: ''),
           ),
         );
@@ -52,7 +51,6 @@ void main() {
           //assert
           verify(dio.post(
             ADD_CONSUL_URL,
-            queryParameters: {kKey: 'test'},
             data: consultation.toJson(),
           ));
         },
@@ -87,7 +85,6 @@ void main() {
     )).thenAnswer(
       (_) async => Response(
           statusCode: 403,
-          data: {kJsonErrorKey: 'error'},
           requestOptions: RequestOptions(path: '')),
     );
   }
@@ -104,7 +101,9 @@ void main() {
           //act
           consultationDS.getConsultations();
           //assert
-          verify(dio.get(GET_CONSULS_URL, queryParameters: {kKey: 'test'}));
+          verify(dio.get(
+            GET_CONSULS_URL,
+          ));
         },
       );
       test(
@@ -136,7 +135,6 @@ void main() {
           //assert
           verify(dio.get(
             GET_MY_CONS_URL,
-            queryParameters: {kKey: 'test'},
           ));
         },
       );

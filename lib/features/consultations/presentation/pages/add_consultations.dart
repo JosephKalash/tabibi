@@ -242,8 +242,8 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
     return state.speciaList
         .map(
           (e) => DropdownMenuItem(
-            child: Text(e.name),
-            value: e.value,
+            child: Text(e.id),
+            value: e.name,
           ),
         )
         .toList();

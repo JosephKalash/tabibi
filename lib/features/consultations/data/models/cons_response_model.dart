@@ -10,14 +10,14 @@ class ConsResponseModel extends ConsResponse {
 
   factory ConsResponseModel.fromJson(Map<String, dynamic> json) {
     return ConsResponseModel(
-      json[kconsAnswer],
+      json[kConResponse],
       json[kDoctorName],
       DateTime.parse(json[kResponseDate]),
     );
   }
   Map<String, String> toJson() {
     return {
-      kconsAnswer: response,
+      kConResponse: response,
       kDoctorName: doctorName,
       kResponseDate: date.toIso8601String(),
     };

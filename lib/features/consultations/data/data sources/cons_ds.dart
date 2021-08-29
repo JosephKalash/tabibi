@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';
@@ -16,10 +14,10 @@ abstract class ConsultationDS {
 }
 
 class ConsultationDSImpl extends ConsultationDS {
-  final Dio dio;
+  final Dio _dio;
   final SharedPreferences _sharedPreferences;
 
-  ConsultationDSImpl(this.dio, this._sharedPreferences);
+  ConsultationDSImpl(this._dio, this._sharedPreferences);
 
   @override
   Future<bool> addConsultation(Consultation consultation) async {
@@ -27,33 +25,30 @@ class ConsultationDSImpl extends ConsultationDS {
 
     final token = _sharedPreferences.getString(kTokenKey);
 
-    final response = await dio.post(
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    final response = await _dio.post(
       ADD_CONSUL_URL,
-      queryParameters: {kKey: token},
       data: consModel.toJson(),
     );
-    final data = response.data;
-    if (response.statusCode == 200) {
-      if (data[kAddConsRspo] == null) throw ServerFailure();
-      final isSuccess = data[kAddConsRspo];
-      return isSuccess;
-    } else
+    if (response.statusCode == 200)
+      return true;
+    else
       throw HttpFailure(kAddConsErrorMessage);
   }
 
   @override
   Future<List<Consultation>> getConsultations() async {
-    final token = _sharedPreferences.getString(kTokenKey);
+    //final token = _sharedPreferences.getString(kTokenKey);
+    //_dio.options.headers[kAuthorization] = '$kBearer$token';
 
-    final response = await dio.get(
-      GET_CONSULS_URL,
-      queryParameters: {kKey: token},
-    );
-    final data = response.data;
+    final response = await _dio.get(GET_CONSULS_URL);
+
     if (response.statusCode == 200) {
-      return [];
+      final list = response.data as List<dynamic>;
+      final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
+      return cons;
     } else
-      throw HttpFailure(data[kJsonErrorKey]);
+      throw HttpFailure(kGetConsError);
   }
 
   @override
@@ -62,7 +57,17 @@ class ConsultationDSImpl extends ConsultationDS {
   }
 
   @override
-  Future<List<Consultation>> getMyConsultations(String userId) {
-    throw ServerException();
+  Future<List<Consultation>> getMyConsultations(String userId) async{
+     final token = _sharedPreferences.getString(kTokenKey);
+
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    final response = await _dio.get(GET_CONSULS_URL);
+
+    if (response.statusCode == 200) {
+      final list = response.data as List<dynamic>;
+      final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
+      return cons;
+    } else
+      throw HttpFailure(kGetConsError);
   }
 }

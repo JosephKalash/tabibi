@@ -21,14 +21,11 @@ class DoctorDSImpl extends DoctorDS {
   Future<List<Doctor>> getDoctor() async {
     final token = _preferences.getString(kTokenKey);
 
-    final response = await _dio.get(
-      DOCTORS_URL,
-      queryParameters: {kKey: token},
-    );
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    final response = await _dio.get(DOCTORS_URL);
+
     if (response.statusCode == 200) {
-      final data = response.data;
-      if (data[kDoctorsList] == null) throw ServerException();
-      final list = data[kDoctorsList] as List<dynamic>;
+      final list = response.data as List<dynamic>;
       final doctors = list.map((e) => DoctorModel.fromJson(e)).toList();
       return doctors;
     } else

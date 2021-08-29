@@ -25,6 +25,7 @@ class _AddReservationFormState extends State<AddReservationForm> {
     }
 
     final reservation = Reservation(
+      '',
       widget._doctorId,
       _reservDate!,
     );
