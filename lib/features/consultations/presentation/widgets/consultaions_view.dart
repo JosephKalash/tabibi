@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tabibi/core/utils/widgets/loading_list.dart';
-import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
-import 'package:tabibi/features/consultations/presentation/cubit/consultation_cubit.dart';
-import 'package:tabibi/features/consultations/presentation/pages/add_consultations.dart';
 
+import '../../../../core/utils/widgets/loading_list.dart';
+import '../../../../core/utils/widgets/top_edges-container.dart';
+import '../cubit/consultation_cubit.dart';
+import '../pages/add_consultations.dart';
 import 'consultations_list.dart';
 
 enum Kind { GetConsultation, GetMyCons }
@@ -18,7 +18,8 @@ class ConsultationsView extends StatefulWidget {
   _ConsultationsViewState createState() => _ConsultationsViewState();
 }
 
-class _ConsultationsViewState extends State<ConsultationsView> {
+class _ConsultationsViewState extends State<ConsultationsView>
+    {
   bool _initWidget = true;
   @override
   void didChangeDependencies() {
@@ -41,21 +42,24 @@ class _ConsultationsViewState extends State<ConsultationsView> {
     return Scaffold(
       backgroundColor: Colors.blue,
       body: TopEdgesContainer(
-        child: BlocBuilder<ConsultationCubit, ConsultationState>(
-          builder: (_, state) {
-            if (state is Loading)
-              return Center(child: LoadingListPage());
-            else if (state is ErrorState)
-              return Center(child: Text(state.message));
-            else if (state is GotConsultations)
-              return ConsultationsList(state.consultations);
-            else if (state is GotMyConsultations)
-              return ConsultationsList(state.consultations);
-            else if (state is GotConsultationsBySpeci)
-              return ConsultationsList(state.consultations);
-            else
-              return Center(child: Text('الرجاء التجربة لاحقا'));
-          },
+        child: RefreshIndicator(
+          onRefresh: ()async=>_fetchConsultations(),
+          child: BlocBuilder<ConsultationCubit, ConsultationState>(
+            builder: (_, state) {
+              if (state is Loading)
+                return LoadingListPage();
+              else if (state is ErrorState)
+                return Center(child: Text(state.message));
+              else if (state is GotConsultations)
+                return ConsultationsList(state.consultations);
+              else if (state is GotMyConsultations)
+                return ConsultationsList(state.consultations);
+              else if (state is GotConsultationsBySpeci)
+                return ConsultationsList(state.consultations);
+              else
+                return Center(child: Text('الرجاء التجربة لاحقا'));
+            },
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
@@ -73,4 +77,5 @@ class _ConsultationsViewState extends State<ConsultationsView> {
           : null,
     );
   }
+
 }

@@ -48,7 +48,7 @@ class ConsultationRepoImpl extends ConsultationRepo {
         return Right(cons);
       } on HttpException catch (e) {
         return Left(HttpFailure(e.message));
-      } on ServerException {
+      } on Exception {
         return (Left(ServerFailure()));
       }
     } else

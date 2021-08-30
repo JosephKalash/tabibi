@@ -11,7 +11,8 @@ class DoctorsScreen extends StatefulWidget {
   _DoctorsScreenState createState() => _DoctorsScreenState();
 }
 
-class _DoctorsScreenState extends State<DoctorsScreen> {
+class _DoctorsScreenState extends State<DoctorsScreen>
+    with AutomaticKeepAliveClientMixin {
   bool _initWidget = true;
 
   @override
@@ -30,6 +31,7 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
@@ -47,19 +49,25 @@ class _DoctorsScreenState extends State<DoctorsScreen> {
       ),
       body: TopEdgesContainer(
         topPadding: 24,
-        child: BlocBuilder<DoctorsCubit, DoctorsState>(
-          builder: (_, state) {
-            if (state is Loading)
-              return CircularProgressIndicator();
-            else if (state is GotDoctors)
-              return DoctorsGrid(state.doctors);
-            else if (state is DoctorError)
-              return Center(child: Text(state.message));
-            else
-              return Center(child: Text('فشل في الأتصال بالمخدم'));
-          },
+        child: RefreshIndicator(
+          onRefresh: () async => _fetchDoctors(),
+          child: BlocBuilder<DoctorsCubit, DoctorsState>(
+            builder: (_, state) {
+              if (state is Loading)
+                return Center(child: CircularProgressIndicator());
+              else if (state is GotDoctors)
+                return DoctorsGrid(state.doctors);
+              else if (state is DoctorError)
+                return Center(child: Text(state.message));
+              else
+                return Center(child: Text('فشل في الأتصال بالمخدم'));
+            },
+          ),
         ),
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

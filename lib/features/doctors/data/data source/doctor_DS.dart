@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tabibi/core/error/excpetions.dart';
-import 'package:tabibi/core/utils/constaints.dart';
-import 'package:tabibi/features/doctors/data/models/doctor_model.dart';
-import 'package:tabibi/features/doctors/domain/entities/doctor.dart';
+
+import '../../../../core/error/excpetions.dart';
+import '../../../../core/utils/constaints.dart';
+import '../../domain/entities/doctor.dart';
+import '../models/doctor_model.dart';
 
 abstract class DoctorDS {
   Future<List<Doctor>> getDoctor();
@@ -19,9 +18,9 @@ class DoctorDSImpl extends DoctorDS {
 
   @override
   Future<List<Doctor>> getDoctor() async {
-    final token = _preferences.getString(kTokenKey);
+    //final token = _preferences.getString(kTokenKey);
 
-    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    //_dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.get(DOCTORS_URL);
 
     if (response.statusCode == 200) {

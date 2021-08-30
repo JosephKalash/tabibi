@@ -66,7 +66,17 @@ Future<void> init() async {
   gi.registerLazySingleton<AuthRemoteDataSource>(
     () => AuthRemoteDataSourceImpl(gi(), gi()),
   );
-
+// final dio = Dio(
+//         BaseOptions(
+//           connectTimeout: 20000,
+//           baseUrl: Endpoints.BASE_URL,
+//           headers: {
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json',
+//           },
+//           responseType: ResponseType.plain,
+//         ),
+//       );
   gi.registerLazySingleton(() => InternetConnectionChecker());
   gi.registerLazySingleton(() => Dio());
 

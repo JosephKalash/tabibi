@@ -39,6 +39,7 @@ class DoctorGridItem extends StatelessWidget {
         ),
         footer: Container(
           color: Colors.white,
+          padding: EdgeInsets.symmetric(vertical: 4),
           child: Column(
             children: [
               Text(
@@ -49,7 +50,7 @@ class DoctorGridItem extends StatelessWidget {
                 ),
               ),
               Text(
-                _doctor.specialization,
+                '${_doctor.specialization}',
                 style: TextStyle(color: Colors.grey),
               ),
             ],

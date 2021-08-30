@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tabibi/core/utils/constaints.dart';
+import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
 import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
 
 class DisplayConsultationScreen extends StatelessWidget {
@@ -10,17 +11,6 @@ class DisplayConsultationScreen extends StatelessWidget {
     final dataMap =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final _consultation = ConsultationModel.fromJson(dataMap);
-    // final _consultation = ConsultationModel(
-    //   'داخلية',
-    //   'title',
-    //   'ينتبم يتب منتي تينب ت يت ت ثهتبن يب منتيبت تب نشمتسي تيبن تشسينتب تينب',
-    //   DateTime.now(),
-    //   consResponse: ConsResponseModel(
-    //     'نعم عزيزي عزية تنdfdf df dsf d fsd  sdf sبت ث تمثنم بت ابنب ثبة ثب',
-    //     'د.عبد الفتاح السيسي',
-    //     DateTime.now(),
-    //   ),
-    // );
 
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -28,18 +18,10 @@ class DisplayConsultationScreen extends StatelessWidget {
         elevation: 0,
         title: Text('الاستشارة'),
       ),
-      body: Container(
-        color: Colors.transparent,
-        height: double.infinity,
-        padding: EdgeInsets.only(top: 24),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
+      body: TopEdgesContainer(
+        topPadding: 24,
+        child: SizedBox(
+          height: double.infinity,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -88,7 +70,7 @@ class DisplayConsultationScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        _consultation.clinicSpecialization,
+                        '${_consultation.clinicSpecialization}',
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: kSmallSize,
@@ -105,7 +87,7 @@ class DisplayConsultationScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     color: Colors.blueGrey.shade500,
                   ),
-                  child: SizedBox(),
+                  child: null,
                 ),
                 SizedBox(height: 10),
                 Container(

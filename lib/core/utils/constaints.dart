@@ -1,19 +1,19 @@
 const SIGNUP_URL = 'https://signUp';
 const LOGIN_URL = 'https://LOGIN?';
 
-const ADD_CONSUL_URL = 'http://127.0.0.1:8000/api/consultation';
-const GET_CONSULS_URL = 'http://127.0.0.1:8000/api/consultation';
-const GET_MY_CONS_URL = 'http://127.0.0.1:8000/api/consultation';
+const ADD_CONSUL_URL = 'http://192.168.1.4:8000/api/consultation';
+const GET_CONSULS_URL = 'http://192.168.1.4:8000/api/consultation';
+const GET_MY_CONS_URL = 'http://192.168.1.4:8000/api/consultation/1';
 const GET_CONS_BY_SPEC_URL = 'https://c';
 
-const SPECIALIZATION_URL = 'http://127.0.0.1:8000/api/specialization';
+const SPECIALIZATION_URL = 'http://192.168.1.4:8000/api/specialization';
 
-const ADD_RESERVATION_URL = 'http://127.0.0.1:8000/api/reservation_requests';
-const GET_RESERVATION_URL = 'http://127.0.0.1:8000/api/reservation_requests';
+const ADD_RESERVATION_URL = 'http://192.168.1.4:8000/api/reservation_requests';
+const GET_RESERVATION_URL = 'http://192.168.1.4:8000/api/reservation_requests';
 const CANCEL_RESERVATION_URL =
-    'http://127.0.0.1:8000/api/reservation_requests/';
+    'http://192.168.1.4:8000/api/reservation_requests/';
 
-const DOCTORS_URL = 'http://127.0.0.1:8000/api/clinic';
+const DOCTORS_URL = 'http://192.168.1.4:8000/api/clinic';
 
 const kAuthorization = 'Authorization';
 const kBearer = 'Bearer:';
@@ -56,7 +56,7 @@ const kReservationId = 'id';
 
 const kDoctorName = 'doctor_name';
 
-const kDoctorSpecialization = 'specialization';
+const kDoctorSpecialization = 'specializationId';
 const kDoctorPhoneNumber = 'phone_number';
 const kDoctorAddress = 'address';
 const kDoctorImagePath = 'image_path';

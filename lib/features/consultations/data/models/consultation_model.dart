@@ -27,25 +27,21 @@ class ConsultationModel extends Consultation {
       json[kContent],
       DateTime.parse(json[kConsDate]),
       patientAge: json[kUserAge],
-      consResponse: json[kConResponse] != null
-          ? ConsResponseModel.fromJson(json)
-          : null,
+      consResponse:
+          json[kConResponse] == null ? null : ConsResponseModel.fromJson(json),
     );
   }
   Map<String, dynamic> toJson() {
     return {
+      'patient_Id': 1,
       kClinicSpecialization: clinicSpecialization,
       kTitle: title,
       kContent: content,
       kConsDate: date.toIso8601String(),
       kUserAge: patientAge ?? null,
-      kConResponse: consResponse == null
-          ? null
-          : {
-              kConResponse: consResponse!.response,
-              kDoctorName: consResponse!.doctorName,
-              kResponseDate: consResponse!.date.toIso8601String(),
-            },
+      kConResponse: consResponse?.response,
+      kDoctorName: consResponse?.doctorName,
+      kResponseDate: consResponse?.date.toIso8601String(),
     };
   }
 

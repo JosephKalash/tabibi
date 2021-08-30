@@ -19,18 +19,21 @@ class PersonLocalDSImpl extends PersonLocalDS {
 
   @override
   Person? getPersonInfoFromLocal() {
+    if (!_sharedPreferences.containsKey(kPersonInfoPref)) return null;
+
     final jsonData = _sharedPreferences.getString(kPersonInfoPref);
     if (jsonData == null) return null;
+    
     final map = json.decode(jsonData);
 
-    final token = _sharedPreferences.getString(kTokenKey);
-    _dio.options.headers[kAuthorization] = '$kBearer$token';
-   _dio
-        .post(
-          LOGIN_URL,
-          data: map,
-        )
-        .catchError((_) {});
+    //   final token = _sharedPreferences.getString(kTokenKey);
+    //   _dio.options.headers[kAuthorization] = '$kBearer$token';
+    //  _dio
+    //       .post(
+    //         LOGIN_URL,
+    //         data: map,
+    //       )
+    //       .catchError((_) {});
 
     return PersonModel.fromJson(map);
   }

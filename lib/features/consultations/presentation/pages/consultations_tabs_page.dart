@@ -27,12 +27,7 @@ class ConsultationsTabsScreen extends StatelessWidget {
             indicatorColor: Colors.transparent,
             tabs: _kTabs,
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.filter_alt_outlined),
-              onPressed: () {},
-            ),
-          ],
+          
         ),
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),

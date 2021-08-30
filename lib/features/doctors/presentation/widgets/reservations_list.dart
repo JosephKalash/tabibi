@@ -19,12 +19,13 @@ class _ReservationsListState extends State<ReservationsList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 26),
       itemCount: widget._reservations.length,
       itemBuilder: (_, i) => Card(
+        margin: const EdgeInsets.symmetric(vertical: 10),
         elevation: 4,
         child: ListTile(
-          title: Text(widget._reservations[i].doctorName ?? ''),
+          title: Text(widget._reservations[i].doctorName ?? 'لا يوجد أسم'),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -46,7 +47,6 @@ class _ReservationsListState extends State<ReservationsList> {
             ],
           ),
           trailing: Wrap(
-            spacing: 2,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Text(
@@ -77,6 +77,12 @@ class _ReservationsListState extends State<ReservationsList> {
   String _getArabicReservationType(ReservationStatus? status) {
     if (status == null) return 'غير محدد';
     switch (status) {
+      case ReservationStatus.waiting:
+        return 'بأنتظار التأكيد';
+      case ReservationStatus.Accept:
+        return 'مؤكد';
+      case ReservationStatus.Reject:
+        return 'مرفوض';
       default:
         return 'غير محدد';
     }

@@ -41,16 +41,22 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
         child: BlocConsumer<ReservationsCubit, ReservationsState>(
           listener: (_, state) {
             if (state is CanceledReservation) {
+              BlocProvider.of<ReservationsCubit>(context).getReservations();
+              
               if (!state.isSuccess) {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى')));
+                    content: SizedBox(
+                  height: 30,
+                  child: Center(
+                    child: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى'),
+                  ),
+                )));
               }
-              BlocProvider.of<ReservationsCubit>(context).getReservations();
             }
           },
           builder: (_, state) {
             if (state is Loading)
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             else if (state is GotReservation)
               return ReservationsList(state.reservations);
             else if (state is ReservationError)

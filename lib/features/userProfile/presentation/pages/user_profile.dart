@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
-import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
-import 'package:tabibi/features/authentication/presentation/pages/auth_screen.dart';
-import 'package:tabibi/features/userProfile/domain/entities/person.dart';
-import 'package:tabibi/features/userProfile/presentation/cubit/userprofile_cubit.dart';
+
+import '../../../../core/utils/widgets/top_edges-container.dart';
+import '../../../authentication/presentation/cubit/auth_cubit.dart';
+import '../../../authentication/presentation/pages/auth_screen.dart';
+import '../../domain/entities/person.dart';
+import '../cubit/userprofile_cubit.dart';
 
 class UserProfileScreen extends StatefulWidget {
   static const pathName = '/user_profile';
@@ -13,9 +14,12 @@ class UserProfileScreen extends StatefulWidget {
   _UserProfileScreenState createState() => _UserProfileScreenState();
 }
 
-class _UserProfileScreenState extends State<UserProfileScreen> {
+class _UserProfileScreenState extends State<UserProfileScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     //_fetchPersonInfo(context);
 
     return Scaffold(
@@ -41,7 +45,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0, right: 16),
+                      padding: const EdgeInsets.only(top: 16.0, right: 4),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -180,6 +184,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     final cubit = BlocProvider.of<UserprofileCubit>(context);
     cubit.getPersonInfo();
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 Future<bool?> _showLogoutDialoge(context) async {

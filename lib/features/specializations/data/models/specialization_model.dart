@@ -3,7 +3,7 @@ import 'package:tabibi/features/specializations/domain/entities/specialization.d
 
 class SpecializationModel extends Specialization {
   SpecializationModel(
-    String id,
+    id,
     String name,
   ) : super(id, name);
 

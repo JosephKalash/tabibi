@@ -18,7 +18,6 @@ void main() {
     () async {
       final username = 'j';
       final password = 'j';
-      final date = DateTime.now();
       final user = User(
         'FAFJDL',
       );

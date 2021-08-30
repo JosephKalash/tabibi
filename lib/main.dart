@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Lato',
         ),
-        home: InitApp(),
+        home: AppScreen(),//InitApp(),
         routes: {
           UserInfoScreen.routeName: (_) => UserInfoScreen(),
           AppScreen.routeName: (_) => AppScreen(),

@@ -21,11 +21,9 @@ class ReservationModel extends Reservation {
   }
   Map<String, dynamic> toJson() {
     return {
-      kReservationId: id,
+      'patient_Id': id,
       kClinicId: doctorId,
       kReservationDate: date.toIso8601String(),
-      kReservationStatus: status == null ? '' : status.toString(),
-      kDoctorName: doctorName ?? '',
     };
   }
 
@@ -42,9 +40,14 @@ class ReservationModel extends Reservation {
 
 ReservationStatus? _getStatus(String? status) {
   if (status == null) return null;
-  for (ReservationStatus value in ReservationStatus.values)
-    if (value.toString() == status) return value;
-
-  ///TODO: could enum.toString be equal to string
-  return ReservationStatus.None;
+  switch (status) {
+    case 'pending':
+      return ReservationStatus.waiting;
+    case 'accetp':
+      return ReservationStatus.Accept;
+    case 'reject':
+      return ReservationStatus.Reject;
+    default:
+      return ReservationStatus.None;
+  }
 }

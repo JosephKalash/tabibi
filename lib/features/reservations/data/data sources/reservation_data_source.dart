@@ -21,15 +21,15 @@ class ReservationDSImpl extends ReservationDS {
   Future<bool> addReservation(Reservation reservation) async {
     final reservModel = ReservationModel.fromParent(reservation);
 
-    final token = _preferences.getString(kTokenKey);
+    //final token = _preferences.getString(kTokenKey);
 
-    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    //_dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.post(
       ADD_RESERVATION_URL,
       data: reservModel.toJson(),
     );
-
-    if (response.statusCode == 200) {
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 201) {
       return true;
     } else
       throw HttpException(kReservationAddErrorMessage);
@@ -37,14 +37,14 @@ class ReservationDSImpl extends ReservationDS {
 
   @override
   Future<bool> cancelReservation(Reservation reservation) async {
-    final token = _preferences.getString(kTokenKey);
+    //final token = _preferences.getString(kTokenKey);
 
-    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    //_dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.delete(
-      'CANCEL_RESERVATION_URL${reservation.id}',
+      '$CANCEL_RESERVATION_URL${reservation.id}',
     );
-
-    if (response.statusCode == 200) {
+    print(response.statusCode);
+    if (response.statusCode == 200 || response.statusCode == 204) {
       return true;
     } else
       throw HttpException(kReservationCancelErrorMessage);
@@ -52,9 +52,9 @@ class ReservationDSImpl extends ReservationDS {
 
   @override
   Future<List<Reservation>> getReservations() async {
-    final token = _preferences.getString(kTokenKey);
+    //final token = _preferences.getString(kTokenKey);
 
-     _dio.options.headers[kAuthorization] = '$kBearer$token';
+    // _dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.get(GET_RESERVATION_URL);
 
     if (response.statusCode == 200) {

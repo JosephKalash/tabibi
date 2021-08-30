@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tabibi/app.dart';
-import 'package:tabibi/core/utils/constaints.dart';
-import 'package:tabibi/features/authentication/domain/entities/user.dart';
-import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
+
+import '../../../../app.dart';
+import '../../../../core/utils/constaints.dart';
 
 // ignore: must_be_immutable
 class UserInfoScreen extends StatelessWidget {

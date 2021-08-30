@@ -53,7 +53,7 @@ class _DoctorProfileScreenState extends State<DoctorProfileScreen> {
                           textAlign: TextAlign.center,
                         ),
                         Text(
-                          _doctor.specialization,
+                          '${_doctor.specialization}',
                           textAlign: TextAlign.center,
                         ),
                       ],

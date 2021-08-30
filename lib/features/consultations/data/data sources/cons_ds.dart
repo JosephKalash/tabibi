@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';
-import 'package:tabibi/core/error/failures.dart';
-import 'package:tabibi/core/utils/constaints.dart';
-import 'package:tabibi/features/consultations/data/models/consultation_model.dart';
-import 'package:tabibi/features/consultations/domain/entities/consultation.dart';
+import '../../../../core/utils/constaints.dart';
+import '../models/consultation_model.dart';
+import '../../domain/entities/consultation.dart';
 
 abstract class ConsultationDS {
   Future<bool> addConsultation(Consultation consultation);
@@ -23,23 +22,21 @@ class ConsultationDSImpl extends ConsultationDS {
   Future<bool> addConsultation(Consultation consultation) async {
     final consModel = ConsultationModel.fromParent(consultation);
 
-    final token = _sharedPreferences.getString(kTokenKey);
+    //final token = _sharedPreferences.getString(kTokenKey);
+//    _dio.options.headers[kAuthorization] = '$kBearer$token';
 
-    _dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.post(
       ADD_CONSUL_URL,
       data: consModel.toJson(),
     );
-    if (response.statusCode == 200)
+    if (response.statusCode == 200 || response.statusCode == 201)
       return true;
     else
-      throw HttpFailure(kAddConsErrorMessage);
+      throw HttpException(kAddConsErrorMessage);
   }
 
   @override
   Future<List<Consultation>> getConsultations() async {
-    //final token = _sharedPreferences.getString(kTokenKey);
-    //_dio.options.headers[kAuthorization] = '$kBearer$token';
 
     final response = await _dio.get(GET_CONSULS_URL);
 
@@ -48,7 +45,7 @@ class ConsultationDSImpl extends ConsultationDS {
       final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
       return cons;
     } else
-      throw HttpFailure(kGetConsError);
+      throw HttpException(kGetConsError);
   }
 
   @override
@@ -58,16 +55,16 @@ class ConsultationDSImpl extends ConsultationDS {
 
   @override
   Future<List<Consultation>> getMyConsultations(String userId) async{
-     final token = _sharedPreferences.getString(kTokenKey);
+    // final token = _sharedPreferences.getString(kTokenKey);
 
-    _dio.options.headers[kAuthorization] = '$kBearer$token';
-    final response = await _dio.get(GET_CONSULS_URL);
+    //_dio.options.headers[kAuthorization] = '$kBearer$token';
+    final response = await _dio.get(GET_MY_CONS_URL);
 
     if (response.statusCode == 200) {
-      final list = response.data as List<dynamic>;
-      final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
-      return cons;
+      //final list = response.data as List<dynamic>;
+      //final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
+      return [];
     } else
-      throw HttpFailure(kGetConsError);
+      throw HttpException(kGetConsError);
   }
 }

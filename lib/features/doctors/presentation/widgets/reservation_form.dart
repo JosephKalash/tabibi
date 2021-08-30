@@ -25,7 +25,7 @@ class _AddReservationFormState extends State<AddReservationForm> {
     }
 
     final reservation = Reservation(
-      '',
+      1,
       widget._doctorId,
       _reservDate!,
     );
@@ -100,13 +100,12 @@ class _AddReservationFormState extends State<AddReservationForm> {
           SizedBox(height: 14),
           BlocConsumer<ReservationsCubit, ReservationsState>(
             listener: (_, state) {
-              if (state is ReservationError)
-                _showErrorToast(state.message);
-              else if (state is AddedReservation) {
+              if (state is AddedReservation) {
+                print(state.isSuccess);
                 if (state.isSuccess)
                   Navigator.of(context).pop(widget._context);
                 else
-                  _showErrorToast('لم ينجح تثبيت الحجز جرب مرة أخرى');
+                  _showErrorToast('لم يُثبت الحجز جرب مرةأخرى');
               }
             },
             builder: (_, state) {
@@ -132,5 +131,7 @@ class _AddReservationFormState extends State<AddReservationForm> {
     );
   }
 
-  void _showErrorToast(String message) {}
+  void _showErrorToast(String message) {
+    //toast
+  }
 }

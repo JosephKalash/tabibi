@@ -24,7 +24,6 @@ void main() {
     () {
       final username = 'joseph';
       final password = 'password';
-      final dateNow = DateTime.now();
       final user = User(
         '_token',
       );

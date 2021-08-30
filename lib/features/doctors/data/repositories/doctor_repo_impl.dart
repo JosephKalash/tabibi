@@ -20,7 +20,8 @@ class DoctorRepoImpl extends DoctorRepo {
         return right(result);
       } on HttpException catch (e) {
         return Left(HttpFailure(e.message));
-      } on ServerException {
+      } on Exception {
+        print('exception');
         return Left(ServerFailure());
       }
     } else
