@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/doctor.dart';
 import 'doctor_grid_item.dart';
 
+// ignore: must_be_immutable
 class DoctorsGrid extends StatelessWidget {
-  final List<Doctor> _doctors;
-
-  DoctorsGrid(this._doctors);
+  List<Doctor> _doctors;
+  final dynamic? filterSpci;
+  DoctorsGrid(this._doctors, {this.filterSpci});
 
   @override
   Widget build(BuildContext context) {
+    if (filterSpci != null) {
+      _doctors = _doctors
+          .where((element) => element.specialization == filterSpci)
+          .toList();
+    }
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: GridView.builder(

@@ -14,6 +14,9 @@ class DoctorsScreen extends StatefulWidget {
 class _DoctorsScreenState extends State<DoctorsScreen>
     with AutomaticKeepAliveClientMixin {
   bool _initWidget = true;
+  bool _filter = false;
+  dynamic? _filterValue;
+  Set<dynamic>? _list;
 
   @override
   void didChangeDependencies() {
@@ -25,6 +28,8 @@ class _DoctorsScreenState extends State<DoctorsScreen>
   }
 
   void _fetchDoctors() {
+    _filterValue = null;
+    _filter = false;
     final cubit = BlocProvider.of<DoctorsCubit>(context);
     cubit.getDoctors();
   }
@@ -45,6 +50,16 @@ class _DoctorsScreenState extends State<DoctorsScreen>
               Navigator.of(context).pushNamed(ReservationsScreen.routeName);
             },
           ),
+          IconButton(
+              icon: Icon(Icons.filter_alt_outlined),
+              onPressed: () async {
+                if (!_filter) return;
+                _filterValue = await _showDialoge(context, _list!);
+
+                setState(() {
+                  print(_filterValue);
+                });
+              }),
         ],
       ),
       body: TopEdgesContainer(
@@ -55,9 +70,14 @@ class _DoctorsScreenState extends State<DoctorsScreen>
             builder: (_, state) {
               if (state is Loading)
                 return Center(child: CircularProgressIndicator());
-              else if (state is GotDoctors)
-                return DoctorsGrid(state.doctors);
-              else if (state is DoctorError)
+              else if (state is GotDoctors) {
+                _list = state.doctors.map((e) => e.specialization).toSet();
+                _filter = true;
+                return DoctorsGrid(
+                  state.doctors,
+                  filterSpci: _filterValue,
+                );
+              } else if (state is DoctorError)
                 return Center(child: Text(state.message));
               else
                 return Center(child: Text('فشل في الأتصال بالمخدم'));
@@ -65,6 +85,36 @@ class _DoctorsScreenState extends State<DoctorsScreen>
           ),
         ),
       ),
+    );
+  }
+
+  Future _showDialoge(context, Set<dynamic> list) async {
+    return showDialog(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          title: Text(
+            'اختر تخصص',
+            style: TextStyle(fontSize: 18),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(null);
+              },
+              child: Text('لا شيئ'),
+            ),
+            ...list
+                .map((e) => TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop(e);
+                      },
+                      child: Text(e.toString()),
+                    ))
+                .toList()
+          ],
+        );
+      },
     );
   }
 

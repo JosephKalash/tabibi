@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:tabibi/init_app.dart';
+
+import 'app.dart';
+import 'features/authentication/presentation/cubit/auth_cubit.dart';
 import 'features/authentication/presentation/pages/auth_screen.dart';
+import 'features/authentication/presentation/pages/user_info.dart';
+import 'features/consultations/presentation/cubit/consultation_cubit.dart';
+import 'features/consultations/presentation/pages/add_consultations.dart';
+import 'features/consultations/presentation/pages/consultations_tabs_page.dart';
 import 'features/consultations/presentation/pages/display_consultation_page.dart';
 import 'features/doctors/presentation/cubit/doctors_cubit.dart';
 import 'features/doctors/presentation/pages/doctor_profile.dart';
 import 'features/doctors/presentation/pages/reservations_screen.dart';
 import 'features/reservations/presentation/cubit/reservations_cubit.dart';
-import 'features/userProfile/presentation/cubit/userprofile_cubit.dart';
-
-import 'app.dart';
-import 'features/authentication/presentation/cubit/auth_cubit.dart';
-import 'features/authentication/presentation/pages/user_info.dart';
-import 'features/consultations/presentation/cubit/consultation_cubit.dart';
-import 'features/consultations/presentation/pages/add_consultations.dart';
-import 'features/consultations/presentation/pages/consultations_tabs_page.dart';
 import 'features/specializations/presentation/cubit/specializations_cubit.dart';
+import 'features/userProfile/presentation/cubit/userprofile_cubit.dart';
 import 'injuction.dart' as inj;
 
 void main() async {
