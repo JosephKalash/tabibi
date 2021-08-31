@@ -56,9 +56,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
                 if (!_filter) return;
                 _filterValue = await _showDialoge(context, _list!);
 
-                setState(() {
-                  print(_filterValue);
-                });
+                setState(() {});
               }),
         ],
       ),
@@ -98,20 +96,24 @@ class _DoctorsScreenState extends State<DoctorsScreen>
             style: TextStyle(fontSize: 18),
           ),
           actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(null);
-              },
-              child: Text('لا شيئ'),
-            ),
-            ...list
-                .map((e) => TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(e);
-                      },
-                      child: Text(e.toString()),
-                    ))
-                .toList()
+            Wrap(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(null);
+                  },
+                  child: Text('لا شيئ'),
+                ),
+                ...list
+                    .map((e) => TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(e);
+                          },
+                          child: Text(e.toString()),
+                        ))
+                    .toList()
+              ],
+            )
           ],
         );
       },

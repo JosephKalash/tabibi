@@ -1,5 +1,5 @@
-
 import 'package:dio/dio.dart';
+import 'package:flutter_launcher_icons/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tabibi/core/error/excpetions.dart';
@@ -45,6 +45,7 @@ void main() {
         () async {
           _setupDioPostReq();
           _setupPreferences();
+          when(dio.options).thenReturn(BaseOptions());
           //act
           consultationDS.addConsultation(consultation);
           //assert
@@ -72,7 +73,7 @@ void main() {
     )).thenAnswer(
       (_) async => Response(
           statusCode: 200,
-          data: cons,
+          data: [cons.first.toJson()],
           requestOptions: RequestOptions(path: '')),
     );
   }
@@ -82,9 +83,8 @@ void main() {
       any,
       queryParameters: anyNamed('queryParameters'),
     )).thenAnswer(
-      (_) async => Response(
-          statusCode: 403,
-          requestOptions: RequestOptions(path: '')),
+      (_) async =>
+          Response(statusCode: 403, requestOptions: RequestOptions(path: '')),
     );
   }
 
@@ -97,6 +97,8 @@ void main() {
           //arrange
           _setupDioGetReq();
           _setupPreferences();
+          when(dio.options).thenReturn(BaseOptions());
+
           //act
           consultationDS.getConsultations();
           //assert
@@ -111,6 +113,8 @@ void main() {
           //arrange
           _setupDioGetReq();
           _setupPreferences();
+          when(dio.options).thenReturn(BaseOptions());
+
           //act
           final result = await consultationDS.getConsultations();
           //assert
@@ -129,6 +133,8 @@ void main() {
           //arrange
           _setupDioGetReq();
           _setupPreferences();
+          when(dio.options).thenReturn(BaseOptions());
+
           //act
           consultationDS.getMyConsultations(userId);
           //assert
@@ -143,6 +149,8 @@ void main() {
           //arrange
           _setupPreferences();
           _setupDioGetReq();
+          when(dio.options).thenReturn(BaseOptions());
+
           //act
           final result = await consultationDS.getMyConsultations(userId);
           //assert
@@ -155,6 +163,8 @@ void main() {
           //arrange
           _setupDioGetReqFail();
           _setupPreferences();
+          when(dio.options).thenReturn(BaseOptions());
+
           //act
           final call = consultationDS.getMyConsultations;
           //assert

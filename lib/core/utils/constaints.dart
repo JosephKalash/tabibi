@@ -1,32 +1,31 @@
-const SIGNUP_URL = 'https://signUp';
-const LOGIN_URL = 'https://LOGIN?';
+const SIGNUP_URL = 'http://$ip:8000/api/patient';
+const LOGIN_URL = 'http://$ip:8000/api/patient-login';
 
-const ADD_CONSUL_URL = 'http://192.168.1.4:8000/api/consultation';
-const GET_CONSULS_URL = 'http://192.168.1.4:8000/api/consultation';
-const GET_MY_CONS_URL = 'http://192.168.1.4:8000/api/consultation/1';
-const GET_CONS_BY_SPEC_URL = 'https://c';
+const ADD_CONSUL_URL = 'http://$ip:8000/api/consultation';
+const GET_CONSULS_URL = 'http://$ip:8000/api/consultation';
+const GET_MY_CONS_URL = 'http://$ip:8000/api/patient-consultations';
 
-const SPECIALIZATION_URL = 'http://192.168.1.4:8000/api/specialization';
+const SPECIALIZATION_URL = 'http://$ip:8000/api/specializations';
 
-const ADD_RESERVATION_URL = 'http://192.168.1.4:8000/api/reservation_requests';
-const GET_RESERVATION_URL = 'http://192.168.1.4:8000/api/reservation_requests';
-const CANCEL_RESERVATION_URL =
-    'http://192.168.1.4:8000/api/reservation_requests/';
+const ADD_RESERVATION_URL = 'http://$ip:8000/api/reservation_requests';
+const GET_RESERVATION_URL = 'http://$ip:8000/api/patient-reservations';
+const CANCEL_RESERVATION_URL = 'http://$ip:8000/api/reservation_requests';
 
-const DOCTORS_URL = 'http://192.168.1.4:8000/api/clinic';
+const DOCTORS_URL = 'http://$ip:8000/api/clinic';
+
+const ip = '192.168.1.9';
 
 const kAuthorization = 'Authorization';
-const kBearer = 'Bearer:';
+const kBearer = '';
 
 const kPersonInfoPref = 'person';
 
-const kTokenKey = 'idToken';
+const kTokenKey = 'token:';
 const kExpiresInKey = 'expiresIn';
-const kUsername = 'username';
 const kPassword = 'password';
 const kUserAge = 'age';
-const kUserName = 'name';
-const kUserPhoneNumber = 'phoneNumber';
+const kUserName = 'full_name';
+const kUserPhoneNumber = 'phone_number';
 const kUserEmail = 'email';
 
 const kConResponse = 'response';
@@ -46,9 +45,11 @@ const kSpeciId = 'id';
 const kSpeciName = 'name';
 
 const kReservationAddErrorMessage = 'لم تنجح عملية إضافة الحجز، حاول مرة أخرى';
-const kReservationCancelErrorMessage = 'لم تنجح عملية إلغاء الحجز، حاول مرة أخرى';
+const kReservationCancelErrorMessage =
+    'لم تنجح عملية إلغاء الحجز، حاول مرة أخرى';
 const kGetReservError = 'لم تنجح عملية طلب الحجوزات، حاول مرة أخرى';
 
+const kReservationTime = 'reservation_time';
 const kClinicId = 'clinic_Id';
 const kReservationDate = 'reservation_date';
 const kReservationStatus = 'status';
@@ -56,7 +57,7 @@ const kReservationId = 'id';
 
 const kDoctorName = 'doctor_name';
 
-const kDoctorSpecialization = 'specializationId';
+const kDoctorSpecialization = 'specialization';
 const kDoctorPhoneNumber = 'phone_number';
 const kDoctorAddress = 'address';
 const kDoctorImagePath = 'image_path';

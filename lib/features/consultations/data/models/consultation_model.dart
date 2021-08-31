@@ -21,19 +21,19 @@ class ConsultationModel extends Consultation {
         );
 
   factory ConsultationModel.fromJson(Map<String, dynamic> json) {
-    return ConsultationModel(
+    ConsultationModel cons = ConsultationModel(
       json[kClinicSpecialization],
       json[kTitle],
       json[kContent],
       DateTime.parse(json[kConsDate]),
-      patientAge: json[kUserAge],
-      consResponse:
-          json[kConResponse] == null ? null : ConsResponseModel.fromJson(json),
+      patientAge: json[kUserAge] ?? null,
     );
+    if (json[kConResponse] != null)
+      cons.consResponse = ConsResponseModel.fromJson(json);
+    return cons;
   }
   Map<String, dynamic> toJson() {
     return {
-      'patient_Id': 1,
       kClinicSpecialization: clinicSpecialization,
       kTitle: title,
       kContent: content,
@@ -47,15 +47,18 @@ class ConsultationModel extends Consultation {
 
   factory ConsultationModel.fromParent(Consultation consultation) {
     print(consultation.consResponse);
-    return ConsultationModel(
+    ConsultationModel cons = ConsultationModel(
       consultation.clinicSpecialization,
       consultation.title,
       consultation.content,
       consultation.date,
       patientAge: consultation.patientAge,
-      consResponse: consultation.consResponse == null
-          ? null
-          : ConsResponseModel.fromParent(consultation.consResponse!),
     );
+    if (consultation.consResponse != null)
+      cons.consResponse = ConsResponseModel.fromParent(
+        consultation.consResponse!,
+      );
+
+    return cons;
   }
 }

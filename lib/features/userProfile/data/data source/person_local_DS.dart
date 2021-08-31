@@ -26,15 +26,6 @@ class PersonLocalDSImpl extends PersonLocalDS {
     
     final map = json.decode(jsonData);
 
-    //   final token = _sharedPreferences.getString(kTokenKey);
-    //   _dio.options.headers[kAuthorization] = '$kBearer$token';
-    //  _dio
-    //       .post(
-    //         LOGIN_URL,
-    //         data: map,
-    //       )
-    //       .catchError((_) {});
-
     return PersonModel.fromJson(map);
   }
 }

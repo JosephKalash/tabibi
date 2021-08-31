@@ -22,8 +22,8 @@ class ConsultationDSImpl extends ConsultationDS {
   Future<bool> addConsultation(Consultation consultation) async {
     final consModel = ConsultationModel.fromParent(consultation);
 
-    //final token = _sharedPreferences.getString(kTokenKey);
-//    _dio.options.headers[kAuthorization] = '$kBearer$token';
+    final token = _sharedPreferences.getString(kTokenKey);
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
 
     final response = await _dio.post(
       ADD_CONSUL_URL,
@@ -37,7 +37,9 @@ class ConsultationDSImpl extends ConsultationDS {
 
   @override
   Future<List<Consultation>> getConsultations() async {
+    final token = _sharedPreferences.getString(kTokenKey);
 
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.get(GET_CONSULS_URL);
 
     if (response.statusCode == 200) {
@@ -55,15 +57,15 @@ class ConsultationDSImpl extends ConsultationDS {
 
   @override
   Future<List<Consultation>> getMyConsultations(String userId) async{
-    // final token = _sharedPreferences.getString(kTokenKey);
+     final token = _sharedPreferences.getString(kTokenKey);
 
-    //_dio.options.headers[kAuthorization] = '$kBearer$token';
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.get(GET_MY_CONS_URL);
 
     if (response.statusCode == 200) {
-      //final list = response.data as List<dynamic>;
-      //final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
-      return [];
+      final list = response.data as List<dynamic>;
+      final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
+      return cons;
     } else
       throw HttpException(kGetConsError);
   }

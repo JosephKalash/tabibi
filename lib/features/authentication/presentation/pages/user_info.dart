@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,15 +23,31 @@ class UserInfoScreen extends StatelessWidget {
 
     final email = ModalRoute.of(context)?.settings.arguments;
     final preferences = await SharedPreferences.getInstance();
-    final data = json.encode({
+    final map = {
       kUserName: name,
       kUserAge: age,
       kUserPhoneNumber: phone,
       kUserEmail: email,
-    });
+    };
+    final data = json.encode(map);
+
     await preferences.setString(kPersonInfoPref, data);
 
+    //_editInfoReq(preferences, map);
+
     Navigator.of(context).pushReplacementNamed(AppScreen.routeName);
+  }
+
+  void _editInfoReq(SharedPreferences preferences, Map<String, dynamic> map) {
+    final token = preferences.getString(kTokenKey);
+    final dio = Dio();
+    dio.options.headers[kAuthorization] = '$kBearer$token';
+    dio
+        .put(
+          LOGIN_URL,
+          data: map,
+        )
+        .catchError((_) {});
   }
 
   @override
@@ -92,7 +109,7 @@ class UserInfoScreen extends StatelessWidget {
                             validator: (value) {
                               if (value == null || value.isEmpty)
                                 return 'لا يمكن أن يكون حقل المر فارغ';
-                              if (value.length < 15)
+                              if (int.parse(value) < 15)
                                 return 'العمر المسموح به لأستخدام التطبيق فوق 14 سنة';
                               return null;
                             },

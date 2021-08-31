@@ -8,7 +8,8 @@ class ReservationModel extends Reservation {
     DateTime date, {
     ReservationStatus? status,
     String? doctorName,
-  }) : super(id, doctorId, date, status: status, doctorName: doctorName);
+    time,
+  }) : super(id, doctorId, date, status: status, doctorName: doctorName,time: time);
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {
     return ReservationModel(
@@ -17,11 +18,13 @@ class ReservationModel extends Reservation {
       DateTime.parse(json[kReservationDate]),
       status: _getStatus(json[kReservationStatus]),
       doctorName: json[kDoctorName],
+      time: json[kReservationTime],
     );
   }
+
+  
   Map<String, dynamic> toJson() {
     return {
-      'patient_Id': id,
       kClinicId: doctorId,
       kReservationDate: date.toIso8601String(),
     };
@@ -34,6 +37,7 @@ class ReservationModel extends Reservation {
       reservation.date,
       status: reservation.status,
       doctorName: reservation.doctorName,
+      time: reservation.time,
     );
   }
 }

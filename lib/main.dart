@@ -16,6 +16,7 @@ import 'features/doctors/presentation/pages/reservations_screen.dart';
 import 'features/reservations/presentation/cubit/reservations_cubit.dart';
 import 'features/specializations/presentation/cubit/specializations_cubit.dart';
 import 'features/userProfile/presentation/cubit/userprofile_cubit.dart';
+import 'init_app.dart';
 import 'injuction.dart' as inj;
 
 void main() async {
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           fontFamily: 'Lato',
         ),
-        home: AppScreen(),//InitApp(),
+        home: InitApp(),
         routes: {
           UserInfoScreen.routeName: (_) => UserInfoScreen(),
           AppScreen.routeName: (_) => AppScreen(),

@@ -38,32 +38,35 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
       ),
       body: TopEdgesContainer(
         topPadding: 24,
-        child: BlocConsumer<ReservationsCubit, ReservationsState>(
-          listener: (_, state) {
-            if (state is CanceledReservation) {
-              BlocProvider.of<ReservationsCubit>(context).getReservations();
-              
-              if (!state.isSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: SizedBox(
-                  height: 30,
-                  child: Center(
-                    child: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى'),
-                  ),
-                )));
+        child: RefreshIndicator(
+          onRefresh: ()async=>_fetchReservations(),
+          child: BlocConsumer<ReservationsCubit, ReservationsState>(
+            listener: (_, state) {
+              if (state is CanceledReservation) {
+                BlocProvider.of<ReservationsCubit>(context).getReservations();
+                
+                if (!state.isSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: SizedBox(
+                    height: 30,
+                    child: Center(
+                      child: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى'),
+                    ),
+                  )));
+                }
               }
-            }
-          },
-          builder: (_, state) {
-            if (state is Loading)
-              return Center(child: CircularProgressIndicator());
-            else if (state is GotReservation)
-              return ReservationsList(state.reservations);
-            else if (state is ReservationError)
-              return Center(child: Text(state.message));
-            else
-              return Center(child: Text('خطأ غير متوقع، جرب مرة اخرى'));
-          },
+            },
+            builder: (_, state) {
+              if (state is Loading)
+                return Center(child: CircularProgressIndicator());
+              else if (state is GotReservation)
+                return ReservationsList(state.reservations);
+              else if (state is ReservationError)
+                return Center(child: Text(state.message));
+              else
+                return Center(child: Text('خطأ غير متوقع، جرب مرة اخرى'));
+            },
+          ),
         ),
       ),
     );

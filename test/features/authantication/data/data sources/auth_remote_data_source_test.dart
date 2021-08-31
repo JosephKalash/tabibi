@@ -11,7 +11,6 @@ import 'package:tabibi/features/authentication/domain/entities/user.dart';
 import '../../../consultations/data/data source/cons_ds_test.mocks.dart';
 import 'auth_remote_DS_test.mocks.dart';
 
-
 @GenerateMocks([dio.Dio])
 void main() {
   final mockDio = MockDio();
@@ -61,6 +60,7 @@ void main() {
         () async {
           //arrange
           _setupDioPostSuccess();
+          when(mockShared.setString(any, any)).thenAnswer((_) async => true);
           //act
           remoteDS.signinUser(username, password);
           //assert
@@ -68,7 +68,10 @@ void main() {
             mockDio.post(
               SIGNUP_URL,
               data: {
-                kUsername: username,
+                'full_name': 'Rayan',
+                'phone_number': '092221124',
+                'age': 20,
+                kUserEmail: username,
                 kPassword: password,
               },
             ),
@@ -80,6 +83,8 @@ void main() {
         () async {
           //arrange
           _setupDioPostSuccess();
+          when(mockShared.setString(any, any)).thenAnswer((_) async => true);
+
           //act
           final result = await remoteDS.signinUser(username, password);
           //assert

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tabibi/app.dart';
+import 'package:tabibi/core/utils/constaints.dart';
 import 'package:tabibi/features/authentication/presentation/cubit/auth_cubit.dart';
 import 'package:tabibi/features/authentication/presentation/pages/user_info.dart';
 
@@ -91,8 +93,8 @@ class _AuthCardState extends State<AuthCard>
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
-    'email': '',
-    'password': '',
+    kUserEmail: '',
+    kPassword: '',
   };
   final _passwordController = TextEditingController();
   final _passwordAgainFocusNode = FocusNode();
@@ -134,7 +136,7 @@ class _AuthCardState extends State<AuthCard>
               actions: <Widget>[_flatButtonDialog(ctx)],
             )
           : AlertDialog(
-              title: const Text('An error occurred!'),
+              title: const Text('حدث خطأ'),
               contentPadding:
                   EdgeInsets.only(right: 24, left: 24, top: 20, bottom: 4),
               shape: RoundedRectangleBorder(
@@ -151,7 +153,7 @@ class _AuthCardState extends State<AuthCard>
       onPressed: () {
         Navigator.of(ctx).pop();
       },
-      child: const Text('Okay'),
+      child: const Text('حسناً'),
     );
   }
 
@@ -176,9 +178,9 @@ class _AuthCardState extends State<AuthCard>
 
     final cubit = BlocProvider.of<AuthCubit>(context);
     if (_authMode == AuthMode.Signup) {
-      cubit.signinUser(_authData['email']!, _authData['password']!);
+      cubit.signinUser(_authData[kUserEmail]!, _authData[kPassword]!);
     } else {
-      cubit.loginUser(_authData['email']!, _authData['password']!);
+      cubit.loginUser(_authData[kUserEmail]!, _authData[kPassword]!);
     }
   }
 
@@ -193,15 +195,18 @@ class _AuthCardState extends State<AuthCard>
     final deviceSize = MediaQuery.of(context).size;
 
     return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
       elevation: 8,
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         curve: Curves.easeIn,
         height: _authMode == AuthMode.Signup ? 320 : 260,
         width: deviceSize.width * 0.75,
-        constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+        constraints: BoxConstraints(
+          minHeight: _authMode == AuthMode.Signup ? 320 : 260,
+        ),
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
@@ -222,7 +227,7 @@ class _AuthCardState extends State<AuthCard>
                     return null;
                   },
                   onSaved: (value) {
-                    _authData['email'] = value!;
+                    _authData[kUserEmail] = value!;
                   },
                   onFieldSubmitted: (_) {
                     FocusScope.of(context).requestFocus(_passwordFocusNode);
@@ -243,7 +248,7 @@ class _AuthCardState extends State<AuthCard>
                     return null;
                   },
                   onSaved: (value) {
-                    _authData['password'] = value!;
+                    _authData[kPassword] = value!;
                   },
                   onFieldSubmitted: _authMode == AuthMode.Signup
                       ? (_) {
@@ -267,8 +272,9 @@ class _AuthCardState extends State<AuthCard>
                       position: _slideAnimation!,
                       child: TextFormField(
                         enabled: _authMode == AuthMode.Signup,
-                        decoration:
-                            const InputDecoration(labelText: 'تأكيد كلمة السر'),
+                        decoration: const InputDecoration(
+                          labelText: 'تأكيد كلمة السر',
+                        ),
                         obscureText: true,
                         focusNode: _passwordAgainFocusNode,
                         validator: _authMode == AuthMode.Signup
@@ -290,12 +296,16 @@ class _AuthCardState extends State<AuthCard>
                 const SizedBox(height: 20),
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (_, state) {
-                    if (state is AuthenticatedState)
-                      Navigator.of(context).pushNamed(
-                        UserInfoScreen.routeName,
-                        arguments: _authData['email'],
-                      );
-                    else if (state is ErrorState)
+                    if (state is AuthenticatedState) {
+                      _authMode == AuthMode.Signup
+                          ? Navigator.of(context).pushNamed(
+                              UserInfoScreen.routeName,
+                              arguments: _authData[kUserEmail],
+                            )
+                          : Navigator.of(context).pushReplacementNamed(
+                              AppScreen.routeName,
+                            );
+                    } else if (state is ErrorState)
                       _showErrorDialog(state.message);
                   },
                   builder: (_, state) {
@@ -306,11 +316,14 @@ class _AuthCardState extends State<AuthCard>
                 ),
                 TextButton(
                   child: Text(
-                      '${_authMode == AuthMode.Login ? 'أنشاء حساب' : 'تسجيل الدخول'} بدلا من ذلك'),
+                    '${_authMode == AuthMode.Login ? 'أنشاء حساب' : 'تسجيل الدخول'} بدلا من ذلك',
+                  ),
                   onPressed: _switchAuthMode,
                   style: TextButton.styleFrom(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 4),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 4,
+                    ),
                     textStyle: TextStyle(color: Colors.grey.shade600),
                   ),
                 )
@@ -324,10 +337,14 @@ class _AuthCardState extends State<AuthCard>
 
   ElevatedButton _buildElevatedButton() {
     return ElevatedButton(
-      child: Text(_authMode == AuthMode.Login ? 'تسجيل الدخول' : 'أنشاء حساب'),
+      child: Text(
+        _authMode == AuthMode.Login ? 'تسجيل الدخول' : 'أنشاء حساب',
+      ),
       onPressed: _submit,
       style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
+        ),
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 8),
         primary: Colors.blueAccent.shade700,
         textStyle: TextStyle(color: Colors.white),

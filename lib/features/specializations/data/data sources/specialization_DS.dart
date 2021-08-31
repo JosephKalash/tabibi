@@ -19,6 +19,7 @@ class SpecialztionDSImpl extends SpecializationDS {
     final response = await _dio.get(SPECIALIZATION_URL);
 
     if (response.statusCode == 200) {
+      print(response.data);
       final list = response.data as List<dynamic>;
       final specis = list.map((e) => SpecializationModel.fromJson(e)).toList();
       return specis;

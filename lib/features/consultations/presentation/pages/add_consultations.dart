@@ -1,15 +1,14 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tabibi/core/utils/widgets/top_edges-container.dart';
-import 'package:tabibi/features/specializations/domain/entities/specialization.dart';
-import '../../../../core/utils/constaints.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import '../../../../core/utils/constaints.dart';
+import '../../../../core/utils/widgets/top_edges-container.dart';
+import '../../../specializations/domain/entities/specialization.dart';
+import '../../../specializations/presentation/cubit/specializations_cubit.dart';
 import '../../data/models/consultation_model.dart';
 import '../cubit/consultation_cubit.dart';
-import '../../../specializations/presentation/cubit/specializations_cubit.dart';
 
 class AddConsultaionScreen extends StatefulWidget {
   static const routeName = '/addConsultaion';

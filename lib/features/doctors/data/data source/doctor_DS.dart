@@ -18,9 +18,9 @@ class DoctorDSImpl extends DoctorDS {
 
   @override
   Future<List<Doctor>> getDoctor() async {
-    //final token = _preferences.getString(kTokenKey);
+    final token = _preferences.getString(kTokenKey);
 
-    //_dio.options.headers[kAuthorization] = '$kBearer$token';
+    _dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.get(DOCTORS_URL);
 
     if (response.statusCode == 200) {

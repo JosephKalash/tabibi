@@ -13,6 +13,7 @@ class Reservation extends Equatable {
   final DateTime date;
   final ReservationStatus? status;
   final String? doctorName;
+  final DateTime? time;
 
   Reservation(
     this.id,
@@ -20,6 +21,7 @@ class Reservation extends Equatable {
     this.date, {
     this.status,
     this.doctorName,
+    this.time,
   });
 
   @override
@@ -29,5 +31,6 @@ class Reservation extends Equatable {
         date,
         status,
         doctorName,
+        time,
       ];
 }

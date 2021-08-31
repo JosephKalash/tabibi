@@ -1,12 +1,10 @@
 {
-    "clinicSpecialization":"clinic",
-    "title":"title",
+    "clinic_specialization":"clinic",
+    "header":"title",
     "content":"content",
-    "consultationDate":"2020-10-10",
-    "response":
-    {
-        "answer" :"response",
-        "doctorName":"doctor",
-        "responseDate":"2020-11-11"
-    }
+    "date":"2020-10-10",
+    "response" :"response",
+    "doctor_name":"doctor",
+    "responseDate":"2020-11-11"
+    
 }

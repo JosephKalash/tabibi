@@ -24,10 +24,10 @@ class AuthRepoImpl extends AuthRepository {
       try {
         final user = await call(username, password);
         return Right(user);
-      } on ServerException {
-        return Left(ServerFailure());
-      } on HttpException catch (e) {
+      }  on HttpException catch (e) {
         return Left(HttpFailure(e.message));
+      }on Exception {
+        return Left(ServerFailure());
       }
     } else {
       return Left(InternetFailure());

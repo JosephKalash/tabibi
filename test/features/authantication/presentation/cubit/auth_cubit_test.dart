@@ -35,7 +35,7 @@ void main() {
           //assert
           final expected = [
             LoadingState(),
-            ErrorState('An error occurred in server!'),
+            ErrorState('خطأ بالاتصال بالمخدم!'),
           ];
           expectLater(cubit.stream, emitsInOrder(expected));
           //act

@@ -17,20 +17,24 @@ class DoctorModel extends Doctor {
     return DoctorModel(
       json[kDoctorId],
       json[kDoctorName],
-      json[kDoctorSpecialization],
+      json[kDoctorSpecialization]['name'],
       json[kDoctorAddress],
-      phoneNumber: json[kDoctorPhoneNumber]??null,
-      imagePath: json[kDoctorImagePath]??null,
+      phoneNumber: json[kDoctorPhoneNumber] == null
+          ? null
+          : json[kDoctorPhoneNumber][0][kDoctorPhoneNumber],
     );
   }
   Map<String, dynamic> toJson() {
     return {
       kDoctorId: id,
       kDoctorName: name,
-      kDoctorSpecialization: specialization,
+      kDoctorSpecialization: {'name': specialization},
       kDoctorAddress: address,
-      kDoctorPhoneNumber: phoneNumber ?? null,
-      kDoctorImagePath: imagePath ?? null,
+      kDoctorPhoneNumber: phoneNumber == null
+          ? null
+          : [
+              {kDoctorPhoneNumber: phoneNumber}
+            ],
     };
   }
 
@@ -41,7 +45,6 @@ class DoctorModel extends Doctor {
       doctor.specialization,
       doctor.address,
       phoneNumber: doctor.phoneNumber,
-      imagePath: doctor.imagePath,
     );
   }
 }

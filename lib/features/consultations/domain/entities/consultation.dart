@@ -26,5 +26,6 @@ class Consultation extends Equatable {
         content,
         date.toIso8601String(),
         patientAge,
+        consResponse,
       ];
 }

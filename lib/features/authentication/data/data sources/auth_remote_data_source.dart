@@ -20,39 +20,46 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
 
   @override
   Future<User> signinUser(String username, String password) async {
-    return _authanticeUser(username, password, SIGNUP_URL);
+    return _makeAuthantication(username, password, SIGNUP_URL);
   }
 
-  Future<User> _authanticeUser(
+  Future<User> _makeAuthantication(
     String username,
     String password,
     String url,
   ) async {
-    final result = await dio.post(
+    final response = await dio.post(
       url,
-      data: {kUsername: username, kPassword: password},
+      data: {
+        kUserName: 'Rayan',
+        kUserPhoneNumber: '092221124',
+        kUserAge: 20,
+        kUserEmail: username,
+        kPassword: password,
+      },
     );
 
-    final data = result.data;
-    if (result.statusCode == 200) {
-      final user = UserModel.fromJson(data);
-
-      await _sharedPreferences.setString(kTokenKey, user.token);
-
-      return user;
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      final data = response.data;
+      if (data[kTokenKey] != null) {
+        final user = UserModel.fromJson(data);
+        await _sharedPreferences.setString(kTokenKey, user.token);
+        return user;
+      } else
+        return User('token');
     }
-    throw HttpException(data['message']);
+    throw HttpException('خطأ اثناء تسجيل الدخول');
   }
 
   @override
   Future<User> loginUser(String username, String password) async {
-    return _authanticeUser(username, password, LOGIN_URL);
+    return _makeAuthantication(username, password, LOGIN_URL);
   }
 
   @override
   bool tryAutoLoginUser() {
     if (!_sharedPreferences.containsKey(kTokenKey)) return false;
-    
+
     final token = _sharedPreferences.getString(kTokenKey);
     if (token == null) return false;
     return true;
