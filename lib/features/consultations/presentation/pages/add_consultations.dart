@@ -251,14 +251,5 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
         .toList();
   }
 
-  String _getArabicName(String name) {
-    switch (name) {
-      case 'Nose':
-        return 'أنفية';
-      case 'Moath':
-        return 'حنجرة';
-      default:
-        return 'غير محدد';
-    }
-  }
+  
 }

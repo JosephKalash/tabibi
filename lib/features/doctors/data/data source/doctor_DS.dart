@@ -25,7 +25,9 @@ class DoctorDSImpl extends DoctorDS {
 
     if (response.statusCode == 200) {
       final list = response.data as List<dynamic>;
+
       final doctors = list.map((e) => DoctorModel.fromJson(e)).toList();
+
       return doctors;
     } else
       throw HttpException(kDoctorErrorMessage);

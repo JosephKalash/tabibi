@@ -21,6 +21,7 @@ class ConsultationModel extends Consultation {
         );
 
   factory ConsultationModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     ConsultationModel cons = ConsultationModel(
       json[kClinicSpecialization],
       json[kTitle],

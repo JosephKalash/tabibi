@@ -17,18 +17,20 @@ class DoctorModel extends Doctor {
     return DoctorModel(
       json[kDoctorId],
       json[kDoctorName],
-      json[kDoctorSpecialization]['name'],
+      json[kDoctorSpecialization][kSpeciName],
       json[kDoctorAddress],
       phoneNumber: json[kDoctorPhoneNumber] == null
           ? null
-          : json[kDoctorPhoneNumber][0][kDoctorPhoneNumber],
+          : (json[kDoctorPhoneNumber] as List<dynamic>).length == 0
+              ? null
+              : json[kDoctorPhoneNumber][0][kDoctorPhoneNumber],
     );
   }
   Map<String, dynamic> toJson() {
     return {
       kDoctorId: id,
       kDoctorName: name,
-      kDoctorSpecialization: {'name': specialization},
+      kDoctorSpecialization: {kSpeciName: specialization},
       kDoctorAddress: address,
       kDoctorPhoneNumber: phoneNumber == null
           ? null

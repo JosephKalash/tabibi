@@ -9,11 +9,11 @@ const SPECIALIZATION_URL = 'http://$ip:8000/api/specializations';
 
 const ADD_RESERVATION_URL = 'http://$ip:8000/api/reservation_requests';
 const GET_RESERVATION_URL = 'http://$ip:8000/api/patient-reservations';
-const CANCEL_RESERVATION_URL = 'http://$ip:8000/api/reservation_requests';
+const CANCEL_RESERVATION_URL = 'http://$ip:8000/api/reservation_requests/';
 
 const DOCTORS_URL = 'http://$ip:8000/api/clinic';
 
-const ip = '192.168.1.4';
+const ip = '192.168.43.224';
 
 const kAuthorization = 'Authorization';
 const kBearer = '';
@@ -42,7 +42,7 @@ const kGetConsError = 'لم تنجح عملية طلب الاستشارات، ح
 const kSmallSize = 12.0;
 
 const kSpeciId = 'id';
-const kSpeciName = 'name';
+const kSpeciName = 'arabic-name';
 
 const kReservationAddErrorMessage = 'لم تنجح عملية إضافة الحجز، حاول مرة أخرى';
 const kReservationCancelErrorMessage =
