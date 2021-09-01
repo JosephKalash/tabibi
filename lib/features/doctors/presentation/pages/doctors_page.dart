@@ -40,6 +40,7 @@ class _DoctorsScreenState extends State<DoctorsScreen>
     return Scaffold(
       backgroundColor: Colors.blue,
       appBar: AppBar(
+        
         elevation: 0,
         centerTitle: true,
         title: Text('الأطباء'),

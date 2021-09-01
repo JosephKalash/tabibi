@@ -24,10 +24,12 @@ class ConsultationDSImpl extends ConsultationDS {
 
     final token = _sharedPreferences.getString(kTokenKey);
     _dio.options.headers[kAuthorization] = '$kBearer$token';
-
+    final map = consModel.toJson();
+    print(map);
+    map['clinic_specialization'] = consultation.clinicSpecialization;
     final response = await _dio.post(
       ADD_CONSUL_URL,
-      data: consModel.toJson(),
+      data: map,
     );
     if (response.statusCode == 200 || response.statusCode == 201)
       return true;
@@ -43,6 +45,7 @@ class ConsultationDSImpl extends ConsultationDS {
     final response = await _dio.get(GET_CONSULS_URL);
 
     if (response.statusCode == 200) {
+      
       final list = response.data as List<dynamic>;
       final cons = list.map((e) => ConsultationModel.fromJson(e)).toList();
       return cons;

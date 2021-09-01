@@ -21,9 +21,8 @@ class ConsultationModel extends Consultation {
         );
 
   factory ConsultationModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     ConsultationModel cons = ConsultationModel(
-      json[kClinicSpecialization],
+      json[kSpeciName] ?? json[kClinicSpecialization][kSpeciName],
       json[kTitle],
       json[kContent],
       DateTime.parse(json[kConsDate]),
@@ -35,17 +34,16 @@ class ConsultationModel extends Consultation {
   }
   Map<String, dynamic> toJson() {
     return {
-      kClinicSpecialization: clinicSpecialization,
+      kClinicSpecialization: {kSpeciName: clinicSpecialization},
       kTitle: title,
       kContent: content,
       kConsDate: date.toIso8601String(),
       kUserAge: patientAge ?? null,
       kConResponse: consResponse?.response,
-      kDoctorName: consResponse?.doctorName,
+      'clinic':{kDoctorName: consResponse?.doctorName},
       kResponseDate: consResponse?.date.toIso8601String(),
     };
   }
-
   factory ConsultationModel.fromParent(Consultation consultation) {
     print(consultation.consResponse);
     ConsultationModel cons = ConsultationModel(

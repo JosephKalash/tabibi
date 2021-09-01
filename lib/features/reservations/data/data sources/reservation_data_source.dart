@@ -44,7 +44,6 @@ class ReservationDSImpl extends ReservationDS {
     );
     if (response.statusCode == 200 || response.statusCode == 204) {
       return true;
-    
     } else
       throw HttpException(kReservationCancelErrorMessage);
   }
@@ -55,12 +54,11 @@ class ReservationDSImpl extends ReservationDS {
 
     _dio.options.headers[kAuthorization] = '$kBearer$token';
     final response = await _dio.get(GET_RESERVATION_URL);
-    print('check');
     if (response.statusCode == 200) {
+      print('check');
       final reservations = response.data as List<dynamic>;
       final list =
           reservations.map((e) => ReservationModel.fromJson(e)).toList();
-      print(list.first.id);
       return list;
     } else
       throw HttpException(kGetReservError);

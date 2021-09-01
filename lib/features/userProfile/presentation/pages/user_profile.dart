@@ -78,7 +78,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
                         person?.name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                          fontSize: 22,
                           color: Colors.white,
                         ),
                       ),

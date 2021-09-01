@@ -9,20 +9,23 @@ class ReservationModel extends Reservation {
     ReservationStatus? status,
     String? doctorName,
     time,
-  }) : super(id, doctorId, date, status: status, doctorName: doctorName,time: time);
+  }) : super(id, doctorId, date,
+            status: status, doctorName: doctorName, time: time);
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return ReservationModel(
       json[kReservationId],
       json[kClinicId],
       DateTime.parse(json[kReservationDate]),
       status: _getStatus(json[kReservationStatus]),
       doctorName: json[kDoctorName],
-      time:json[kReservationTime] == null?null: DateTime.parse(json[kReservationTime]),
+      time: json[kReservationTime] == null
+          ? null
+          : (json[kReservationTime] as String).substring(0,5),
     );
   }
 
-  
   Map<String, dynamic> toJson() {
     return {
       kClinicId: doctorId,
@@ -42,12 +45,12 @@ class ReservationModel extends Reservation {
   }
 }
 
-ReservationStatus? _getStatus(String? status) {
-  if (status == null) return null;
+ReservationStatus _getStatus(String? status) {
+  if (status == null) return ReservationStatus.waiting;
   switch (status) {
     case 'pending':
       return ReservationStatus.waiting;
-    case 'accetp':
+    case 'accept':
       return ReservationStatus.Accept;
     case 'reject':
       return ReservationStatus.Reject;

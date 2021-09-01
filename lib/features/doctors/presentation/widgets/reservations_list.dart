@@ -41,7 +41,7 @@ class _ReservationsListState extends State<ReservationsList> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               Text(
-                ': ${DateFormat('HH').format(widget._reservations[i].time??DateTime(0))}',
+                ': ${widget._reservations[i].time??'00:00'}',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ],

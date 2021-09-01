@@ -23,8 +23,8 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
   bool _initWidget = true;
   final _formKey = GlobalKey<FormState>();
 
-  final _data = {
-    kClinicSpecialization: '',
+  final Map<String, dynamic> _data = {
+    kSpeciName: '',
     kTitle: '',
     kContent: '',
     kUserAge: 0,
@@ -226,14 +226,15 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
       items: list,
       hint: Text('اختر التخصص المناسب للحالة الطبية'),
       onChanged: (value) {
-        _data[kClinicSpecialization] = value!;
+        _data[kSpeciName] = value!;
       },
       validator: (value) {
         if (value == null || value.isEmpty) return 'يجب أن تختار تخصص معين';
         return null;
       },
       onSaved: (value) {
-        _data[kClinicSpecialization] = value!;
+        print(_data);
+        _data[kSpeciName] = value!;
       },
     );
   }
@@ -250,6 +251,4 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
         )
         .toList();
   }
-
-  
 }

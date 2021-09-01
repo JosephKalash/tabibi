@@ -13,7 +13,7 @@ class Reservation extends Equatable {
   final DateTime date;
   final ReservationStatus? status;
   final String? doctorName;
-  final DateTime? time;
+  final dynamic? time;
 
   Reservation(
     this.id,

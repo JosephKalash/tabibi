@@ -29,9 +29,9 @@ const kUserPhoneNumber = 'phone_number';
 const kUserEmail = 'email';
 
 const kConResponse = 'response';
-const kResponseDate = 'responseDate';
+const kResponseDate = 'updated_at';
 
-const kClinicSpecialization = 'clinic_specialization';
+const kClinicSpecialization = 'specialization';
 const kTitle = 'header';
 const kContent = 'content';
 const kConsDate = 'date';

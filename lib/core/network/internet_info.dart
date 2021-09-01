@@ -11,5 +11,5 @@ class InternetInfoImpl implements InternetInfo {
   InternetInfoImpl(this.internetConnection);
 
   @override
-  Future<bool> get isConnect => internetConnection.hasConnection;
+  Future<bool> get isConnect async=> true;
 }

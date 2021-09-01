@@ -33,9 +33,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     var response = await dio.post(
       url,
       data: {
-        kUserName: 'Rayan',
+        kUserName: 'جوزيف كلش',
         kUserPhoneNumber: '092221124',
-        kUserAge: 20,
+        kUserAge: 21,
         kUserEmail: username,
         kPassword: password,
       },
