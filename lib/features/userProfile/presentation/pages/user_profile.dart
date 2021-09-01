@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/utils/widgets/top_edges-container.dart';
 import '../../../authentication/presentation/cubit/auth_cubit.dart';
 import '../../../authentication/presentation/pages/auth_screen.dart';
-import '../../domain/entities/person.dart';
 import '../cubit/userprofile_cubit.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -28,12 +27,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
         builder: (_, state) {
           if (state is GotPersonInfo && state.person != null) {
             final person = state.person;
-            // final Person? person = Person(
-            //   'جوزيف كلش',
-            //   25,
-            //   '0992365650',
-            //   'joseph@gmail.com',
-            // );
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -91,6 +85,7 @@ class _UserProfileScreenState extends State<UserProfileScreen>
                     ],
                   ),
                 ),
+                SizedBox(height: 10),
                 Expanded(
                   child: TopEdgesContainer(
                     child: Padding(

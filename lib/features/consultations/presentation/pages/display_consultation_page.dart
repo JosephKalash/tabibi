@@ -16,6 +16,7 @@ class DisplayConsultationScreen extends StatelessWidget {
       backgroundColor: Colors.blue,
       appBar: AppBar(
         elevation: 0,
+        centerTitle: true,
         title: Text('الاستشارة'),
       ),
       body: TopEdgesContainer(
@@ -81,7 +82,7 @@ class DisplayConsultationScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Container(
-                  width: 370,
+                  width: 340,
                   height: 12,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),

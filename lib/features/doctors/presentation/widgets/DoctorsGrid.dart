@@ -17,7 +17,7 @@ class DoctorsGrid extends StatelessWidget {
           .toList();
     }
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 22),
       child: GridView.builder(
         itemCount: _doctors.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

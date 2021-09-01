@@ -58,11 +58,8 @@ class ReservationDSImpl extends ReservationDS {
 
     if (response.statusCode == 200) {
       final reservations = response.data as List<dynamic>;
-      final list = reservations
-          .map(
-            (e) => ReservationModel.fromJson(e),
-          )
-          .toList();
+      final list =
+          reservations.map((e) => ReservationModel.fromJson(e)).toList();
       return list;
     } else
       throw HttpException(kGetReservError);

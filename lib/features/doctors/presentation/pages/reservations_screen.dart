@@ -39,20 +39,21 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
       body: TopEdgesContainer(
         topPadding: 24,
         child: RefreshIndicator(
-          onRefresh: ()async=>_fetchReservations(),
+          onRefresh: () async => _fetchReservations(),
           child: BlocConsumer<ReservationsCubit, ReservationsState>(
             listener: (_, state) {
               if (state is CanceledReservation) {
                 BlocProvider.of<ReservationsCubit>(context).getReservations();
-                
+
                 if (!state.isSuccess) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      behavior: SnackBarBehavior.floating,
                       content: SizedBox(
-                    height: 30,
-                    child: Center(
-                      child: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى'),
-                    ),
-                  )));
+                        height: 25,
+                        child: Center(
+                          child: Text('لم تنجح عملبة ألغاء الحجز جرب مرة اخرى'),
+                        ),
+                      )));
                 }
               }
             },

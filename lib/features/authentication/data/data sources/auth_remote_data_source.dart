@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tabibi/core/error/excpetions.dart';
@@ -28,7 +30,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     String password,
     String url,
   ) async {
-    final response = await dio.post(
+    var response = await dio.post(
       url,
       data: {
         kUserName: 'Rayan',
@@ -38,17 +40,37 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         kPassword: password,
       },
     );
+    if (url != LOGIN_URL)
+      response = await dio.post(
+        LOGIN_URL,
+        data: {
+          kUserEmail: username,
+          kPassword: password,
+        },
+      );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       final data = response.data;
-      if (data[kTokenKey] != null) {
+
         final user = UserModel.fromJson(data);
         await _sharedPreferences.setString(kTokenKey, user.token);
+        await _setupInfo(url, data);
         return user;
-      } else
-        return User('token');
     }
     throw HttpException('خطأ اثناء تسجيل الدخول');
+  }
+
+  Future _setupInfo(String url, data) async {
+    if (url == LOGIN_URL) {
+      final user = data['user'];
+      final map = json.encode({
+        kUserName:user[kUserName],
+        kUserAge:user[kUserAge],
+        kUserEmail:user[kUserEmail],
+        kUserPhoneNumber:user[kUserPhoneNumber],
+      });
+      await _sharedPreferences.setString(kPersonInfoPref, map);
+    }
   }
 
   @override

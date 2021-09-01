@@ -13,14 +13,14 @@ const CANCEL_RESERVATION_URL = 'http://$ip:8000/api/reservation_requests';
 
 const DOCTORS_URL = 'http://$ip:8000/api/clinic';
 
-const ip = '192.168.1.9';
+const ip = '192.168.1.4';
 
 const kAuthorization = 'Authorization';
 const kBearer = '';
 
 const kPersonInfoPref = 'person';
 
-const kTokenKey = 'token:';
+const kTokenKey = 'token';
 const kExpiresInKey = 'expiresIn';
 const kPassword = 'password';
 const kUserAge = 'age';
@@ -52,8 +52,8 @@ const kGetReservError = 'لم تنجح عملية طلب الحجوزات، حا
 const kReservationTime = 'reservation_time';
 const kClinicId = 'clinic_Id';
 const kReservationDate = 'reservation_date';
-const kReservationStatus = 'status';
-const kReservationId = 'id';
+const kReservationStatus = 'reservation_status';
+const kReservationId = 'reservation_id';
 
 const kDoctorName = 'doctor_name';
 

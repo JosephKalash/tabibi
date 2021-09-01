@@ -1,7 +1,9 @@
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/constaints.dart';
 import '../../../../core/utils/widgets/top_edges-container.dart';
@@ -43,10 +45,10 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    // final preferences = await SharedPreferences.getInstance();
-    // final map = json.decode(preferences.getString(kPersonInfoPref) ?? '');
+    final preferences = await SharedPreferences.getInstance();
+    final map = json.decode(preferences.getString(kPersonInfoPref) ?? '');
 
-    // _data[kUserAge] = map[kUserAge] ?? 0;
+    _data[kUserAge] = map[kUserAge] ?? 0;
 
     _data[kConsDate] = DateTime.now().toIso8601String();
     final consultation = ConsultationModel.fromJson(_data);
@@ -247,5 +249,16 @@ class _AddConsultaionScreenState extends State<AddConsultaionScreen> {
           ),
         )
         .toList();
+  }
+
+  String _getArabicName(String name) {
+    switch (name) {
+      case 'Nose':
+        return 'أنفية';
+      case 'Moath':
+        return 'حنجرة';
+      default:
+        return 'غير محدد';
+    }
   }
 }

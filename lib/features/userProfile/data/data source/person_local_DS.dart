@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/utils/constaints.dart';
@@ -13,9 +12,8 @@ abstract class PersonLocalDS {
 
 class PersonLocalDSImpl extends PersonLocalDS {
   final SharedPreferences _sharedPreferences;
-  final Dio _dio;
 
-  PersonLocalDSImpl(this._sharedPreferences, this._dio);
+  PersonLocalDSImpl(this._sharedPreferences);
 
   @override
   Person? getPersonInfoFromLocal() {

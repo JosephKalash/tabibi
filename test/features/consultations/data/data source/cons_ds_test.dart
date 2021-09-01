@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_launcher_icons/main.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:tabibi/core/error/excpetions.dart';

@@ -18,7 +18,7 @@ class ReservationModel extends Reservation {
       DateTime.parse(json[kReservationDate]),
       status: _getStatus(json[kReservationStatus]),
       doctorName: json[kDoctorName],
-      time: json[kReservationTime],
+      time:json[kReservationTime] == null?null: DateTime.parse(json[kReservationTime]),
     );
   }
 

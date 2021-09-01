@@ -97,11 +97,10 @@ class _AddReservationFormState extends State<AddReservationForm> {
                     ),
             ],
           ),
-          SizedBox(height: 14),
+          SizedBox(height: 20),
           BlocConsumer<ReservationsCubit, ReservationsState>(
             listener: (_, state) {
               if (state is AddedReservation) {
-                print(state.isSuccess);
                 if (state.isSuccess)
                   Navigator.of(context).pop(widget._context);
                 else
