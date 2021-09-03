@@ -1,10 +1,10 @@
 # Tabibi
 Tabibi is a mediacl app which offers reservations and consultations for user.
 
-# architecture design
+# Architecture design
 Clean architecture and TDD for tests
 
-# server
+# Server
 Unfortunatily, the server is local host which mean you need to download and start the server to use this app. we hope in the future upload it on cloud.
 
 ## Screenshots
